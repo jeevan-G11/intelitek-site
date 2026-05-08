@@ -1,0 +1,35 @@
+[
+  {
+    "id": "rv-college",
+    "title": "RV College of Engineering",
+    "category": "Electrical",
+    "location": "Bangalore",
+    "year": "2024",
+    "shortDesc": "Complete electrical lab setup with motor control panels, installation trainers and DC machine trainers.",
+    "youtubeUrl": "",
+    "images": [],
+    "videos": []
+  },
+  {
+    "id": "bajaj-automation",
+    "title": "Bajaj Ltd",
+    "category": "Mechatronics",
+    "location": "Pune",
+    "year": "2024",
+    "shortDesc": "Advanced PLC and SCADA based industrial automation training systems installed for skill development.",
+    "youtubeUrl": "",
+    "images": [],
+    "videos": []
+  },
+  {
+    "id": "igtr-process",
+    "title": "IGTR Institute",
+    "category": "Process Control",
+    "location": "Bangalore",
+    "year": "2023",
+    "shortDesc": "Industrial process control training systems including PLC-based flow, pressure and sensor trainers.",
+    "youtubeUrl": "",
+    "images": [],
+    "videos": []
+  }
+]

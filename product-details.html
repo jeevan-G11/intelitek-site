@@ -1,0 +1,3623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product Details | Intelitek</title>
+
+  <!-- Use a modern Google Font -->
+
+  <!-- Minimal page-scoped styles so you don't need to edit global CSS -->
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Product detail page styles — inline to prevent conflicts with styles.css -->
+  <style>
+
+/* CLICKABLE PRODUCT IMAGE */
+.clickable-image{
+  cursor: zoom-in !important;
+  transition: 0.3s ease !important;
+}
+
+.clickable-image:hover{
+  transform: scale(1.03) !important;
+}
+
+/* POPUP BACKGROUND */
+.image-popup{
+  display:none;
+  position:fixed;
+  z-index:9999;
+  padding-top:40px;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  overflow:auto;
+  background:rgba(0,0,0,0.92);
+}
+
+/* POPUP IMAGE */
+.popup-content{
+  display:block;
+  margin:auto;
+  max-width:90%;
+  max-height:85vh;
+  object-fit:contain;
+  border-radius:8px;
+  background:#fff;
+  padding:10px;
+}
+
+/* CLOSE BUTTON */
+.close-popup{
+  position:absolute;
+  top:15px;
+  right:35px;
+  color:#fff;
+  font-size:40px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.close-popup:hover{
+  opacity:0.7;
+}
+
+
+    /* ── RESET ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #f5f6f8 !important; }
+    body {
+      font-family: "DM Sans", system-ui, sans-serif !important;
+      color: #1a2332 !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+    }
+
+    /* ── CSS VARIABLES ───────────────────────────────────── */
+    :root {
+      --navy:       #0b2c5a;
+      --blue:       #0f62a8;
+      --light-blue: #e8f1fb;
+      --border:     #d8dde6;
+      --bg:         #f5f6f8;
+      --white:      #ffffff;
+      --text:       #1a2332;
+      --muted:      #5a6478;
+      --accent-bar: #e8edf4;
+    }
+
+    /* ── NAV HEADER ──────────────────────────────────────── */
+    header {
+      background: var(--navy) !important;
+      padding: 0 24px !important;
+      display: flex !important;
+      align-items: center !important;
+      height: 60px !important;
+      box-shadow: none !important;
+    }
+    header nav { display: none !important; }
+    .logo img { height: 40px !important; display: block !important; }
+
+    /* ── BREADCRUMB ──────────────────────────────────────── */
+    .breadcrumb {
+      background: #fff !important;
+      border-bottom: 1px solid var(--border) !important;
+      padding: 10px 0 !important;
+      font-size: 13px !important;
+      color: var(--muted) !important;
+    }
+    .breadcrumb .container { display: flex !important; align-items: center !important; gap: 6px !important; }
+    .breadcrumb a { color: var(--blue) !important; text-decoration: none !important; }
+    .breadcrumb a:hover { text-decoration: underline !important; }
+    .breadcrumb span { color: var(--text) !important; font-weight: 600 !important; }
+
+    /* ── CONTAINER ───────────────────────────────────────── */
+    .container { max-width: 1100px !important; margin: 0 auto !important; padding: 0 24px !important; }
+
+    /* ── ITEM NO BAR ─────────────────────────────────────── */
+    .item-no-bar {
+      background: var(--accent-bar) !important;
+      border-bottom: 1px solid var(--border) !important;
+      padding: 10px 0 !important;
+    }
+    .item-no-bar .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .item-no-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .item-no-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 3px 12px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── PRODUCT CARD ────────────────────────────────────── */
+    .product-wrapper { padding: 28px 0 0 0 !important; }
+    .product-card {
+      background: var(--white) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 4px !important;
+      overflow: hidden !important;
+      box-shadow: none !important;
+    }
+
+    /* Title bar */
+    .product-title-bar {
+      background: var(--navy) !important;
+      padding: 18px 28px !important;
+    }
+    .product-title-bar h1 {
+      margin: 0 !important;
+      font-family: "Source Serif 4", Georgia, serif !important;
+      font-size: 22px !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      letter-spacing: 0.3px !important;
+      line-height: 1.3 !important;
+      text-transform: uppercase !important;
+      text-align: left !important;
+      padding: 0 !important;
+    }
+
+    /* Image + info two-column grid */
+    .product-body-grid {
+      display: grid !important;
+      grid-template-columns: 320px 1fr !important;
+      border-top: 1px solid var(--border) !important;
+    }
+
+    /* Left column */
+    .product-img-col {
+      border-right: 1px solid var(--border) !important;
+      padding: 24px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 16px !important;
+      background: #fafbfc !important;
+    }
+    .product-img-col img {
+      width: 100% !important;
+      max-width: 260px !important;
+      height: 240px !important;
+      object-fit: contain !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 4px !important;
+      background: #fff !important;
+      padding: 12px !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+    .product-img-col img:hover { transform: none !important; }
+
+    /* Action buttons */
+    .product-actions {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 8px !important;
+      width: 100% !important;
+      max-width: 240px !important;
+    }
+    .btn {
+      display: block !important;
+      text-align: center !important;
+      padding: 10px 16px !important;
+      border-radius: 4px !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      text-decoration: none !important;
+      border: none !important;
+      cursor: pointer !important;
+      letter-spacing: 0.3px !important;
+      width: 100% !important;
+      margin: 0 !important;
+    }
+    .btn-primary { background: var(--navy) !important; color: #fff !important; box-shadow: none !important; }
+    .btn-primary:hover { background: #0a2348 !important; }
+    .btn-whatsapp { background: #25D366 !important; color: #fff !important; }
+    .btn-outline { background: transparent !important; border: 1px solid var(--navy) !important; color: var(--navy) !important; }
+    .btn-outline:hover { background: var(--light-blue) !important; }
+
+    /* Badge */
+    .product-badge {
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.8px !important;
+      text-transform: uppercase !important;
+      color: var(--blue) !important;
+      background: var(--light-blue) !important;
+      border: 1px solid #c2d8f0 !important;
+      padding: 4px 10px !important;
+      border-radius: 3px !important;
+    }
+
+    /* Right column */
+    .product-info-col { padding: 24px 28px !important; }
+
+    .product-lead {
+      font-size: 14px !important;
+      color: var(--muted) !important;
+      margin: 0 0 20px 0 !important;
+      line-height: 1.7 !important;
+      border-left: 3px solid var(--blue) !important;
+      padding-left: 12px !important;
+    }
+
+    .info-section-title {
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      letter-spacing: 1px !important;
+      text-transform: uppercase !important;
+      color: var(--navy) !important;
+      border-bottom: 2px solid var(--navy) !important;
+      padding-bottom: 6px !important;
+      margin: 20px 0 12px 0 !important;
+    }
+
+    /* Features */
+    .features-list { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+    .features-list li {
+      padding: 5px 0 5px 18px !important;
+      position: relative !important;
+      font-size: 13.5px !important;
+      color: var(--text) !important;
+      border-bottom: 1px solid #f0f2f5 !important;
+      line-height: 1.5 !important;
+    }
+    .features-list li:last-child { border-bottom: none !important; }
+    .features-list li::before {
+      content: "▸" !important;
+      position: absolute !important;
+      left: 0 !important;
+      color: var(--blue) !important;
+      font-size: 11px !important;
+      top: 6px !important;
+    }
+
+    /* Specs table */
+    .specs-table { width: 100% !important; border-collapse: collapse !important; font-size: 13px !important; }
+    .specs-table tr { border-bottom: 1px solid #f0f2f5 !important; }
+    .specs-table tr:last-child { border-bottom: none !important; }
+    .specs-table td:first-child {
+      font-weight: 600 !important;
+      color: var(--navy) !important;
+      padding: 6px 12px 6px 0 !important;
+      width: 140px !important;
+      white-space: nowrap !important;
+      vertical-align: top !important;
+    }
+    .specs-table td:last-child { color: var(--muted) !important; padding: 6px 0 !important; }
+
+    /* Bulk CTA strip */
+    .bulk-cta-strip {
+      background: var(--accent-bar) !important;
+      border-top: 1px solid var(--border) !important;
+      padding: 14px 28px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 16px !important;
+      flex-wrap: wrap !important;
+    }
+    .bulk-cta-strip p { margin: 0 !important; font-size: 13px !important; font-weight: 600 !important; color: var(--muted) !important; flex: 1 !important; }
+    .bulk-cta-strip .btns { display: flex !important; gap: 10px !important; }
+    .bulk-cta-strip .btn { width: auto !important; display: inline-block !important; }
+
+    /* ── ARTICLES SECTIONS ───────────────────────────────── */
+    .articles-wrapper {
+      max-width: 1100px !important;
+      margin: 0 auto !important;
+      padding: 24px 24px 40px !important;
+    }
+    .articles-block {
+      background: var(--white) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 4px !important;
+      margin-bottom: 20px !important;
+      overflow: hidden !important;
+      box-shadow: none !important;
+    }
+    .articles-block-header {
+      background: var(--accent-bar) !important;
+      border-bottom: 2px solid var(--navy) !important;
+      padding: 11px 16px !important;
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      letter-spacing: 1px !important;
+      text-transform: uppercase !important;
+      color: var(--navy) !important;
+    }
+
+    /* Article table */
+    .article-table { width: 100% !important; border-collapse: collapse !important; }
+    .article-table thead tr { background: #fafbfc !important; border-bottom: 1px solid var(--border) !important; }
+    .article-table thead th {
+      padding: 9px 14px !important;
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      color: var(--muted) !important;
+      text-align: left !important;
+      letter-spacing: 0.5px !important;
+      text-transform: uppercase !important;
+    }
+    .article-table thead th:last-child { text-align: right !important; }
+    .article-table tbody tr { border-bottom: 1px solid #eef0f4 !important; }
+    .article-table tbody tr:last-child { border-bottom: none !important; }
+
+    /* Clickable rows */
+    .art-row { cursor: pointer !important; }
+    .art-row:hover { background: #edf4ff !important; }
+    .art-row:hover .art-name { color: var(--blue) !important; }
+    .art-row:hover .art-code { color: var(--navy) !important; }
+    .art-row:active { background: #d6e8ff !important; }
+
+    .art-row-hint {
+      display: none !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      color: var(--blue) !important;
+      margin-left: 8px !important;
+    }
+    .art-row:hover .art-row-hint { display: inline !important; }
+
+    /* Table cells */
+    .art-num { padding: 13px 8px 13px 16px !important; font-size: 13px !important; font-weight: 700 !important; color: var(--muted) !important; width: 36px !important; text-align: center !important; }
+    .art-img { padding: 8px !important; width: 68px !important; }
+    .art-img img {
+      width: 52px !important; height: 52px !important;
+      object-fit: contain !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 3px !important;
+      background: #fafbfc !important;
+      padding: 3px !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+    .art-img img:hover { transform: none !important; }
+    .art-name { padding: 13px 12px !important; font-size: 13.5px !important; color: var(--text) !important; line-height: 1.5 !important; }
+    .art-code { padding: 13px 16px 13px 8px !important; font-size: 13px !important; font-weight: 700 !important; color: var(--blue) !important; white-space: nowrap !important; text-align: right !important; font-family: "Courier New", monospace !important; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .product-body-grid { grid-template-columns: 1fr !important; }
+      .product-img-col { border-right: none !important; border-bottom: 1px solid var(--border) !important; }
+      .bulk-cta-strip { flex-direction: column !important; }
+      .art-img { display: none !important; }
+    }
+
+    /* Hide elements from main styles.css that we don't need */
+    .page-hero { display: none !important; }
+    footer { display: none !important; }
+  </style>
+
+</head>
+<body>
+
+  <!-- NAV HEADER -->
+  <header>
+    <div class="container" style="display:flex; align-items:center; gap:16px; height:60px;">
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="Intelitek logo"></a>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <div class="container">
+      <a href="index.html">Home</a> /
+      <a href="products.html">Products</a> /
+      <span id="breadcrumbCurrent">Product</span>
+    </div>
+  </div>
+
+  <!-- ITEM NO BAR -->
+  <div class="item-no-bar">
+    <div class="inner">
+      <span class="item-no-label">Item No:</span>
+      <span class="item-no-value" id="itemNoDisplay">—</span>
+      <span class="product-badge" id="productBadge" style="margin-left:8px;">Training Kit</span>
+    </div>
+  </div>
+
+  <!-- PRODUCT CARD -->
+  <div class="product-wrapper">
+    <div class="container">
+      <div class="product-card">
+
+        <!-- TITLE BAR -->
+        <div class="product-title-bar">
+          <h1 id="productTitle">Loading…</h1>
+        </div>
+
+        <!-- IMAGE + INFO -->
+        <div class="product-body-grid">
+
+          <!-- LEFT: image + buttons -->
+          <div class="product-img-col">
+            <img id="productImage" class="clickable-image" src="images/sensor.png" alt="Product image">
+            <div class="product-actions">
+              <a id="enquiryBtn" class="btn btn-primary" href="#">Enquire Now</a>
+              <a id="whatsappBtn" class="btn btn-whatsapp" href="#" target="_blank">💬 WhatsApp</a>
+              
+            </div>
+          </div>
+
+          <!-- RIGHT: info -->
+          <div class="product-info-col">
+            <p class="product-lead" id="productLead">Loading product description…</p>
+
+            <div class="info-section-title">Key Features</div>
+            <ul class="features-list" id="productFeatures"></ul>
+
+            <div class="info-section-title" id="specsHeading" style="display:none;">Specifications</div>
+            <table class="specs-table" id="specsBlock"><tbody></tbody></table>
+
+            <p style="margin:16px 0 0 0; font-size:12.5px; color:var(--muted);" id="productExtra"></p>
+          </div>
+
+        </div>
+
+        <!-- BULK CTA STRIP -->
+        <div class="bulk-cta-strip">
+          <p>Need bulk quotes or complete lab setup?</p>
+          <div class="btns">
+            <a class="btn btn-outline" href="contact.html">Contact Sales</a>
+            <a class="btn btn-primary" id="emailUsBtn" href="contact.html">Email Us</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLES / REQUIRED / RECOMMENDED / ACCESSORIES -->
+  <div id="articlesSection"></div>
+
+
+  <!-- Product mapping & page script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const params = new URLSearchParams(window.location.search);
+
+      // ── If opened from an article row (artname= in URL), show that item ──
+      const artName  = params.get("artname");
+      const artCode  = params.get("artcode");
+      const artImg   = params.get("artimg");
+      const artParent = params.get("artparent"); // parent product key
+
+      if (artName) {
+        const displayImg    = artImg  || "images/sensor.png";
+        const displayCode   = artCode || "—";
+        const sectionLabel  = params.get("artsection") || "articles";
+
+        // Section-specific badge & description
+        const sectionInfo = {
+          articles:     { badge: "Training Module",    desc: "Course module included with the training kit. Provides hands-on practical learning for engineering laboratory practice." },
+          linked:       { badge: "Training Product",   desc: "Engineering training product compatible with Intelitek training systems. Designed for engineering colleges, polytechnics and ITI institutes." },
+          accessories:  { badge: "Accessory",          desc: "Accessory item for Intelitek training systems. Includes spare parts, cables, tools and consumables to support laboratory operations." },
+        };
+        const info = sectionInfo[sectionLabel] || sectionInfo.articles;
+
+        document.title = artName + " | Intelitek";
+        document.getElementById("productTitle").innerText       = artName;
+        document.getElementById("breadcrumbCurrent").innerText  = artName;
+        document.getElementById("productImage").src             = displayImg;
+        document.getElementById("productImage").alt             = artName;
+        document.getElementById("productLead").innerText        = info.desc;
+        document.getElementById("productBadge").innerText       = info.badge;
+        document.getElementById("itemNoDisplay").innerText      = displayCode;
+        document.getElementById("productExtra").innerText       =
+          "Ideal for engineering colleges, ITIs and skill development centres across India.";
+
+        // Features
+        const fwrap = document.getElementById("productFeatures");
+        fwrap.innerHTML = "";
+        const featuresBySection = {
+          articles: [
+            "Hands-on practical training module",
+            "Compatible with Intelitek training platform",
+            "Includes experiment guide and instructions",
+            "Industry-standard components and connectors",
+            "Safe and durable for laboratory use",
+            "Curriculum-aligned learning outcomes"
+          ],
+          linked: [
+            "Industry-grade training equipment",
+            "Compatible with Intelitek systems",
+            "Designed for engineering education",
+            "Includes installation and user manual",
+            "After-sales technical support available",
+            "Suitable for engineering colleges and ITIs"
+          ],
+          accessories: [
+            "Genuine Intelitek accessory",
+            "Designed for use with Intelitek training systems",
+            "High quality, lab-grade materials",
+            "Easy to install and replace",
+            "Ensures continued lab operation",
+            "Available in bulk for institutional orders"
+          ]
+        };
+        (featuresBySection[sectionLabel] || featuresBySection.articles).forEach(f => {
+          const li = document.createElement("li");
+          li.textContent = f;
+          fwrap.appendChild(li);
+        });
+
+        // Specs
+        const specsBody = document.querySelector("#specsBlock tbody");
+        document.getElementById("specsHeading").style.display = "";
+        specsBody.innerHTML = `
+          <tr><td>Item Code</td><td>${displayCode}</td></tr>
+          <tr><td>Type</td><td>${info.badge}</td></tr>
+          <tr><td>Compatible With</td><td>Intelitek Training Systems</td></tr>
+          <tr><td>Application</td><td>Engineering College / Polytechnic / ITI Lab</td></tr>
+        `;
+
+        // Buttons
+        const enquiryText = encodeURIComponent(artName + " (" + displayCode + ")");
+        document.getElementById("enquiryBtn").href  = "contact.html?product=" + enquiryText;
+        document.getElementById("emailUsBtn").href  = "contact.html?product=" + enquiryText;
+        document.getElementById("whatsappBtn").href =
+          "https://wa.me/919187562018?text=Hello%20Intelitek%2C%20I%20am%20interested%20in%20" +
+          encodeURIComponent(artName);
+        document.getElementById("brochureBtn").href = "#";
+
+        // Breadcrumb back link
+        if (artParent) {
+          const bc = document.getElementById("breadcrumbCurrent");
+          bc.innerHTML = `<a href="product-details.html?name=${encodeURIComponent(artParent)}" style="color:var(--blue);text-decoration:none;">← Back to Product</a>&nbsp;/&nbsp;${artName}`;
+        }
+
+        // No sub-articles for these pages
+        document.getElementById("articlesSection").innerHTML = "";
+        return;
+      }
+
+      // ── Normal product page ───────────────────────────────────────────────
+      const key = (params.get("name") || "sensor").toLowerCase();
+
+      // product data - use simple filenames (no special characters)
+      const products = {
+        sensor: {
+          title: "Sensor Training Kit",
+          short: "Sensor Training Kit",
+          image: "images/sensor.png",
+          lead: "Comprehensive industrial sensor training system for automation laboratories.",
+          features: [
+            "Industrial grade sensors",
+            "Real-time signal monitoring",
+            "PLC compatible",
+            "Compact modular design",
+            "Safety protected circuits",
+            "Detailed experiment manual included"
+          ],
+          specs: {
+            "Power": "230 V AC / 50 Hz (typical)",
+            "Trainer Area": "Proximity, Photoelectric, Ultrasonic, Temperature sensors",
+            "Includes": "Power supply, mounting frame, wiring kit, manual"
+          },
+          badge: "Sensors"
+        },
+
+        micro: {
+          title: "Micro Controller Training Kit – IES 2044",
+          short: "Micro Controller Kit",
+          image: "images/Micro-Controller Training Kit – IES 2044.png",
+          lead: "Embedded systems learning platform — microcontroller programming, interfacing and real-time projects.",
+          features: [
+            "Hands-on microcontroller programming",
+            "LCD, keypad & sensor interfacing",
+            "UART / SPI / I2C communication experiments",
+            "PWM and motor control labs",
+            "Sample projects & exercises"
+          ],
+          specs: {
+            "Controller": "Popular 8/16-bit microcontroller (configurable)",
+            "I/O": "Multiple digital and analog I/O terminals",
+            "Includes": "Breadboard, modules, power supply, sample codes"
+          },
+          badge: "Embedded"
+        },
+
+        electronics: {
+          title: "Electronics Lab Trainer",
+          short: "Electronics Lab Trainer",
+          image: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg",
+          lead: "Complete lab for analog & digital electronics experiments — amplifiers, op-amps, logic families and more.",
+          features: [
+            "Amplifier & filter experiments",
+            "Op-amp and comparator labs",
+            "Digital logic and flip-flop experiments",
+            "Built-in function generator & power rails",
+            "Safe and modular workstation"
+          ],
+          specs: {
+            "Modules": "Op-amp, comparator, logic gates, counters",
+            "Instruments": "Signal generator, supply lines, measurement points",
+            "Includes": "Patch cords, components, manual"
+          },
+          badge: "Electronics"
+        },
+
+        installation: {
+          title: "Electrical Installation Trainer",
+          short: "Electrical Installation Trainer",
+          image: "images/Electrical-Installation-Trainer.png",
+          lead: "Practical system to learn wiring, distribution boards, protection, earthing and installation best-practices.",
+          features: [
+            "Domestic & industrial wiring practice",
+            "MCB / RCCB / Fuse demonstrations",
+            "Earthing & safety circuits",
+            "Distribution board wiring",
+            "Safe practice environment"
+          ],
+          specs: {
+            "Training Focus": "Wiring, protection devices, distribution",
+            "Safety": "Fused outputs, isolation switches",
+            "Includes": "Panels, dummy loads, manual"
+          },
+          badge: "Electrical"
+        },
+        acstarter: {
+  title: "AC Starter Training Kit",
+  short: "AC Starter Training Kit",
+  image: "images/ac-starter.png.jpg",
+  lead: "Industrial AC motor starter training system for motor control and automation laboratories.",
+  features: [
+    "DOL starter experiments",
+    "Star-delta starter configuration",
+    "Forward & reverse motor control",
+    "Overload protection demonstration",
+    "Industrial motor wiring practice"
+  ],
+  specs: {
+    "Power": "415 V / 230 V AC",
+    "Motor Type": "Three-phase induction motor",
+    "Includes": "Control panel, contactors, overload relay, wiring kit, manual"
+  },
+  badge: "Motor Control"
+},
+basicelectrical: {
+  title: "Basic Electricity & Electronics Training Kit",
+  short: "Basic Electricity & Electronics Kit",
+  image: "images/Electrical-Electronics-Training-Kit.png",
+  lead: "Comprehensive foundational training system for electrical and electronics circuit learning.",
+  features: [
+    "Ohm’s Law and Kirchhoff’s Law experiments",
+    "Resistor, capacitor and inductor analysis",
+    "Analog and digital measurement practice",
+    "Built-in power supply and protection",
+    "Hands-on breadboard experiments"
+  ],
+  specs: {
+    "Power": "230 V AC / 50 Hz",
+    "Training Area": "Basic circuit analysis & measurements",
+    "Includes": "Trainer panel, components kit, manual"
+  },
+  badge: "Fundamentals"
+},
+communication: {
+  title: "Communication Training Kit",
+  short: "Communication Training Kit",
+  image: "images/COMMUNICATION-TRAINING-KIT.png",
+  lead: "Advanced communication system trainer covering analog and digital communication principles.",
+  features: [
+    "AM/FM modulation & demodulation",
+    "Signal transmission experiments",
+    "Noise and filtering analysis",
+    "Digital communication basics",
+    "Oscilloscope compatible outputs"
+  ],
+  specs: {
+    "Modules": "Modulator, demodulator, signal generator",
+    "Applications": "Analog & digital communication labs",
+    "Includes": "Trainer panel, patch cords, manual"
+  },
+  badge: "Communication"
+},
+conveyor: {
+  title: "Conveyor Training Kit",
+  short: "Conveyor Automation Kit",
+  image: "images/Conveyor-Training-Kit-IES-7005.png",
+  lead: "Industrial automation training module simulating real conveyor material handling systems.",
+  features: [
+    "Belt conveyor operation",
+    "Sensor-based detection system",
+    "Motor control integration",
+    "PLC automation experiments",
+    "Industrial wiring practice"
+  ],
+  specs: {
+    "Control": "PLC Compatible",
+    "Applications": "Material handling automation",
+    "Includes": "Conveyor module, sensors, motor, manual"
+  },
+  badge: "Automation"
+},
+dcmotor: {
+  title: "DC Motor & Generator Training Kit",
+  short: "DC Motor Generator Kit",
+  image: "images/DC-Shunt-Motor-Compound-Generator.png",
+  lead: "Comprehensive DC machines training system for motor characteristics and load testing.",
+  features: [
+    "DC shunt & compound motor experiments",
+    "Speed control methods",
+    "Load testing and efficiency analysis",
+    "Generator characteristics study",
+    "Safe industrial-grade panel"
+  ],
+  specs: {
+    "Power": "230 V AC",
+    "Machines": "DC Shunt & Compound Motor",
+    "Includes": "Motor, generator, control panel, manual"
+  },
+  badge: "DC Machines"
+},
+industrialSensor: {
+  title: "Industrial Sensor Trainer Kit",
+  short: "Industrial Sensor Trainer Kit",
+  image: "images/sensor.png",
+  lead: "Comprehensive industrial sensor training system designed for automation and control laboratories.",
+  features: [
+    "Proximity, photoelectric, ultrasonic, temperature sensor modules",
+    "Real-time sensor signal monitoring",
+    "PLC & automation integration",
+    "Hands-on experimentation boards",
+    "Industrial interfacing and calibration exercises"
+  ],
+  specs: {
+    "Power": "230 V AC / 50 Hz",
+    "Training Focus": "Industrial sensor applications",
+    "Includes": "Sensor modules, trainer panel, wiring kit, manual"
+  },
+  badge: "Sensors"
+},
+dissectible: {
+  title: "Dissectible Machine Training Kit",
+  short: "Dissectible Machine Training Kit",
+  image: "images/Dissectible-Machine-Training-Kit.png",
+  lead: "Advanced dissectible machine training system to study internal construction and working principles of electrical machines.",
+  features: [
+    "Cut-section electrical machine models",
+    "Internal winding visualization",
+    "Component identification practice",
+    "Mechanical assembly learning",
+    "Practical demonstration setup"
+  ],
+  specs: {
+    "Application": "Electrical machine construction study",
+    "Suitable For": "Engineering colleges, polytechnics, ITIs",
+    "Includes": "Dissectible models, manual"
+  },
+  badge: "Machines"
+},
+basicprinciple: {
+  title: "Electrical Basic Principle Trainer Kit",
+  short: "Electrical Basic Principle Trainer Kit",
+  image: "images/ELECTRICAL-BASIC-PRINCIPLE-TRAINER-Kit.jpg",
+  lead: "Fundamental electrical engineering training system designed to demonstrate basic electrical principles and circuit concepts.",
+  features: [
+    "Ohm’s Law and Kirchhoff’s Law experiments",
+    "Series and parallel circuit analysis",
+    "Voltage, current and power measurement",
+    "AC and DC circuit experiments",
+    "Industrial wiring practice modules"
+  ],
+  specs: {
+    "Power": "230 V AC / 50 Hz",
+    "Training Area": "Basic electrical principles & measurements",
+    "Includes": "Trainer panel, experiment modules, manual"
+  },
+  badge: "Fundamentals"
+},
+electronicsbasic: {
+title: "Basic Electricity and Electronics Fundamental Trainer",
+short: "Basic Electricity & Electronics Trainer",
+image: "images/Basic Electricity and Electronics Fundamental Trainer.jpeg",
+lead: "Comprehensive training kit for learning basic electrical and electronic concepts including circuit fundamentals and measurements.",
+features: [
+"Electrical circuit fundamentals",
+"Electronic components experiments",
+"Voltage and current measurements",
+"Practical wiring practice",
+"Educational lab training modules"
+],
+specs: {
+"Power": "230 V AC",
+"Training Area": "Electrical and Electronics fundamentals",
+"Includes": "Trainer panel, components kit, experiment manual"
+},
+badge: "Electronics"
+},
+analogtrainer: {
+title: "Electronic Workbench with Analog Trainer – IES4041",
+short: "Analog Electronics Workbench",
+image: "images/Electronic Workbench with Analog Trainer – IES4041.png",
+lead: "Advanced analog electronics workbench designed for practical experiments on diodes, transistors and amplifiers.",
+features: [
+"Diode and transistor experiments",
+"Amplifier circuit analysis",
+"Oscillator circuit experiments",
+"Built-in power supply",
+"Hands-on analog electronics training"
+],
+specs: {
+"Power": "230 V AC",
+"Training Area": "Analog electronics",
+"Includes": "Workbench trainer, modules, manual"
+},
+badge: "Analog"
+},
+instrumentpanel: {
+title: "Electronic Workbench with Instrument Panel",
+short: "Electronics Workbench",
+image: "images/Electronic Workbench with Instrument Panel .jpg",
+lead: "Advanced electronic workbench with integrated instrument panel for circuit testing and development.",
+features: [
+"Integrated measurement instruments",
+"Circuit development workstation",
+"Electronics troubleshooting practice",
+"Industrial lab configuration",
+"Safe experimental setup"
+],
+specs: {
+"Power": "230 V AC",
+"Training Area": "Electronics circuit development",
+"Includes": "Instrument panel, power supply, trainer modules"
+},
+badge: "Workbench"
+},
+electronicslab: {
+title: "Electronics Lab Trainer Kit",
+short: "Electronics Lab Trainer",
+image: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg",
+lead: "Advanced electronics laboratory trainer designed for circuit design, testing and troubleshooting.",
+features: [
+"Analog electronics experiments",
+"Digital logic experiments",
+"Circuit testing practice",
+"Educational lab training setup",
+"Industrial electronics applications"
+],
+specs: {
+"Power": "230 V AC",
+"Training Area": "Electronics laboratory experiments",
+"Includes": "Trainer modules, components kit, manual"
+},
+badge: "Electronics"
+},
+industrialsensor: {
+title: "Industrial Sensor Trainer Kit",
+short: "Sensor Training System",
+image: "images/INDUSTRIAL SENSOR TRAINER KIT.jpeg",
+lead: "Industrial sensor training platform for studying sensing technologies used in automation industries.",
+features: [
+"Proximity sensor experiments",
+"Photoelectric sensor experiments",
+"Industrial sensor wiring practice",
+"Automation signal output analysis",
+"Industrial automation training"
+],
+specs: {
+"Power": "230 V AC",
+"Training Area": "Industrial sensing technology",
+"Includes": "Sensor modules, trainer panel, manual"
+},
+badge: "Sensors"
+},
+microcontroller: {
+title: "Micro Controller Training Kit – IES 2044",
+short: "Microcontroller Trainer",
+image: "images/Micro-Controller Training Kit – IES 2044.png",
+lead: "Embedded systems training platform for learning microcontroller programming and hardware interfacing.",
+features: [
+"Embedded programming practice",
+"I/O device interfacing",
+"LCD and sensor interfacing",
+"Microcontroller hardware experiments",
+"Real-time embedded applications"
+],
+specs: {
+"Controller": "Embedded microcontroller platform",
+"Training Area": "Embedded systems",
+"Includes": "Trainer board, modules, sample codes"
+},
+badge: "Embedded"
+},
+solarwind:{
+title:"Solar & Wind Energy Training Kit – IES0534",
+short:"Solar & Wind Energy Trainer",
+image:"images/renewable/SOLAR & WIND ENERGY TRAINING KIT-IES-0534.png",
+lead:"Hybrid renewable energy trainer integrating solar and wind power systems for practical laboratory learning.",
+features:[
+"Solar photovoltaic module experiments",
+"Wind turbine energy generation",
+"Hybrid renewable energy system analysis",
+"Charge controller and inverter operation",
+"Renewable energy monitoring experiments"
+],
+specs:{
+Power:"Solar + Wind Hybrid System",
+TrainingArea:"Renewable energy generation",
+Includes:"Solar panel, wind turbine module, controller, manual"
+},
+badge:"Renewable"
+},
+solarpower:{
+title:"Solar Power Generation & Training System",
+short:"Solar Power Trainer",
+image:"images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg",
+lead:"Complete photovoltaic training system for studying solar power generation and energy conversion.",
+features:[
+"PV panel characteristics experiments",
+"Battery charging analysis",
+"Inverter operation training",
+"Solar power measurement",
+"Energy efficiency experiments"
+],
+specs:{
+Power:"Solar PV System",
+TrainingArea:"Solar energy generation",
+Includes:"Solar panel, inverter, battery bank, measurement modules"
+},
+badge:"Solar"
+},
+solarthermal:{
+title:"Solar Thermal Evacuated Tube System",
+short:"Solar Thermal Trainer",
+image:"images/renewable/SOLAR THERMAL EVACUATED TUBE.png",
+lead:"Solar thermal energy training system demonstrating water heating and energy efficiency principles.",
+features:[
+"Solar thermal water heating",
+"Energy efficiency experiments",
+"Thermal energy conversion study",
+"Temperature measurement modules",
+"Renewable heating systems"
+],
+specs:{
+Power:"Solar Thermal System",
+TrainingArea:"Solar heating technology",
+Includes:"Evacuated tube system, sensors, manual"
+},
+badge:"Thermal"
+},
+greentech:{
+title:"Green Technology Trainer Kit",
+short:"Green Energy Trainer",
+image:"images/renewable/green-technology-trainer-kit.jpg",
+lead:"Integrated renewable energy platform combining solar, wind and hybrid energy systems.",
+features:[
+"Hybrid renewable energy experiments",
+"Solar and wind integration",
+"Energy monitoring systems",
+"Sustainable energy education",
+"Smart grid concepts"
+],
+specs:{
+Power:"Hybrid Renewable System",
+TrainingArea:"Green technology education",
+Includes:"Solar module, wind module, monitoring system"
+},
+badge:"Green Tech"
+},
+solarkit:{
+title:"Solar Training Kit",
+short:"Solar Energy Trainer",
+image:"images/renewable/SOLAR TRAINING KIT.png",
+lead:"Comprehensive solar energy training system for studying photovoltaic principles and solar power systems.",
+features:[
+"Solar panel characteristics analysis",
+"MPPT controller experiments",
+"Battery charging and inverter operation",
+"Power measurement experiments",
+"Renewable energy lab training"
+],
+specs:{
+Power:"Solar PV System",
+TrainingArea:"Photovoltaic energy systems",
+Includes:"Solar panel module, MPPT controller, battery, inverter"
+},
+badge:"Solar"
+},
+refrigeration:{
+title:"Basic Refrigeration Trainer",
+short:"Refrigeration Training System",
+image:"images/mechanical/Basic Refrigeration Trainer.jpeg",
+lead:"Practical refrigeration training system demonstrating vapor compression cycle and refrigeration performance analysis.",
+features:[
+"Vapor compression refrigeration cycle demonstration",
+"Pressure and temperature measurement",
+"Compressor, condenser and evaporator study",
+"Performance evaluation experiments",
+"Industrial refrigeration fundamentals"
+],
+specs:{
+Power:"230 V AC",
+TrainingArea:"Refrigeration cycle experiments",
+Includes:"Refrigeration unit, gauges, trainer panel, manual"
+},
+badge:"Thermal"
+},
+pneumatic:{
+title:"Pneumatic Trainer Kit",
+short:"Pneumatic Training System",
+image:"images/mechanical/basic-pneumatic-trainer.jpg",
+lead:"Industrial pneumatic training system designed for studying air preparation units, valves and pneumatic control circuits.",
+features:[
+"Air preparation unit experiments",
+"Pneumatic valve operation",
+"Cylinder control circuits",
+"Automation logic circuits",
+"Industrial pneumatic applications"
+],
+specs:{
+Power:"Compressed air system",
+TrainingArea:"Pneumatic automation",
+Includes:"Valves, cylinders, compressor connection, trainer panel"
+},
+badge:"Pneumatic"
+},
+hydraulic:{
+title:"Hydraulic Trainer Kit",
+short:"Hydraulic Training System",
+image:"images/mechanical/Hydraulic Trainer Kits.jpg",
+lead:"Comprehensive hydraulic training equipment for studying pumps, valves and hydraulic fluid power systems.",
+features:[
+"Hydraulic pump experiments",
+"Pressure and flow control valves",
+"Hydraulic cylinder operation",
+"Fluid power circuits",
+"Industrial hydraulic system training"
+],
+specs:{
+Power:"Hydraulic power unit",
+TrainingArea:"Fluid power systems",
+Includes:"Pump unit, valves, trainer panel, manual"
+},
+badge:"Hydraulic"
+},
+electrohydraulic:{
+title:"Electro-Hydraulic Training Kit",
+short:"Electro-Hydraulic System",
+image:"images/mechanical/ELECTRO-HYDRAULIC TRAINING KIT.png",
+lead:"Integrated electro-hydraulic trainer combining electrical control with hydraulic actuation systems.",
+features:[
+"Electrical control of hydraulic circuits",
+"Solenoid valve operation",
+"Automation control experiments",
+"Industrial electro-hydraulic systems",
+"Practical control logic learning"
+],
+specs:{
+Power:"230 V AC",
+TrainingArea:"Electro-hydraulic automation",
+Includes:"Hydraulic unit, electrical control panel, trainer modules"
+},
+badge:"Automation"
+},
+electrohydraulictrainer:{
+title:"Electro Hydraulic Trainer Kit",
+short:"Hydraulic Workstation",
+image:"images/mechanical/Electro Hydraulic Trainer Kit.png",
+lead:"Advanced hydraulic training workstation designed for fluid power experimentation and skill development.",
+features:[
+"Hydraulic circuit experiments",
+"Pressure control systems",
+"Industrial hydraulic component study",
+"Fluid power training platform",
+"Automation integration capability"
+],
+specs:{
+Power:"Hydraulic power unit",
+TrainingArea:"Hydraulic engineering",
+Includes:"Hydraulic modules, trainer frame, manual"
+},
+badge:"Hydraulic"
+},
+electropneumatic:{
+title:"Electro Pneumatic Trainer Kit",
+short:"Electro Pneumatic Trainer",
+image:"images/mechanical/Electro Pneumatic Trainer Kit .png",
+lead:"Electro-pneumatic training system integrating electrical control with pneumatic actuation for industrial automation learning.",
+features:[
+"Electrical control of pneumatic valves",
+"PLC compatible experiments",
+"Automation logic circuits",
+"Pneumatic cylinder control",
+"Industrial automation training"
+],
+specs:{
+Power:"230 V AC",
+TrainingArea:"Electro-pneumatic automation",
+Includes:"Control panel, valves, cylinders, trainer modules"
+},
+badge:"Automation"
+},
+sixaxisrobot:{
+title:"6 Axis Articulated Robot Training Kit",
+short:"6 Axis Robot Trainer",
+image:"images/Mechatronics, Robotics and Automation/6 Axis Articulated Training Robot Kit.jpeg",
+lead:"Industrial articulated robotic arm training system for learning robotic programming, motion control and automation integration.",
+features:[
+"6 axis articulated robotic arm",
+"Industrial robot programming exercises",
+"Pick and place automation experiments",
+"Robot trajectory and motion control",
+"Safety integrated robotic workstation"
+],
+specs:{
+Power:"230 V AC",
+Control:"Industrial robot controller",
+Applications:"Robotics and automation laboratories"
+},
+badge:"Robotics"
+},
+advanceplc:{
+title:"Advance PLC Training Kit",
+short:"Advanced PLC Trainer",
+image:"images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png",
+lead:"Comprehensive PLC training system for learning ladder logic programming and industrial automation control systems.",
+features:[
+"Ladder logic programming practice",
+"Digital input output modules",
+"Industrial automation simulation",
+"PLC wiring and debugging exercises",
+"Sensor and actuator integration"
+],
+specs:{
+Controller:"Industrial PLC",
+Power:"230 V AC",
+Includes:"PLC panel, I/O modules, programming software"
+},
+badge:"PLC"
+},
+productionmodule:{
+title:"Miniature Industrial Production System",
+short:"Industrial Production Trainer",
+image:"images/Mechatronics, Robotics and Automation/MINIATURE INDUSTRIAL PRODUCTION SYSTEM.png",
+lead:"Mechatronics training platform simulating industrial production processes and automated manufacturing systems.",
+features:[
+"Industrial production line simulation",
+"Sensor based automation",
+"Material handling experiments",
+"PLC automation control",
+"Smart manufacturing concepts"
+],
+specs:{
+Control:"PLC automation",
+Application:"Smart manufacturing training",
+Includes:"Conveyor modules, sensors, control panel"
+},
+badge:"Automation"
+},
+robotcell:{
+title:"Robot Training Cell",
+short:"Robot Automation Cell",
+image:"images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png",
+lead:"Complete robotic workstation designed for industrial pick-and-place and automation training.",
+features:[
+"Robotic pick and place operations",
+"Industrial automation simulation",
+"Sensor and actuator integration",
+"Robot programming experiments",
+"Industrial robotic workstation"
+],
+specs:{
+RobotType:"Industrial robot arm",
+Control:"Robot controller",
+Application:"Automation training"
+},
+badge:"Robotics"
+},
+scadasystem:{
+title:"Integrated Smart Control System with SCADA",
+short:"SCADA Automation Trainer",
+image:"images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png",
+lead:"Industrial automation training platform with SCADA monitoring and supervisory control system.",
+features:[
+"SCADA monitoring system",
+"Real time industrial data acquisition",
+"Process visualization interface",
+"Automation control experiments",
+"Industrial process monitoring"
+],
+specs:{
+Software:"SCADA interface",
+Control:"PLC based system",
+Application:"Industrial process monitoring"
+},
+badge:"SCADA"
+},
+automationtrainer:{
+title:"Automation Trainer Kit – Industrial 4.0",
+short:"Industry 4.0 Automation Trainer",
+image:"images/Mechatronics, Robotics and Automation/Automation Trainer Kit-Industrial 4.0 Automation System Kit.jpg",
+lead:"Advanced Industry 4.0 automation training platform integrating PLC, HMI, sensors and smart manufacturing concepts.",
+features:[
+"PLC and HMI integration",
+"Smart factory automation",
+"IoT ready automation experiments",
+"Sensor based industrial control",
+"Industry 4.0 training modules"
+],
+specs:{
+Control:"PLC + HMI",
+Application:"Smart manufacturing labs",
+Includes:"Automation trainer panel, sensors, HMI"
+},
+badge:"Industry 4.0"
+},
+basicplc:{
+title:"Basic PLC Trainer",
+short:"PLC Trainer",
+image:"images/Mechatronics, Robotics and Automation/basic-plc.jpg",
+lead:"Entry-level PLC training system for learning basic ladder logic programming and industrial control concepts.",
+features:[
+"PLC programming basics",
+"Digital I/O training",
+"Ladder logic exercises",
+"Industrial control experiments",
+"Sensor and actuator interfacing"
+],
+specs:{
+Controller:"PLC unit",
+Power:"230 V AC",
+Application:"PLC programming training"
+},
+badge:"PLC"
+},
+bottlefilling:{
+title:"Bottle Filling Module Training Kit",
+short:"Bottle Filling Automation Trainer",
+image:"images/Mechatronics, Robotics and Automation/Bottle Filling Module Training Kit.png",
+lead:"Industrial automation module simulating automatic bottle filling processes used in manufacturing plants.",
+features:[
+"Automatic bottle filling process",
+"Sensor based control system",
+"PLC automation experiments",
+"Industrial process simulation",
+"Production line training"
+],
+specs:{
+Control:"PLC automation",
+Application:"Industrial process automation",
+Includes:"Filling station, sensors, controller"
+},
+badge:"Automation"
+},
+buildingautomation:{
+title:"Building Automation Training Booth",
+short:"Building Automation Trainer",
+image:"images/Mechatronics, Robotics and Automation/Building Automation Training Booth.jpeg",
+lead:"Smart building automation trainer for HVAC, lighting and building management systems.",
+features:[
+"Smart lighting control",
+"HVAC automation system",
+"Energy management experiments",
+"Smart infrastructure training",
+"Building management systems"
+],
+specs:{
+Control:"Automation controller",
+Application:"Smart building labs",
+Includes:"Sensors, control panel, automation modules"
+},
+badge:"BMS"
+},
+cctvtraining:{
+title:"CCTV Security System Training Kit",
+short:"CCTV Training System",
+image:"images/Mechatronics, Robotics and Automation/CCTV Security System Training Kit.jpeg",
+lead:"Surveillance system training platform for CCTV installation, monitoring and security system integration.",
+features:[
+"CCTV camera installation training",
+"Video monitoring systems",
+"Security surveillance configuration",
+"Networking and monitoring setup",
+"Security system integration"
+],
+specs:{
+System:"CCTV surveillance system",
+Application:"Security system training",
+Includes:"Cameras, DVR system, monitoring setup"
+},
+badge:"Security"
+},
+cobot:{
+title:"COBOT Training Kit",
+short:"Collaborative Robot Trainer",
+image:"images/Mechatronics, Robotics and Automation/COBOT-TRAINING-KIT.png",
+lead:"Collaborative robot training platform designed for safe human-robot interaction and smart automation experiments.",
+features:[
+"Collaborative robotic arm",
+"Human-robot interaction experiments",
+"Pick and place applications",
+"Robot safety and sensor integration",
+"Smart automation projects"
+],
+specs:{
+Power:"230 V AC",
+Control:"Collaborative robot controller",
+Application:"Robotics & Industry 4.0 labs"
+},
+badge:"Robotics"
+},
+firealarm:{
+title:"Fire Alarm Demonstrator",
+short:"Fire Alarm Training System",
+image:"images/Mechatronics, Robotics and Automation/Fire Alarm Demonstrator.jpeg",
+lead:"Hands-on fire detection training system for studying fire sensors, alarm systems and safety control panels.",
+features:[
+"Smoke detector experiments",
+"Heat sensor operation",
+"Alarm control panel training",
+"Safety system integration",
+"Emergency alarm simulation"
+],
+specs:{
+Power:"230 V AC",
+Application:"Safety engineering labs",
+Includes:"Control panel, detectors, alarm modules"
+},
+badge:"Safety"
+},
+hydraulicies:{
+title:"Hydraulic Training Kit – IES1203A",
+short:"Hydraulic Automation Trainer",
+image:"images/Mechatronics, Robotics and Automation/Hydraulic Training Kit- IES1203A.png",
+lead:"Industrial hydraulic training workstation for studying pumps, valves and fluid power control circuits.",
+features:[
+"Hydraulic pump operation",
+"Pressure and flow control experiments",
+"Hydraulic cylinder motion control",
+"Fluid power system analysis",
+"Industrial automation integration"
+],
+specs:{
+Power:"Hydraulic power unit",
+Application:"Fluid power training labs",
+Includes:"Hydraulic trainer panel, valves, pump system"
+},
+badge:"Hydraulic"
+},
+modularmanufacturing:{
+title:"Modular Manufacturing Systems",
+short:"Smart Manufacturing Trainer",
+image:"images/Mechatronics, Robotics and Automation/Modular Manufacturing Systems.jpeg",
+lead:"Flexible manufacturing training system simulating automated production processes used in Industry 4.0 factories.",
+features:[
+"Automated manufacturing modules",
+"Material handling automation",
+"PLC control integration",
+"Industrial production simulation",
+"Smart factory experiments"
+],
+specs:{
+Control:"PLC automation",
+Application:"Smart manufacturing training",
+Includes:"Production modules, sensors, automation controller"
+},
+badge:"Industry 4.0"
+},
+plcapplication:{
+title:"PLC Application System – IES 3046",
+short:"PLC Application Trainer",
+image:"images/Mechatronics, Robotics and Automation/PLC APPLICATION SYSTEM – IES 3046.png",
+lead:"Advanced PLC automation training platform designed for real-time industrial automation experiments.",
+features:[
+"Industrial PLC applications",
+"Automation control circuits",
+"Sensor and actuator interfacing",
+"Industrial process simulation",
+"Real-time PLC programming"
+],
+specs:{
+Controller:"Industrial PLC",
+Power:"230 V AC",
+Application:"Industrial automation labs"
+},
+badge:"PLC"
+},
+plctraineries:{
+title:"PLC Training Kit – IES3040",
+short:"PLC Training Panel",
+image:"images/Mechatronics, Robotics and Automation/PLC Training Kit – IES3040.png",
+lead:"Comprehensive PLC training panel for programming, wiring and industrial automation practice.",
+features:[
+"PLC ladder logic programming",
+"Digital and analog I/O modules",
+"Automation experiment modules",
+"Industrial wiring practice",
+"Sensor integration"
+],
+specs:{
+Controller:"PLC controller",
+Power:"230 V AC",
+Includes:"PLC panel, I/O modules, experiment boards"
+},
+badge:"PLC"
+},
+processcontrol:{
+title:"PLC Based Level & Temperature Control System",
+short:"Process Control Trainer",
+image:"images/Mechatronics, Robotics and Automation/PLC-Based-Level-Temperature-control-System.jpg",
+lead:"Industrial process control trainer for monitoring and controlling liquid level and temperature parameters using PLC.",
+features:[
+"Level control experiments",
+"Temperature control systems",
+"Industrial process simulation",
+"PLC automation control",
+"Real-time process monitoring"
+],
+specs:{
+Control:"PLC process control",
+Application:"Process control laboratories",
+Includes:"Level tank system, sensors, PLC control"
+},
+badge:"Process Control"
+},
+scararobot:{
+title:"SCARA Robot Training Cell – IES 7650",
+short:"SCARA Robot Trainer",
+image:"images/Mechatronics, Robotics and Automation/SCARA Robot training cell (ABB-FANUC-KUKA)-IES-7650.png",
+lead:"Industrial SCARA robot workstation designed for high-speed robotic assembly and automation training.",
+features:[
+"SCARA robot programming",
+"Industrial pick and place applications",
+"Automation integration experiments",
+"Robot trajectory control",
+"Industrial robotic workstation"
+],
+specs:{
+RobotType:"SCARA industrial robot",
+Control:"Robot controller",
+Application:"Robotics automation training"
+},
+badge:"Robotics"
+},
+sensortrainer2045:{
+title:"Sensor Training Kit – IES 2045",
+short:"Sensor Training Kit",
+image:"images/Process Control/Sensor Training Kit – IES 2045.png",
+lead:"Comprehensive sensor training system designed for studying industrial measurement, signal conditioning and sensor calibration.",
+features:[
+"Industrial sensor experiments",
+"Signal conditioning modules",
+"Temperature, pressure and proximity sensor studies",
+"Industrial instrumentation training",
+"Hands-on automation experiments"
+],
+specs:{
+Power:"230 V AC",
+Application:"Instrumentation and automation labs",
+Includes:"Trainer panel, sensor modules, experiment manual"
+},
+badge:"Sensors"
+},
+analogsensortrainer:{
+title:"Analog & Digital Sensor Trainer – IES 2040",
+short:"Analog Digital Sensor Trainer",
+image:"images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png",
+lead:"Training platform for learning analog and digital sensor interfacing in modern automation systems.",
+features:[
+"Analog sensor interfacing",
+"Digital sensor experiments",
+"Signal conversion studies",
+"Automation sensor integration",
+"Industrial measurement experiments"
+],
+specs:{
+Power:"230 V AC",
+Application:"Sensor instrumentation labs",
+Includes:"Trainer panel, sensors, patch cords"
+},
+badge:"Sensors"
+},
+processcontroltrainer:{
+title:"Industrial Process Control Trainer Kit",
+short:"Process Control Trainer",
+image:"images/Process Control/Industrial Process Control Trainer Kit.jpeg",
+lead:"Complete industrial process control workstation for studying level, flow, pressure and temperature control systems.",
+features:[
+"Level control experiments",
+"Flow control training",
+"Temperature control system",
+"Pressure control experiments",
+"PLC based automation integration"
+],
+specs:{
+Power:"230 V AC",
+Application:"Process automation labs",
+Includes:"Process tanks, sensors, control modules"
+},
+badge:"Process Control"
+},
+flowpressurecontrol:{
+title:"PLC-Based Flow & Pressure Control System",
+short:"Flow Pressure Control Trainer",
+image:"images/Process Control/PLC-Based-Flow-Pressure-Control-System-1.jpg",
+lead:"Industrial PLC training system designed for monitoring and controlling flow and pressure parameters.",
+features:[
+"PLC automation experiments",
+"Flow control modules",
+"Pressure control instrumentation",
+"Industrial sensor integration",
+"Real-time process monitoring"
+],
+specs:{
+Controller:"Industrial PLC",
+Power:"230 V AC",
+Application:"Industrial process control labs"
+},
+badge:"PLC Control"
+},
+oscilloscope4000:{
+title:"Digital Oscilloscope – 4000 Series",
+short:"Oscilloscope 4000 Series",
+image:"images/Process Control/Digital Oscilloscope 4000 Series.png",
+lead:"High-performance oscilloscope designed for waveform measurement and electronic signal diagnostics.",
+features:[
+"High resolution waveform display",
+"Signal frequency analysis",
+"Voltage measurement over time",
+"Digital signal diagnostics",
+"Engineering laboratory testing"
+],
+specs:{
+Bandwidth:"Up to GHz range",
+Channels:"Multiple input channels",
+Application:"Electronics testing labs"
+},
+badge:"Oscilloscope"
+},
+mso7000:{
+title:"MSO 7000 Series",
+short:"Mixed Signal Oscilloscope",
+image:"images/Process Control/MSO 7000 Series.jpg",
+lead:"Industrial mixed signal oscilloscope for analyzing analog and digital signals in automation systems.",
+features:[
+"Mixed analog and digital signal analysis",
+"High speed waveform acquisition",
+"Multi channel signal diagnostics",
+"Embedded system debugging",
+"Industrial automation testing"
+],
+specs:{
+Bandwidth:"Up to 1 GHz",
+Channels:"Analog + digital channels",
+Application:"Advanced signal analysis"
+},
+badge:"MSO"
+},
+universalworkbench:{
+title:"Universal Work Bench / Workstation",
+short:"Electronics Workstation",
+image:"images/Process Control/universal-work-bench.jpg",
+lead:"Integrated laboratory workstation designed for electronics testing and industrial experimentation.",
+features:[
+"Integrated instrument panel",
+"Electrical power supply modules",
+"Testing and measurement stations",
+"Industrial experiment platform",
+"Flexible lab workstation"
+],
+specs:{
+Power:"230 V AC",
+Application:"Electronics and automation labs",
+Includes:"Workbench frame, power supply, instrument panel"
+},
+badge:"Workbench"
+},
+oscilloscope6000:{
+title:"Digital Oscilloscope 6000 Series",
+short:"Oscilloscope 6000 Series",
+image:"images/Process Control/Digital Oscilloscope 6000 Series.jpg",
+lead:"Advanced digital storage oscilloscope designed for high-precision waveform analysis.",
+features:[
+"Digital waveform capture",
+"Signal diagnostics and analysis",
+"High bandwidth measurement",
+"Real-time waveform monitoring",
+"Advanced electronics testing"
+],
+specs:{
+Type:"Digital Storage Oscilloscope",
+Application:"Electronics and instrumentation labs"
+},
+badge:"Oscilloscope"
+},
+digitalsensortrainer:{
+title:"Digital Sensor Trainer",
+short:"Digital Sensor Trainer",
+image:"images/Process Control/Digital Sensor Trainer.png",
+lead:"Practical training system for studying digital sensor interfaces and industrial measurement techniques.",
+features:[
+"Digital sensor experiments",
+"Automation measurement systems",
+"Signal processing modules",
+"Industrial sensor integration",
+"Automation laboratory training"
+],
+specs:{
+Power:"230 V AC",
+Application:"Instrumentation labs"
+},
+badge:"Sensors"
+},
+ds1000oscilloscope:{
+title:"DS1000 Series Digital Oscilloscopes",
+short:"DS1000 Oscilloscope",
+image:"images/Process Control/DS1000 Series Digital Oscilloscopes.jpg",
+lead:"Reliable digital oscilloscope used for electronic signal measurement and waveform visualization.",
+features:[
+"Digital signal acquisition",
+"Waveform display and analysis",
+"Frequency and amplitude measurement",
+"Electronic circuit testing",
+"Engineering lab diagnostics"
+],
+specs:{
+Type:"Digital Oscilloscope",
+Application:"Electronics testing laboratories"
+},
+badge:"Oscilloscope"
+},
+faultfindingboard:{
+title:"Electronic Fault Finding Simulation Board – IES2041",
+short:"Fault Finding Trainer",
+image:"images/Process Control/Electronic fault finding test simulation board- IES2041.png",
+lead:"Electronic troubleshooting trainer for learning diagnostic techniques and circuit fault identification.",
+features:[
+"Electronic fault simulation",
+"Circuit troubleshooting experiments",
+"Component testing modules",
+"Industrial maintenance training",
+"Electronic repair diagnostics"
+],
+specs:{
+Power:"230 V AC",
+Application:"Electronics troubleshooting labs"
+},
+badge:"Diagnostics"
+},
+msomixedsignal:{
+title:"MSO Mixed Signal Oscilloscope",
+short:"Mixed Signal Oscilloscope",
+image:"images/Process Control/mso-mixed-signal-oscilloscope.jpg",
+lead:"Advanced mixed signal oscilloscope for analyzing analog and digital signals simultaneously.",
+features:[
+"Analog and digital waveform analysis",
+"Embedded system debugging",
+"Signal measurement and diagnostics",
+"Industrial automation testing",
+"Real-time waveform monitoring"
+],
+specs:{
+Type:"Mixed Signal Oscilloscope",
+Application:"Automation and electronics labs"
+},
+badge:"MSO"
+},
+
+evworkingmodel:{
+title:"Electric Vehicle Working Model Trainer",
+short:"EV Working Model Trainer",
+image:"images/evtechnology/2-W Electric Vehicle Working Model Training Setup.png",
+lead:"Demonstration trainer designed to study electric vehicle architecture including motor drive, battery pack and drivetrain system.",
+features:[
+"Complete EV drivetrain demonstration",
+"BLDC motor drive system",
+"Lithium battery pack integration",
+"Vehicle controller operation study",
+"Educational EV training platform"
+],
+specs:{
+Power:"48V – 72V Battery System",
+Motor:"BLDC Motor",
+Application:"EV technology laboratories"
+},
+badge:"EV Trainer"
+},
+
+"2wevdrivetrain":{
+title:"2-Wheeler Electric Vehicle Drivetrain Trainer",
+short:"2-Wheeler EV Drivetrain Trainer",
+image:"images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png",
+lead:"Training platform designed to demonstrate electric scooter drivetrain including motor, battery and controller system.",
+features:[
+"Electric scooter drivetrain model",
+"Motor controller training",
+"Battery charging and monitoring",
+"Load testing mechanism",
+"Hands-on EV drivetrain experiments"
+],
+specs:{
+Motor:"BLDC Motor",
+Power:"48V Battery System",
+Application:"EV engineering laboratories"
+},
+badge:"EV Trainer"
+},
+
+"2wevresearch":{
+title:"2-Wheeler EV Motor Research Trainer",
+short:"EV Motor Research Trainer",
+image:"images/evtechnology/2-Wheeler EV Motor Drivetrain Training & Research Setup.png",
+lead:"Advanced research trainer for analyzing performance and control of EV motors used in two-wheeler electric vehicles.",
+features:[
+"Motor performance analysis",
+"Speed and torque monitoring",
+"Motor controller experiments",
+"Research level EV testing",
+"Engineering laboratory setup"
+],
+specs:{
+Motor:"PMSM / BLDC",
+Control:"Motor Controller",
+Application:"Research and development labs"
+},
+badge:"Research"
+},
+
+"3wevdrivetrain":{
+title:"3-Wheeler EV Motor Drivetrain Trainer",
+short:"3-Wheeler EV Drivetrain",
+image:"images/evtechnology/03-Wheeler EV Motor Drivetrain with Loading Facility.png",
+lead:"Three-wheeler electric vehicle drivetrain trainer with mechanical loading for performance analysis.",
+features:[
+"Electric auto drivetrain system",
+"Motor load testing",
+"Battery and controller integration",
+"EV drivetrain diagnostics",
+"Educational EV lab equipment"
+],
+specs:{
+Motor:"Electric traction motor",
+Power:"48–72V battery",
+Application:"EV automotive training labs"
+},
+badge:"EV Trainer"
+},
+
+"3wevsolartrainer":{
+title:"Solar Powered 3-Wheeler EV Trainer",
+short:"Solar EV Trainer",
+image:"images/evtechnology/3-Wheeler Electric Vehicle Training Setup with Solar Powered Charging System .png",
+lead:"Hybrid EV trainer integrating solar charging with electric vehicle drivetrain system.",
+features:[
+"Solar charging module",
+"Battery energy storage system",
+"EV drivetrain operation",
+"Renewable energy integration",
+"Solar powered EV experiments"
+],
+specs:{
+EnergySource:"Solar + Battery",
+Application:"Renewable EV laboratories"
+},
+badge:"Solar EV"
+},
+
+"4wevdrivetrain":{
+title:"4-Wheeler EV Drivetrain Trainer",
+short:"4-Wheeler EV Trainer",
+image:"images/evtechnology/4-Wheeler EV Motor Drivetrain Training & Research Setup .png",
+lead:"Automotive EV training system demonstrating drivetrain architecture used in electric cars.",
+features:[
+"Electric car drivetrain model",
+"Motor and controller study",
+"Battery system integration",
+"EV propulsion demonstration",
+"Automotive engineering training"
+],
+specs:{
+Motor:"Electric traction motor",
+Battery:"Lithium battery pack",
+Application:"Automotive engineering labs"
+},
+badge:"EV Trainer"
+},
+
+evchassisdyno:{
+title:"2-Wheeler EV Chassis Dynamometer",
+short:"EV Chassis Dynamometer",
+image:"images/evtechnology/Electric Vehicle Chassis Dynamometer for 2-Wheeler EVs with Electric 2-Wheeler .png",
+lead:"Testing platform designed for analyzing electric two-wheeler performance under various load conditions.",
+features:[
+"Speed and torque analysis",
+"Vehicle load simulation",
+"Performance monitoring",
+"EV efficiency testing",
+"Automotive diagnostics training"
+],
+specs:{
+Application:"Vehicle testing laboratories",
+Measurement:"Speed, torque and power"
+},
+badge:"Testing System"
+},
+
+evbatterycutsection:{
+title:"EV Motor & Li-Ion Battery Cut Section Trainer",
+short:"EV Battery Cut Section Trainer",
+image:"images/evtechnology/E-Mobility Motors & Li-Ion Battery Cut-Section Display Workbench.png",
+lead:"Educational trainer displaying internal structure of EV motors and lithium-ion battery packs.",
+features:[
+"Cut section motor model",
+"Lithium battery pack display",
+"Battery cell construction study",
+"EV motor internal components",
+"Educational training workstation"
+],
+specs:{
+Battery:"Lithium Ion",
+Application:"EV technology education"
+},
+badge:"Display Trainer"
+},
+
+evgolfkart:{
+title:"EV Golf Cart Working Model",
+short:"EV Golf Cart Model",
+image:"images/evtechnology/EV Golf Kart (Battery Operated) 4-Wheeler Working Model.png",
+lead:"Battery operated electric golf cart model used for demonstration of EV drivetrain operation.",
+features:[
+"Working electric vehicle model",
+"Battery powered propulsion",
+"Motor drive demonstration",
+"Educational EV vehicle platform"
+],
+specs:{
+Power:"Battery operated",
+Application:"EV demonstration labs"
+},
+badge:"Working Model"
+},
+
+"4wevcutsection":{
+title:"4-Wheeler EV Cut Section Model",
+short:"EV Cut Section Model",
+image:"images/evtechnology/Four-Wheeler EV Working Cut-Section Model.png",
+lead:"Cut section electric vehicle model designed to study internal EV drivetrain components.",
+features:[
+"Visible EV drivetrain",
+"Motor and battery layout",
+"Educational vehicle structure",
+"Component identification training"
+],
+specs:{
+Application:"Automotive engineering labs"
+},
+badge:"Cut Section"
+},
+
+hevcarplatform:{
+title:"Hybrid Electric Vehicle Anatomical Platform",
+short:"Hybrid EV Platform",
+image:"images/evtechnology/Full Hybrid Electric Vehicle (HEV) Anatomical Working Car Platform.png",
+lead:"Full hybrid vehicle platform displaying internal architecture of hybrid electric vehicles.",
+features:[
+"Hybrid powertrain system",
+"Engine and motor integration",
+"Energy flow demonstration",
+"Automotive training platform"
+],
+specs:{
+System:"Hybrid Electric Vehicle",
+Application:"Hybrid vehicle education"
+},
+badge:"Hybrid EV"
+},
+
+hevpowertrain:{
+title:"Hybrid Electric Vehicle Powertrain Trainer",
+short:"Hybrid Powertrain Trainer",
+image:"images/evtechnology/Hybrid Electric Vehicle (HEV) Powertrain Training Setup .png",
+lead:"Training system demonstrating interaction between petrol engine and electric motor in hybrid vehicles.",
+features:[
+"Hybrid drivetrain system",
+"Energy distribution analysis",
+"Motor and engine integration",
+"Hybrid vehicle training experiments"
+],
+specs:{
+Powertrain:"Hybrid engine + motor",
+Application:"Automotive engineering"
+},
+badge:"Hybrid"
+},
+
+hydrogenfcev:{
+title:"Hydrogen Fuel Cell EV Trainer",
+short:"Hydrogen Fuel Cell Trainer",
+image:"images/evtechnology/Hydrogen Fuel Cell Electric Vehicle Training System Integrated with Renewable Energy.png",
+lead:"Advanced trainer demonstrating hydrogen fuel cell electric vehicle technology.",
+features:[
+"Hydrogen fuel cell module",
+"Clean energy vehicle system",
+"Electric motor propulsion",
+"Renewable energy integration"
+],
+specs:{
+EnergySource:"Hydrogen Fuel Cell",
+Application:"Advanced EV labs"
+},
+badge:"Hydrogen EV"
+},
+
+smart2wevtrainer:{
+title:"Smart Electric Two-Wheeler Trainer",
+short:"Smart EV Trainer",
+image:"images/evtechnology/Interactive Electric Two-Wheeler Training System with Fault Simulation, IoT & Voice Control.png",
+lead:"IoT enabled EV training system with fault simulation and smart vehicle monitoring.",
+features:[
+"IoT based monitoring",
+"Fault simulation module",
+"Smart EV diagnostics",
+"Automation control integration"
+],
+specs:{
+Technology:"IoT enabled EV system",
+Application:"Smart mobility labs"
+},
+badge:"Smart EV"
+},
+
+mbdcontroller:{
+title:"Model Based Development Real-Time Controller",
+short:"MBD Real-Time Controller",
+image:"images/evtechnology/Model-Based Development (MBD) Real-Time Controller .png",
+lead:"Controller platform for EV system modelling, simulation and real-time development.",
+features:[
+"Model based development system",
+"Real-time controller platform",
+"Simulation and testing tools",
+"EV system development experiments"
+],
+specs:{
+Application:"EV R&D laboratories",
+Control:"Real-time controller"
+},
+badge:"Controller"
+},
+
+evautorickshaw:{
+title:"Electric Auto Rickshaw Cut Section Trainer",
+short:"EV Auto Rickshaw Trainer",
+image:"images/evtechnology/Working Electric Passenger Auto-Rickshaw – Cut-Sectioned Training System .png",
+lead:"Cut section training model displaying internal components of electric passenger auto-rickshaw.",
+features:[
+"Electric auto drivetrain",
+"Battery and motor layout",
+"Educational vehicle structure",
+"Automotive training model"
+],
+specs:{
+VehicleType:"Electric 3-Wheeler",
+Application:"EV technology training"
+},
+badge:"Cut Section"
+},
+
+hybridengine:{
+title:"Hybrid Petrol Engine Working Model",
+short:"Hybrid Engine Model",
+image:"images/evtechnology/Working Model of Hybrid Petrol Engine.png",
+lead:"Educational model demonstrating working principle of hybrid petrol engine systems.",
+features:[
+"Hybrid engine mechanism",
+"Petrol and electric integration",
+"Mechanical motion display",
+"Automotive training equipment"
+],
+specs:{
+EngineType:"Hybrid petrol engine",
+Application:"Automotive education"
+},
+badge:"Hybrid Engine"
+}
+
+      };
+
+      
+
+      // ── ARTICLES DATA – ALL PRODUCTS ──────────────────────────────────
+      const articlesData = {
+
+        // ═══════════════ ELECTRICAL ═══════════════
+        acstarter: {
+          articles: [
+            { img: "images/ac-starter.png.jpg", name: "DOL Starter Module – Direct Online Motor Starting Circuit", code: "IES-E101" },
+            { img: "images/ac-starter.png.jpg", name: "Star-Delta Starter Module – Reduced Voltage Starting", code: "IES-E102" },
+            { img: "images/ac-starter.png.jpg", name: "Motor Control Circuit Panel – Contactors & Relays", code: "IES-E103" },
+            { img: "images/ac-starter.png.jpg", name: "Overload Protection & Safety Circuit Module", code: "IES-E104" }
+          ],
+          required: [
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Basic Electricity & Electronics Training Kit", code: "IES-E201", link: "basicelectrical" },
+            { img: "images/sensor.png", name: "Industrial Sensor Trainer Kit", code: "IES-E200", link: "industrialSensor" }
+          ],
+          recommended: [
+            { img: "images/Electrical-Installation-Trainer.png", name: "Electrical Installation Trainer", code: "IES-E301", link: "installation" }
+          ]
+        ,
+          accessories: [
+            { img: "images/sensor.png", name: "Connecting Leads & Patch Cords Set", code: "ACC-001" },
+            { img: "images/sensor.png", name: "Motor Control Experiment Manual", code: "ACC-002" },
+            { img: "images/sensor.png", name: "Safety Goggles & Protective Equipment", code: "ACC-003" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Electrical-Installation-Trainer.png", name: "Electrician Tool Kit", code: "ACC-760" },
+            { img: "images/Electrical-Installation-Trainer.png", name: "Spare MCB & Isolator Set", code: "ACC-761" },
+            { img: "images/Electrical-Installation-Trainer.png", name: "Electrical Installation Lab Manual", code: "ACC-762" }
+          ]
+        ,
+          accessories: [
+            { img: "images/sensor.png", name: "M12 Sensor Connector & Extension Cable Kit", code: "ACC-730" },
+            { img: "images/sensor.png", name: "Sensor Mounting Bracket Set", code: "ACC-731" },
+            { img: "images/sensor.png", name: "Sensor Training Lab Manual", code: "ACC-732" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "USB Programming & Debug Cable", code: "ACC-740" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "WiFi & Bluetooth Expansion Module", code: "ACC-741" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "Microcontroller Lab Manual", code: "ACC-742" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Electronic Component Assorted Kit", code: "ACC-750" },
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Soldering Station & Tool Kit", code: "ACC-751" },
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Electronics Lab Manual", code: "ACC-752" }
+          ]
+        },
+        basicelectrical: {
+          articles: [
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Basic Electricity Module – Ohm's Law & Circuit Analysis", code: "IES-BE101" },
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Basic Electronics Module – Diodes & Rectifier Circuits", code: "IES-BE102" },
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Basic Electronics Module – Transistor & Amplifiers", code: "IES-BE103" },
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Electrical Measurements – Voltage, Current & Power", code: "IES-BE104" }
+          ],
+          required: [
+            { img: "images/sensor.png", name: "Industrial Sensor Trainer Kit", code: "IES-E200", link: "industrialSensor" }
+          ],
+          recommended: [
+            { img: "images/COMMUNICATION-TRAINING-KIT.png", name: "Communication Training Kit", code: "IES-E310", link: "communication" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Breadboard & Component Kit", code: "ACC-010" },
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Digital Multimeter", code: "ACC-011" },
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Experiment Manual – Basic Electricity", code: "ACC-012" }
+          ]
+        },
+        communication: {
+          articles: [
+            { img: "images/COMMUNICATION-TRAINING-KIT.png", name: "AM / FM Modulation & Demodulation Module", code: "IES-C101" },
+            { img: "images/COMMUNICATION-TRAINING-KIT.png", name: "Digital Communication – PCM & TDM Module", code: "IES-C102" },
+            { img: "images/COMMUNICATION-TRAINING-KIT.png", name: "Fiber Optic Communication Training Module", code: "IES-C103" },
+            { img: "images/COMMUNICATION-TRAINING-KIT.png", name: "Signal Transmission & Reception Experiments", code: "IES-C104" }
+          ],
+          required: [
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Basic Electricity & Electronics Training Kit", code: "IES-E201", link: "basicelectrical" }
+          ],
+          recommended: [
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "Micro-Controller Training Kit – IES 2044", code: "IES-2044", link: "microcontroller" }
+          ]
+        ,
+          accessories: [
+            { img: "images/COMMUNICATION-TRAINING-KIT.png", name: "BNC Coaxial Cable Set", code: "ACC-020" },
+            { img: "images/COMMUNICATION-TRAINING-KIT.png", name: "Signal Generator Probe Kit", code: "ACC-021" },
+            { img: "images/COMMUNICATION-TRAINING-KIT.png", name: "Communication Lab Manual", code: "ACC-022" }
+          ]
+        },
+        conveyor: {
+          articles: [
+            { img: "images/Conveyor-Training-Kit-IES-7005.png", name: "Conveyor Belt Drive & Motor Control Module", code: "IES-CV101" },
+            { img: "images/Conveyor-Training-Kit-IES-7005.png", name: "Conveyor PLC Integration & Sequencing Module", code: "IES-CV102" },
+            { img: "images/Conveyor-Training-Kit-IES-7005.png", name: "Sensor-Based Object Detection & Sorting Module", code: "IES-CV103" }
+          ],
+          required: [
+            { img: "images/sensor.png", name: "Industrial Sensor Trainer Kit", code: "IES-E200", link: "industrialSensor" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/basic-plc.jpg", name: "Basic PLC Trainer", code: "IES-PLC001", link: "basicplc" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Conveyor-Training-Kit-IES-7005.png", name: "Replacement Conveyor Belt", code: "ACC-030" },
+            { img: "images/Conveyor-Training-Kit-IES-7005.png", name: "PLC Interface Cable Set", code: "ACC-031" },
+            { img: "images/Conveyor-Training-Kit-IES-7005.png", name: "Conveyor System Lab Manual", code: "ACC-032" }
+          ]
+        },
+        dcmotor: {
+          articles: [
+            { img: "images/DC-Shunt-Motor-Compound-Generator.png", name: "DC Shunt Motor – Speed Control Experiment Module", code: "IES-DC101" },
+            { img: "images/DC-Shunt-Motor-Compound-Generator.png", name: "DC Compound Generator – Load Test Module", code: "IES-DC102" },
+            { img: "images/DC-Shunt-Motor-Compound-Generator.png", name: "DC Motor – Torque & Speed Characteristics Module", code: "IES-DC103" },
+            { img: "images/DC-Shunt-Motor-Compound-Generator.png", name: "Performance Analysis & Efficiency Measurement Module", code: "IES-DC104" }
+          ],
+          required: [
+            { img: "images/ELECTRICAL-BASIC-PRINCIPLE-TRAINER-Kit.jpg", name: "Electrical Basic Principle Trainer Kit", code: "IES-E202", link: "basicprinciple" }
+          ],
+          recommended: [
+            { img: "images/Electrical-Installation-Trainer.png", name: "Electrical Installation Trainer", code: "IES-E301", link: "installation" }
+          ]
+        ,
+          accessories: [
+            { img: "images/DC-Shunt-Motor-Compound-Generator.png", name: "Loading Rheostat Set", code: "ACC-040" },
+            { img: "images/DC-Shunt-Motor-Compound-Generator.png", name: "Tachometer – Digital RPM Meter", code: "ACC-041" },
+            { img: "images/DC-Shunt-Motor-Compound-Generator.png", name: "DC Machines Lab Manual", code: "ACC-042" }
+          ]
+        },
+        dissectible: {
+          articles: [
+            { img: "images/Dissectible-Machine-Training-Kit.png", name: "Dissectible Induction Motor – Internal Construction Module", code: "IES-DM101" },
+            { img: "images/Dissectible-Machine-Training-Kit.png", name: "Dissectible Transformer – Core & Winding Study Module", code: "IES-DM102" },
+            { img: "images/Dissectible-Machine-Training-Kit.png", name: "Dissectible DC Machine – Armature & Field Study", code: "IES-DM103" }
+          ],
+          required: [
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Basic Electricity & Electronics Training Kit", code: "IES-E201", link: "basicelectrical" }
+          ],
+          recommended: [
+            { img: "images/DC-Shunt-Motor-Compound-Generator.png", name: "DC Motor & Generator Training Kit", code: "IES-DC100", link: "dcmotor" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Dissectible-Machine-Training-Kit.png", name: "Dissectible Machine Spare Parts Kit", code: "ACC-050" },
+            { img: "images/Dissectible-Machine-Training-Kit.png", name: "Assembly & Disassembly Tool Set", code: "ACC-051" },
+            { img: "images/Dissectible-Machine-Training-Kit.png", name: "Electrical Machines Lab Manual", code: "ACC-052" }
+          ]
+        },
+        basicprinciple: {
+          articles: [
+            { img: "images/ELECTRICAL-BASIC-PRINCIPLE-TRAINER-Kit.jpg", name: "Circuit Laws – Kirchhoff's Voltage & Current Law Module", code: "IES-BP101" },
+            { img: "images/ELECTRICAL-BASIC-PRINCIPLE-TRAINER-Kit.jpg", name: "Electrical Measurements – Instruments & Techniques", code: "IES-BP102" },
+            { img: "images/ELECTRICAL-BASIC-PRINCIPLE-TRAINER-Kit.jpg", name: "AC & DC Circuit Analysis Module", code: "IES-BP103" },
+            { img: "images/ELECTRICAL-BASIC-PRINCIPLE-TRAINER-Kit.jpg", name: "Electrical Wiring & Connection Concepts Module", code: "IES-BP104" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/sensor.png", name: "Industrial Sensor Trainer Kit", code: "IES-E200", link: "industrialSensor" }
+          ]
+        ,
+          accessories: [
+            { img: "images/ELECTRICAL-BASIC-PRINCIPLE-TRAINER-Kit.jpg", name: "Patch Cord & Banana Plug Set", code: "ACC-060" },
+            { img: "images/ELECTRICAL-BASIC-PRINCIPLE-TRAINER-Kit.jpg", name: "Spare Fuse & Component Kit", code: "ACC-061" },
+            { img: "images/ELECTRICAL-BASIC-PRINCIPLE-TRAINER-Kit.jpg", name: "Electrical Principles Lab Manual", code: "ACC-062" }
+          ]
+        },
+        installation: {
+          articles: [
+            { img: "images/Electrical-Installation-Trainer.png", name: "Domestic Wiring – Single Phase Installation Module", code: "IES-IN101" },
+            { img: "images/Electrical-Installation-Trainer.png", name: "Industrial Wiring – Three Phase Distribution Module", code: "IES-IN102" },
+            { img: "images/Electrical-Installation-Trainer.png", name: "Protection Devices – MCB, ELCB & Fuse Module", code: "IES-IN103" },
+            { img: "images/Electrical-Installation-Trainer.png", name: "Distribution Board Wiring & Energy Metering Module", code: "IES-IN104" }
+          ],
+          required: [
+            { img: "images/ELECTRICAL-BASIC-PRINCIPLE-TRAINER-Kit.jpg", name: "Electrical Basic Principle Trainer Kit", code: "IES-E202", link: "basicprinciple" }
+          ],
+          recommended: [
+            { img: "images/ac-starter.png.jpg", name: "AC Starter Training Kit", code: "IES-E100", link: "acstarter" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Electrical-Installation-Trainer.png", name: "Electrician Tool Kit", code: "ACC-760" },
+            { img: "images/Electrical-Installation-Trainer.png", name: "Spare MCB & Isolator Set", code: "ACC-761" },
+            { img: "images/Electrical-Installation-Trainer.png", name: "Electrical Installation Lab Manual", code: "ACC-762" }
+          ]
+        },
+        industrialSensor: {
+          articles: [
+            { img: "images/sensor.png", name: "Inductive Proximity Sensor – Detection & Output Module", code: "IES-IS101" },
+            { img: "images/sensor.png", name: "Capacitive Proximity Sensor Module", code: "IES-IS102" },
+            { img: "images/sensor.png", name: "Photoelectric Sensor – Through Beam & Diffuse Module", code: "IES-IS103" },
+            { img: "images/sensor.png", name: "Pressure Sensor & Signal Conditioning Module", code: "IES-IS104" }
+          ],
+          required: [
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "Micro-Controller Training Kit", code: "IES-2044", link: "microcontroller" }
+          ],
+          recommended: [
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Basic Electricity & Electronics Training Kit", code: "IES-E201", link: "basicelectrical" }
+          ]
+        ,
+          accessories: [
+            { img: "images/sensor.png", name: "Sensor Mounting Bracket Set", code: "ACC-080" },
+            { img: "images/sensor.png", name: "M12 Sensor Connector & Cable Kit", code: "ACC-081" },
+            { img: "images/sensor.png", name: "Industrial Sensor Lab Manual", code: "ACC-082" }
+          ]
+        },
+
+        // ═══════════════ ELECTRONICS ═══════════════
+        electronicsbasic: {
+          articles: [
+            { img: "images/Basic Electricity and Electronics Fundamental Trainer.jpeg", name: "Circuit Fundamentals – Resistor, Capacitor & Inductor Module", code: "IES-EL101" },
+            { img: "images/Basic Electricity and Electronics Fundamental Trainer.jpeg", name: "Semiconductor Devices – Diode & Transistor Module", code: "IES-EL102" },
+            { img: "images/Basic Electricity and Electronics Fundamental Trainer.jpeg", name: "Practical Measurements – Multimeter & Oscilloscope Use", code: "IES-EL103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Electronic Workbench with Analog Trainer – IES4041.png", name: "Electronic Workbench with Analog Trainer – IES4041", code: "IES-4041", link: "analogtrainer" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Basic Electricity and Electronics Fundamental Trainer.jpeg", name: "Electronic Component Starter Kit", code: "ACC-090" },
+            { img: "images/Basic Electricity and Electronics Fundamental Trainer.jpeg", name: "Digital Multimeter", code: "ACC-091" },
+            { img: "images/Basic Electricity and Electronics Fundamental Trainer.jpeg", name: "Electronics Fundamentals Lab Manual", code: "ACC-092" }
+          ]
+        },
+        analogtrainer: {
+          articles: [
+            { img: "images/Electronic Workbench with Analog Trainer – IES4041.png", name: "Diode Characteristics & Rectifier Circuit Module", code: "IES-AT101" },
+            { img: "images/Electronic Workbench with Analog Trainer – IES4041.png", name: "Transistor Biasing & Amplifier Circuit Module", code: "IES-AT102" },
+            { img: "images/Electronic Workbench with Analog Trainer – IES4041.png", name: "Operational Amplifier (Op-Amp) Experiments Module", code: "IES-AT103" },
+            { img: "images/Electronic Workbench with Analog Trainer – IES4041.png", name: "Oscillator & Waveform Generation Module", code: "IES-AT104" }
+          ],
+          required: [
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "Electronic Workbench with Instrument Panel", code: "IES-EL200", link: "instrumentpanel" }
+          ],
+          recommended: [
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "Digital Oscilloscope – 4000 Series", code: "IES-OS401", link: "oscilloscope4000" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Electronic Workbench with Analog Trainer – IES4041.png", name: "Oscilloscope Probe Set", code: "ACC-100" },
+            { img: "images/Electronic Workbench with Analog Trainer – IES4041.png", name: "Function Generator Cables", code: "ACC-101" },
+            { img: "images/Electronic Workbench with Analog Trainer – IES4041.png", name: "Analog Electronics Lab Manual", code: "ACC-102" }
+          ]
+        },
+        instrumentpanel: {
+          articles: [
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "Power Supply Unit – Variable DC & Fixed AC Module", code: "IES-IP101" },
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "Function Generator & Signal Source Module", code: "IES-IP102" },
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "Digital Multimeter & Measurement Tools Module", code: "IES-IP103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "Digital Oscilloscope – 4000 Series", code: "IES-OS401", link: "oscilloscope4000" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "BNC to Alligator Clip Adapter Set", code: "ACC-110" },
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "Test Probe & Lead Kit", code: "ACC-111" },
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "Workbench Instrument Manual", code: "ACC-112" }
+          ]
+        },
+        electronicslab: {
+          articles: [
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Electronic Component Identification & Testing Module", code: "IES-ELT101" },
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Circuit Design & Breadboard Prototyping Module", code: "IES-ELT102" },
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Troubleshooting & Fault Finding in Electronic Circuits", code: "IES-ELT103" }
+          ],
+          required: [
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "Electronic Workbench with Instrument Panel", code: "IES-EL200", link: "instrumentpanel" }
+          ],
+          recommended: [
+            { img: "images/Electronic Workbench with Analog Trainer – IES4041.png", name: "Analog Trainer – IES4041", code: "IES-4041", link: "analogtrainer" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Breadboard & Jumper Wire Kit", code: "ACC-120" },
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Component Tray & Storage Box", code: "ACC-121" },
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Electronics Lab Manual", code: "ACC-122" }
+          ]
+        },
+        industrialsensor: {
+          articles: [
+            { img: "images/INDUSTRIAL SENSOR TRAINER KIT.jpeg", name: "Inductive & Capacitive Proximity Sensor Module", code: "IES-IST101" },
+            { img: "images/INDUSTRIAL SENSOR TRAINER KIT.jpeg", name: "Photoelectric & Ultrasonic Sensor Module", code: "IES-IST102" },
+            { img: "images/INDUSTRIAL SENSOR TRAINER KIT.jpeg", name: "Temperature & Pressure Sensor Signal Module", code: "IES-IST103" },
+            { img: "images/INDUSTRIAL SENSOR TRAINER KIT.jpeg", name: "Sensor Wiring & Industrial Interface Module", code: "IES-IST104" }
+          ],
+          required: [
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "Micro-Controller Training Kit – IES 2044", code: "IES-2044", link: "microcontroller" }
+          ],
+          recommended: [
+            { img: "images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png", name: "Analog & Digital Sensor Trainer – IES 2040", code: "IES-2040", link: "analogsensortrainer" }
+          ]
+        ,
+          accessories: [
+            { img: "images/INDUSTRIAL SENSOR TRAINER KIT.jpeg", name: "Sensor Cable & Connector Kit", code: "ACC-130" },
+            { img: "images/INDUSTRIAL SENSOR TRAINER KIT.jpeg", name: "DIN Rail Mounting Kit", code: "ACC-131" },
+            { img: "images/INDUSTRIAL SENSOR TRAINER KIT.jpeg", name: "Sensor Training Lab Manual", code: "ACC-132" }
+          ]
+        },
+        microcontroller: {
+          articles: [
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "Microcontroller Programming – I/O & Timer Module", code: "IES-MC101" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "LCD & Keypad Interfacing Experiments Module", code: "IES-MC102" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "UART / SPI / I2C Communication Protocol Module", code: "IES-MC103" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "ADC, PWM & Motor Control Experiments Module", code: "IES-MC104" }
+          ],
+          required: [
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "Electronic Workbench with Instrument Panel", code: "IES-EL200", link: "instrumentpanel" }
+          ],
+          recommended: [
+            { img: "images/INDUSTRIAL SENSOR TRAINER KIT.jpeg", name: "Industrial Sensor Trainer Kit", code: "IES-IST100", link: "industrialSensor" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "USB Programming Cable", code: "ACC-140" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "Expansion Module – Bluetooth & WiFi", code: "ACC-141" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "Microcontroller Programming Manual", code: "ACC-142" }
+          ]
+        },
+
+        // ═══════════════ MECHANICAL ═══════════════
+        refrigeration: {
+          articles: [
+            { img: "images/mechanical/Basic Refrigeration Trainer.jpeg", name: "Vapor Compression Refrigeration Cycle Module", code: "IES-M101" },
+            { img: "images/mechanical/Basic Refrigeration Trainer.jpeg", name: "COP Measurement & Energy Performance Module", code: "IES-M102" },
+            { img: "images/mechanical/Basic Refrigeration Trainer.jpeg", name: "Refrigerant Properties & Phase Change Study Module", code: "IES-M103" },
+            { img: "images/mechanical/Basic Refrigeration Trainer.jpeg", name: "Compressor & Condenser Performance Module", code: "IES-M104" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/mechanical/Hydraulic Trainer Kits.jpg", name: "Hydraulic Trainer Kit", code: "IES-M201", link: "hydraulic" }
+          ]
+        ,
+          accessories: [
+            { img: "images/mechanical/Basic Refrigeration Trainer.jpeg", name: "Refrigerant Handling Tool Kit", code: "ACC-150" },
+            { img: "images/mechanical/Basic Refrigeration Trainer.jpeg", name: "Digital Thermometer & Pressure Gauge Set", code: "ACC-151" },
+            { img: "images/mechanical/Basic Refrigeration Trainer.jpeg", name: "Refrigeration Lab Manual", code: "ACC-152" }
+          ]
+        },
+        pneumatic: {
+          articles: [
+            { img: "images/mechanical/basic-pneumatic-trainer.jpg", name: "Air Preparation Unit – FRL Components Module", code: "IES-P101" },
+            { img: "images/mechanical/basic-pneumatic-trainer.jpg", name: "Directional Control Valve – 3/2, 5/2 & 5/3 Way Module", code: "IES-P102" },
+            { img: "images/mechanical/basic-pneumatic-trainer.jpg", name: "Pneumatic Cylinder & Linear Actuator Module", code: "IES-P103" },
+            { img: "images/mechanical/basic-pneumatic-trainer.jpg", name: "Pneumatic Sequencing & Logic Circuit Module", code: "IES-P104" }
+          ],
+          required: [
+            { img: "images/mechanical/Electro Pneumatic Trainer Kit .png", name: "Electro Pneumatic Trainer Kit", code: "IES-P201", link: "electropneumatic" }
+          ],
+          recommended: [
+            { img: "images/mechanical/Hydraulic Trainer Kits.jpg", name: "Hydraulic Trainer Kit", code: "IES-M201", link: "hydraulic" }
+          ]
+        ,
+          accessories: [
+            { img: "images/mechanical/basic-pneumatic-trainer.jpg", name: "Pneumatic Tubing & Fitting Kit", code: "ACC-160" },
+            { img: "images/mechanical/basic-pneumatic-trainer.jpg", name: "Air Pressure Gauge Set", code: "ACC-161" },
+            { img: "images/mechanical/basic-pneumatic-trainer.jpg", name: "Pneumatics Lab Manual", code: "ACC-162" }
+          ]
+        },
+        hydraulic: {
+          articles: [
+            { img: "images/mechanical/Hydraulic Trainer Kits.jpg", name: "Hydraulic Pump & Pressure Regulation Module", code: "IES-H101" },
+            { img: "images/mechanical/Hydraulic Trainer Kits.jpg", name: "Hydraulic Directional Control Valve Module", code: "IES-H102" },
+            { img: "images/mechanical/Hydraulic Trainer Kits.jpg", name: "Hydraulic Cylinder & Actuator Control Module", code: "IES-H103" },
+            { img: "images/mechanical/Hydraulic Trainer Kits.jpg", name: "Fluid Power Circuit Design & Analysis Module", code: "IES-H104" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/mechanical/ELECTRO-HYDRAULIC TRAINING KIT.png", name: "Electro-Hydraulic Training Kit", code: "IES-EH100", link: "electrohydraulic" }
+          ]
+        ,
+          accessories: [
+            { img: "images/mechanical/Hydraulic Trainer Kits.jpg", name: "Hydraulic Hose & Fitting Kit", code: "ACC-170" },
+            { img: "images/mechanical/Hydraulic Trainer Kits.jpg", name: "Pressure Gauge & Flow Meter Set", code: "ACC-171" },
+            { img: "images/mechanical/Hydraulic Trainer Kits.jpg", name: "Hydraulics Lab Manual", code: "ACC-172" }
+          ]
+        },
+        electrohydraulic: {
+          articles: [
+            { img: "images/mechanical/ELECTRO-HYDRAULIC TRAINING KIT.png", name: "Electro-Hydraulic – Solenoid Valve Control Module", code: "IES-EH101" },
+            { img: "images/mechanical/ELECTRO-HYDRAULIC TRAINING KIT.png", name: "Electro-Hydraulic – Proportional Valve Module", code: "IES-EH102" },
+            { img: "images/mechanical/ELECTRO-HYDRAULIC TRAINING KIT.png", name: "PLC Controlled Hydraulic Circuit Module", code: "IES-EH103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/basic-plc.jpg", name: "Basic PLC Trainer", code: "IES-PLC001", link: "basicplc" }
+          ],
+          recommended: [
+            { img: "images/mechanical/Hydraulic Trainer Kits.jpg", name: "Hydraulic Trainer Kit", code: "IES-M201", link: "hydraulic" }
+          ]
+        ,
+          accessories: [
+            { img: "images/mechanical/ELECTRO-HYDRAULIC TRAINING KIT.png", name: "Solenoid Valve Spare Parts Kit", code: "ACC-180" },
+            { img: "images/mechanical/ELECTRO-HYDRAULIC TRAINING KIT.png", name: "PLC I/O Interface Cable Set", code: "ACC-181" },
+            { img: "images/mechanical/ELECTRO-HYDRAULIC TRAINING KIT.png", name: "Electro-Hydraulics Lab Manual", code: "ACC-182" }
+          ]
+        },
+        electrohydraulictrainer: {
+          articles: [
+            { img: "images/mechanical/Electro Hydraulic Trainer Kit.png", name: "Hydraulic Workstation – Pump & Tank Assembly Module", code: "IES-EHT101" },
+            { img: "images/mechanical/Electro Hydraulic Trainer Kit.png", name: "Solenoid Operated Directional Control Valve Module", code: "IES-EHT102" },
+            { img: "images/mechanical/Electro Hydraulic Trainer Kit.png", name: "Pressure Relief & Flow Control Valve Module", code: "IES-EHT103" }
+          ],
+          required: [
+            { img: "images/mechanical/Hydraulic Trainer Kits.jpg", name: "Hydraulic Trainer Kit", code: "IES-M201", link: "hydraulic" }
+          ],
+          recommended: []
+        ,
+          accessories: [
+            { img: "images/mechanical/Electro Hydraulic Trainer Kit.png", name: "Hydraulic Seal & O-Ring Replacement Kit", code: "ACC-190" },
+            { img: "images/mechanical/Electro Hydraulic Trainer Kit.png", name: "Hydraulic Fluid – Food Grade Oil", code: "ACC-191" },
+            { img: "images/mechanical/Electro Hydraulic Trainer Kit.png", name: "Hydraulic Workstation Manual", code: "ACC-192" }
+          ]
+        },
+        electropneumatic: {
+          articles: [
+            { img: "images/mechanical/Electro Pneumatic Trainer Kit .png", name: "Electro-Pneumatic – Solenoid Valve & Actuator Module", code: "IES-EP101" },
+            { img: "images/mechanical/Electro Pneumatic Trainer Kit .png", name: "Relay & PLC Controlled Pneumatic Circuit Module", code: "IES-EP102" },
+            { img: "images/mechanical/Electro Pneumatic Trainer Kit .png", name: "Electro-Pneumatic Sequence Control Module", code: "IES-EP103" }
+          ],
+          required: [
+            { img: "images/mechanical/basic-pneumatic-trainer.jpg", name: "Pneumatic Trainer Kit", code: "IES-P100", link: "pneumatic" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/basic-plc.jpg", name: "Basic PLC Trainer", code: "IES-PLC001", link: "basicplc" }
+          ]
+        ,
+          accessories: [
+            { img: "images/mechanical/Electro Pneumatic Trainer Kit .png", name: "Pneumatic Push-In Fitting Kit", code: "ACC-200" },
+            { img: "images/mechanical/Electro Pneumatic Trainer Kit .png", name: "Relay & Timer Spare Module", code: "ACC-201" },
+            { img: "images/mechanical/Electro Pneumatic Trainer Kit .png", name: "Electro-Pneumatics Lab Manual", code: "ACC-202" }
+          ]
+        },
+
+        // ═══════════════ MECHATRONICS & ROBOTICS ═══════════════
+        sixaxisrobot: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/6 Axis Articulated Training Robot Kit.jpeg", name: "6-Axis Robot – Basic Motion & Joint Programming Module", code: "IES-R101" },
+            { img: "images/Mechatronics, Robotics and Automation/6 Axis Articulated Training Robot Kit.jpeg", name: "6-Axis Robot – Pick & Place Automation Module", code: "IES-R102" },
+            { img: "images/Mechatronics, Robotics and Automation/6 Axis Articulated Training Robot Kit.jpeg", name: "6-Axis Robot – Path Planning & Trajectory Module", code: "IES-R103" },
+            { img: "images/Mechatronics, Robotics and Automation/6 Axis Articulated Training Robot Kit.jpeg", name: "Robot Programming Software & Simulation Module", code: "IES-R104" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png", name: "Robot Training Cell", code: "IES-R200", link: "robotcell" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "Integrated Smart Control System with SCADA", code: "IES-SC100", link: "scadasystem" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/6 Axis Articulated Training Robot Kit.jpeg", name: "Robot Gripper – Pneumatic Parallel Type", code: "ACC-210" },
+            { img: "images/Mechatronics, Robotics and Automation/6 Axis Articulated Training Robot Kit.jpeg", name: "Vision Camera Module for Robot", code: "ACC-211" },
+            { img: "images/Mechatronics, Robotics and Automation/6 Axis Articulated Training Robot Kit.jpeg", name: "Robot Programming Software License", code: "ACC-212" }
+          ]
+        },
+        advanceplc: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "Advanced PLC – Ladder Logic Programming Module", code: "IES-PLC201" },
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "Advanced PLC – Function Block Diagram (FBD) Module", code: "IES-PLC202" },
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "Advanced PLC – HMI Integration & SCADA Module", code: "IES-PLC203" },
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "Advanced PLC – Communication & Networking Module", code: "IES-PLC204" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/basic-plc.jpg", name: "Basic PLC Trainer", code: "IES-PLC001", link: "basicplc" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "Integrated SCADA System", code: "IES-SC100", link: "scadasystem" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "PLC Expansion I/O Module", code: "ACC-220" },
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "HMI Touch Panel – 7 inch", code: "ACC-221" },
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "PLC Programming Lab Manual", code: "ACC-222" }
+          ]
+        },
+        productionmodule: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/MINIATURE INDUSTRIAL PRODUCTION SYSTEM.png", name: "Material Handling & Conveyor System Module", code: "IES-MP101" },
+            { img: "images/Mechatronics, Robotics and Automation/MINIATURE INDUSTRIAL PRODUCTION SYSTEM.png", name: "Sorting & Detection System Module", code: "IES-MP102" },
+            { img: "images/Mechatronics, Robotics and Automation/MINIATURE INDUSTRIAL PRODUCTION SYSTEM.png", name: "Assembly & Pick-Place Automation Module", code: "IES-MP103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "Advance PLC Training Kit", code: "IES-PLC200", link: "advanceplc" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png", name: "Robot Training Cell", code: "IES-R200", link: "robotcell" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/MINIATURE INDUSTRIAL PRODUCTION SYSTEM.png", name: "Spare Sensor & Actuator Kit", code: "ACC-230" },
+            { img: "images/Mechatronics, Robotics and Automation/MINIATURE INDUSTRIAL PRODUCTION SYSTEM.png", name: "Conveyor Belt Replacement Kit", code: "ACC-231" },
+            { img: "images/Mechatronics, Robotics and Automation/MINIATURE INDUSTRIAL PRODUCTION SYSTEM.png", name: "Industrial Production Lab Manual", code: "ACC-232" }
+          ]
+        },
+        robotcell: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png", name: "Robot Training Cell – Basic Motion Programming Module", code: "IES-RC101" },
+            { img: "images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png", name: "Robot Training Cell – Pick & Place with Gripper Module", code: "IES-RC102" },
+            { img: "images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png", name: "Robot Training Cell – Integration with Conveyor Module", code: "IES-RC103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/6 Axis Articulated Training Robot Kit.jpeg", name: "6 Axis Articulated Robot Training Kit", code: "IES-R100", link: "sixaxisrobot" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "SCADA System", code: "IES-SC100", link: "scadasystem" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png", name: "Gripper Finger Replacement Set", code: "ACC-240" },
+            { img: "images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png", name: "Safety Light Curtain Module", code: "ACC-241" },
+            { img: "images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png", name: "Robot Cell Lab Manual", code: "ACC-242" }
+          ]
+        },
+        scadasystem: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "SCADA – Real-Time Process Monitoring Module", code: "IES-SC101" },
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "SCADA – HMI Screen Design & Configuration Module", code: "IES-SC102" },
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "SCADA – PLC Communication & Data Logging Module", code: "IES-SC103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "Advance PLC Training Kit", code: "IES-PLC200", link: "advanceplc" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/MINIATURE INDUSTRIAL PRODUCTION SYSTEM.png", name: "Miniature Industrial Production System", code: "IES-MP100", link: "productionmodule" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "SCADA Software License – Runtime", code: "ACC-250" },
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "Ethernet Switch & Network Cable Kit", code: "ACC-251" },
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "SCADA Lab Manual", code: "ACC-252" }
+          ]
+        },
+        automationtrainer: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/Automation Trainer Kit-Industrial 4.0 Automation System Kit.jpg", name: "Industry 4.0 – IIoT Connectivity & Smart Sensors Module", code: "IES-A101" },
+            { img: "images/Mechatronics, Robotics and Automation/Automation Trainer Kit-Industrial 4.0 Automation System Kit.jpg", name: "Industry 4.0 – PLC & HMI Integration Module", code: "IES-A102" },
+            { img: "images/Mechatronics, Robotics and Automation/Automation Trainer Kit-Industrial 4.0 Automation System Kit.jpg", name: "Industry 4.0 – Cloud Monitoring & Dashboard Module", code: "IES-A103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "Advance PLC Training Kit", code: "IES-PLC200", link: "advanceplc" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "SCADA System", code: "IES-SC100", link: "scadasystem" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/Automation Trainer Kit-Industrial 4.0 Automation System Kit.jpg", name: "IoT Gateway Module", code: "ACC-260" },
+            { img: "images/Mechatronics, Robotics and Automation/Automation Trainer Kit-Industrial 4.0 Automation System Kit.jpg", name: "Industry 4.0 Dashboard Software", code: "ACC-261" },
+            { img: "images/Mechatronics, Robotics and Automation/Automation Trainer Kit-Industrial 4.0 Automation System Kit.jpg", name: "Industry 4.0 Lab Manual", code: "ACC-262" }
+          ]
+        },
+        basicplc: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/basic-plc.jpg", name: "Basic PLC – Introduction to Ladder Logic Module", code: "IES-PLC101" },
+            { img: "images/Mechatronics, Robotics and Automation/basic-plc.jpg", name: "Basic PLC – Input/Output Wiring & Configuration Module", code: "IES-PLC102" },
+            { img: "images/Mechatronics, Robotics and Automation/basic-plc.jpg", name: "Basic PLC – Timer, Counter & Latch Experiments Module", code: "IES-PLC103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "Advance PLC Training Kit", code: "IES-PLC200", link: "advanceplc" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/basic-plc.jpg", name: "PLC Programming Cable – USB Type", code: "ACC-270" },
+            { img: "images/Mechatronics, Robotics and Automation/basic-plc.jpg", name: "Spare Input/Output Module", code: "ACC-271" },
+            { img: "images/Mechatronics, Robotics and Automation/basic-plc.jpg", name: "Basic PLC Lab Manual", code: "ACC-272" }
+          ]
+        },
+        bottlefilling: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/Bottle Filling Module Training Kit.png", name: "Bottle Filling – Conveyor & Positioning Module", code: "IES-BF101" },
+            { img: "images/Mechatronics, Robotics and Automation/Bottle Filling Module Training Kit.png", name: "Bottle Filling – Liquid Level Sensing Module", code: "IES-BF102" },
+            { img: "images/Mechatronics, Robotics and Automation/Bottle Filling Module Training Kit.png", name: "Bottle Filling – Capping & Ejection Automation Module", code: "IES-BF103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/basic-plc.jpg", name: "Basic PLC Trainer", code: "IES-PLC001", link: "basicplc" }
+          ],
+          recommended: [
+            { img: "images/sensor.png", name: "Industrial Sensor Trainer Kit", code: "IES-E200", link: "industrialSensor" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/Bottle Filling Module Training Kit.png", name: "Spare Solenoid Valve Kit", code: "ACC-280" },
+            { img: "images/Mechatronics, Robotics and Automation/Bottle Filling Module Training Kit.png", name: "Proximity Sensor Replacement Set", code: "ACC-281" },
+            { img: "images/Mechatronics, Robotics and Automation/Bottle Filling Module Training Kit.png", name: "Bottle Filling System Lab Manual", code: "ACC-282" }
+          ]
+        },
+        buildingautomation: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/Building Automation Training Booth.jpeg", name: "Building Automation – HVAC Control System Module", code: "IES-BA101" },
+            { img: "images/Mechatronics, Robotics and Automation/Building Automation Training Booth.jpeg", name: "Building Automation – Lighting Control & Energy Management Module", code: "IES-BA102" },
+            { img: "images/Mechatronics, Robotics and Automation/Building Automation Training Booth.jpeg", name: "Building Automation – Access Control & Security Module", code: "IES-BA103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/CCTV Security System Training Kit.jpeg", name: "CCTV Security System Training Kit", code: "IES-CCTV100", link: "cctvtraining" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/Fire Alarm Demonstrator.jpeg", name: "Fire Alarm Demonstrator", code: "IES-FA100", link: "firealarm" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/Building Automation Training Booth.jpeg", name: "BACnet/Modbus Communication Module", code: "ACC-290" },
+            { img: "images/Mechatronics, Robotics and Automation/Building Automation Training Booth.jpeg", name: "Smart Sensor Kit – PIR & CO2", code: "ACC-291" },
+            { img: "images/Mechatronics, Robotics and Automation/Building Automation Training Booth.jpeg", name: "Building Automation Lab Manual", code: "ACC-292" }
+          ]
+        },
+        cctvtraining: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/CCTV Security System Training Kit.jpeg", name: "CCTV – Camera Installation & Alignment Module", code: "IES-CCTV101" },
+            { img: "images/Mechatronics, Robotics and Automation/CCTV Security System Training Kit.jpeg", name: "CCTV – DVR/NVR Configuration & Monitoring Module", code: "IES-CCTV102" },
+            { img: "images/Mechatronics, Robotics and Automation/CCTV Security System Training Kit.jpeg", name: "CCTV – Network Video Surveillance Module", code: "IES-CCTV103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/Building Automation Training Booth.jpeg", name: "Building Automation Training Booth", code: "IES-BA100", link: "buildingautomation" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/CCTV Security System Training Kit.jpeg", name: "BNC Connector & RG59 Cable Kit", code: "ACC-300" },
+            { img: "images/Mechatronics, Robotics and Automation/CCTV Security System Training Kit.jpeg", name: "Spare IP Camera Module", code: "ACC-301" },
+            { img: "images/Mechatronics, Robotics and Automation/CCTV Security System Training Kit.jpeg", name: "CCTV Installation Lab Manual", code: "ACC-302" }
+          ]
+        },
+        cobot: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/COBOT-TRAINING-KIT.png", name: "COBOT – Basic Motion & Safety Programming Module", code: "IES-CB101" },
+            { img: "images/Mechatronics, Robotics and Automation/COBOT-TRAINING-KIT.png", name: "COBOT – Human-Robot Collaboration Module", code: "IES-CB102" },
+            { img: "images/Mechatronics, Robotics and Automation/COBOT-TRAINING-KIT.png", name: "COBOT – Gripper & Tool Changer Module", code: "IES-CB103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png", name: "Robot Training Cell", code: "IES-R200", link: "robotcell" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "SCADA System", code: "IES-SC100", link: "scadasystem" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/COBOT-TRAINING-KIT.png", name: "COBOT Force/Torque Sensor", code: "ACC-310" },
+            { img: "images/Mechatronics, Robotics and Automation/COBOT-TRAINING-KIT.png", name: "Teach Pendant Cover & Holder", code: "ACC-311" },
+            { img: "images/Mechatronics, Robotics and Automation/COBOT-TRAINING-KIT.png", name: "Collaborative Robot Lab Manual", code: "ACC-312" }
+          ]
+        },
+        firealarm: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/Fire Alarm Demonstrator.jpeg", name: "Fire Alarm – Smoke & Heat Detector Sensor Module", code: "IES-FA101" },
+            { img: "images/Mechatronics, Robotics and Automation/Fire Alarm Demonstrator.jpeg", name: "Fire Alarm – Control Panel & Zone Configuration Module", code: "IES-FA102" },
+            { img: "images/Mechatronics, Robotics and Automation/Fire Alarm Demonstrator.jpeg", name: "Fire Alarm – Alarm Output & Evacuation System Module", code: "IES-FA103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/Building Automation Training Booth.jpeg", name: "Building Automation Training Booth", code: "IES-BA100", link: "buildingautomation" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/Fire Alarm Demonstrator.jpeg", name: "Spare Smoke Detector Module", code: "ACC-320" },
+            { img: "images/Mechatronics, Robotics and Automation/Fire Alarm Demonstrator.jpeg", name: "Alarm Horn & Strobe Light Kit", code: "ACC-321" },
+            { img: "images/Mechatronics, Robotics and Automation/Fire Alarm Demonstrator.jpeg", name: "Fire Detection System Lab Manual", code: "ACC-322" }
+          ]
+        },
+        hydraulicies: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/Hydraulic Training Kit- IES1203A.png", name: "Hydraulic Pump – Gear & Vane Pump Study Module", code: "IES-HY101" },
+            { img: "images/Mechatronics, Robotics and Automation/Hydraulic Training Kit- IES1203A.png", name: "Hydraulic Valve – Pressure & Flow Control Module", code: "IES-HY102" },
+            { img: "images/Mechatronics, Robotics and Automation/Hydraulic Training Kit- IES1203A.png", name: "Hydraulic Circuit Design & Troubleshooting Module", code: "IES-HY103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/mechanical/ELECTRO-HYDRAULIC TRAINING KIT.png", name: "Electro-Hydraulic Training Kit", code: "IES-EH100", link: "electrohydraulic" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/Hydraulic Training Kit- IES1203A.png", name: "Hydraulic Seal Replacement Kit", code: "ACC-330" },
+            { img: "images/Mechatronics, Robotics and Automation/Hydraulic Training Kit- IES1203A.png", name: "Pressure Gauge & Flow Meter Set", code: "ACC-331" },
+            { img: "images/Mechatronics, Robotics and Automation/Hydraulic Training Kit- IES1203A.png", name: "IES1203A Hydraulics Lab Manual", code: "ACC-332" }
+          ]
+        },
+        modularmanufacturing: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/Modular Manufacturing Systems.jpeg", name: "Modular Manufacturing – Distribution & Transfer Module", code: "IES-MM101" },
+            { img: "images/Mechatronics, Robotics and Automation/Modular Manufacturing Systems.jpeg", name: "Modular Manufacturing – Testing & Quality Control Module", code: "IES-MM102" },
+            { img: "images/Mechatronics, Robotics and Automation/Modular Manufacturing Systems.jpeg", name: "Modular Manufacturing – Robotic Assembly Module", code: "IES-MM103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "Advance PLC Training Kit", code: "IES-PLC200", link: "advanceplc" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/6 Axis Articulated Training Robot Kit.jpeg", name: "6 Axis Articulated Robot", code: "IES-R100" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/Modular Manufacturing Systems.jpeg", name: "Modular Station Expansion Kit", code: "ACC-340" },
+            { img: "images/Mechatronics, Robotics and Automation/Modular Manufacturing Systems.jpeg", name: "Industrial Bus Interface Module", code: "ACC-341" },
+            { img: "images/Mechatronics, Robotics and Automation/Modular Manufacturing Systems.jpeg", name: "Modular Manufacturing Lab Manual", code: "ACC-342" }
+          ]
+        },
+        plcapplication: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/PLC APPLICATION SYSTEM – IES 3046.png", name: "PLC Application – Traffic Light Control Module", code: "IES-PA101" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC APPLICATION SYSTEM – IES 3046.png", name: "PLC Application – Conveyor & Motor Control Module", code: "IES-PA102" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC APPLICATION SYSTEM – IES 3046.png", name: "PLC Application – Alarm & Safety Interlock Module", code: "IES-PA103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/PLC Training Kit – IES3040.png", name: "PLC Training Kit – IES3040", code: "IES-3040", link: "plctraineries" }
+          ],
+          recommended: []
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/PLC APPLICATION SYSTEM – IES 3046.png", name: "PLC Application Software CD", code: "ACC-350" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC APPLICATION SYSTEM – IES 3046.png", name: "I/O Simulation Module", code: "ACC-351" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC APPLICATION SYSTEM – IES 3046.png", name: "PLC Application Lab Manual", code: "ACC-352" }
+          ]
+        },
+        plctraineries: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/PLC Training Kit – IES3040.png", name: "PLC Training – Wiring & I/O Configuration Module", code: "IES-PT101" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC Training Kit – IES3040.png", name: "PLC Training – Ladder & SFC Programming Module", code: "IES-PT102" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC Training Kit – IES3040.png", name: "PLC Training – Industrial Automation Experiments Module", code: "IES-PT103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", name: "Advance PLC Training Kit", code: "IES-PLC200", link: "advanceplc" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/PLC Training Kit – IES3040.png", name: "USB to RS232 PLC Cable", code: "ACC-360" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC Training Kit – IES3040.png", name: "PLC Simulation Software", code: "ACC-361" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC Training Kit – IES3040.png", name: "IES3040 PLC Lab Manual", code: "ACC-362" }
+          ]
+        },
+        processcontrol: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/PLC-Based-Level-Temperature-control-System.jpg", name: "PLC Level Control – Float Sensor & Pump Control Module", code: "IES-PC101" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC-Based-Level-Temperature-control-System.jpg", name: "PLC Temperature Control – PID Tuning Module", code: "IES-PC102" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC-Based-Level-Temperature-control-System.jpg", name: "PLC Based Alarm & Safety Monitoring Module", code: "IES-PC103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/PLC Training Kit – IES3040.png", name: "PLC Training Kit – IES3040", code: "IES-3040", link: "plctraineries" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", name: "SCADA System", code: "IES-SC100", link: "scadasystem" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/PLC-Based-Level-Temperature-control-System.jpg", name: "PT100 Temperature Sensor Spare", code: "ACC-370" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC-Based-Level-Temperature-control-System.jpg", name: "Level Float Switch Spare", code: "ACC-371" },
+            { img: "images/Mechatronics, Robotics and Automation/PLC-Based-Level-Temperature-control-System.jpg", name: "PLC Process Control Lab Manual", code: "ACC-372" }
+          ]
+        },
+        scararobot: {
+          articles: [
+            { img: "images/Mechatronics, Robotics and Automation/SCARA Robot training cell (ABB-FANUC-KUKA)-IES-7650.png", name: "SCARA Robot – Basic Motion & Coordinate System Module", code: "IES-SR101" },
+            { img: "images/Mechatronics, Robotics and Automation/SCARA Robot training cell (ABB-FANUC-KUKA)-IES-7650.png", name: "SCARA Robot – Pick & Place & Assembly Module", code: "IES-SR102" },
+            { img: "images/Mechatronics, Robotics and Automation/SCARA Robot training cell (ABB-FANUC-KUKA)-IES-7650.png", name: "SCARA Robot – Advanced Programming & Simulation Module", code: "IES-SR103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png", name: "Robot Training Cell", code: "IES-R200", link: "robotcell" }
+          ],
+          recommended: [
+            { img: "images/Mechatronics, Robotics and Automation/COBOT-TRAINING-KIT.png", name: "COBOT Training Kit", code: "IES-CB100", link: "cobot" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Mechatronics, Robotics and Automation/SCARA Robot training cell (ABB-FANUC-KUKA)-IES-7650.png", name: "SCARA Robot Gripper Tool Kit", code: "ACC-380" },
+            { img: "images/Mechatronics, Robotics and Automation/SCARA Robot training cell (ABB-FANUC-KUKA)-IES-7650.png", name: "Robot Calibration Tool", code: "ACC-381" },
+            { img: "images/Mechatronics, Robotics and Automation/SCARA Robot training cell (ABB-FANUC-KUKA)-IES-7650.png", name: "SCARA Robot Lab Manual", code: "ACC-382" }
+          ]
+        },
+
+        // ═══════════════ PROCESS CONTROL ═══════════════
+        sensortrainer2045: {
+          articles: [
+            { img: "images/Process Control/Sensor Training Kit – IES 2045.png", name: "Sensor Trainer – Temperature Measurement Module", code: "IES-ST101" },
+            { img: "images/Process Control/Sensor Training Kit – IES 2045.png", name: "Sensor Trainer – Pressure Measurement Module", code: "IES-ST102" },
+            { img: "images/Process Control/Sensor Training Kit – IES 2045.png", name: "Sensor Trainer – Signal Conditioning & Calibration Module", code: "IES-ST103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png", name: "Analog & Digital Sensor Trainer – IES 2040", code: "IES-2040", link: "analogsensortrainer" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/Sensor Training Kit – IES 2045.png", name: "Sensor Calibration Reference Kit", code: "ACC-390" },
+            { img: "images/Process Control/Sensor Training Kit – IES 2045.png", name: "M12 Connector & Extension Cable", code: "ACC-391" },
+            { img: "images/Process Control/Sensor Training Kit – IES 2045.png", name: "IES2045 Sensor Lab Manual", code: "ACC-392" }
+          ]
+        },
+        analogsensortrainer: {
+          articles: [
+            { img: "images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png", name: "Analog Sensor – 4-20mA & 0-10V Signal Interface Module", code: "IES-AST101" },
+            { img: "images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png", name: "Digital Sensor – ON/OFF & Pulse Output Module", code: "IES-AST102" },
+            { img: "images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png", name: "Sensor Signal Conditioning & Data Acquisition Module", code: "IES-AST103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Process Control/Sensor Training Kit – IES 2045.png", name: "Sensor Training Kit – IES 2045", code: "IES-2045", link: "sensortrainer2045" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png", name: "Signal Simulation Module – 4-20mA Source", code: "ACC-400" },
+            { img: "images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png", name: "Shielded Instrumentation Cable Set", code: "ACC-401" },
+            { img: "images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png", name: "IES2040 Sensor Lab Manual", code: "ACC-402" }
+          ]
+        },
+        processcontroltrainer: {
+          articles: [
+            { img: "images/Process Control/Industrial Process Control Trainer Kit.jpeg", name: "Level Control – Liquid Tank & Float Sensor Module", code: "IES-PCT101" },
+            { img: "images/Process Control/Industrial Process Control Trainer Kit.jpeg", name: "Flow Control – Rotameter & Flow Valve Module", code: "IES-PCT102" },
+            { img: "images/Process Control/Industrial Process Control Trainer Kit.jpeg", name: "Pressure Control – Transducer & Regulator Module", code: "IES-PCT103" },
+            { img: "images/Process Control/Industrial Process Control Trainer Kit.jpeg", name: "Temperature Control – PID Controller Module", code: "IES-PCT104" }
+          ],
+          required: [
+            { img: "images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png", name: "Analog & Digital Sensor Trainer", code: "IES-2040", link: "analogsensortrainer" }
+          ],
+          recommended: [
+            { img: "images/Process Control/PLC-Based-Flow-Pressure-Control-System-1.jpg", name: "PLC-Based Flow & Pressure Control System", code: "IES-FP100", link: "flowpressurecontrol" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/Industrial Process Control Trainer Kit.jpeg", name: "Spare Pump & Motor Assembly", code: "ACC-410" },
+            { img: "images/Process Control/Industrial Process Control Trainer Kit.jpeg", name: "PID Controller Tuning Software", code: "ACC-411" },
+            { img: "images/Process Control/Industrial Process Control Trainer Kit.jpeg", name: "Process Control Lab Manual", code: "ACC-412" }
+          ]
+        },
+        flowpressurecontrol: {
+          articles: [
+            { img: "images/Process Control/PLC-Based-Flow-Pressure-Control-System-1.jpg", name: "PLC Flow Control – Flow Meter & Control Valve Module", code: "IES-FP101" },
+            { img: "images/Process Control/PLC-Based-Flow-Pressure-Control-System-1.jpg", name: "PLC Pressure Control – Transducer & Relief Valve Module", code: "IES-FP102" },
+            { img: "images/Process Control/PLC-Based-Flow-Pressure-Control-System-1.jpg", name: "PLC PID Tuning & Closed Loop Control Module", code: "IES-FP103" }
+          ],
+          required: [
+            { img: "images/Mechatronics, Robotics and Automation/PLC Training Kit – IES3040.png", name: "PLC Training Kit – IES3040", code: "IES-3040", link: "plctraineries" }
+          ],
+          recommended: [
+            { img: "images/Process Control/Industrial Process Control Trainer Kit.jpeg", name: "Industrial Process Control Trainer Kit", code: "IES-PCT100", link: "processcontroltrainer" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/PLC-Based-Flow-Pressure-Control-System-1.jpg", name: "Spare Flow Meter Module", code: "ACC-420" },
+            { img: "images/Process Control/PLC-Based-Flow-Pressure-Control-System-1.jpg", name: "Pressure Transducer Spare", code: "ACC-421" },
+            { img: "images/Process Control/PLC-Based-Flow-Pressure-Control-System-1.jpg", name: "Flow & Pressure Control Lab Manual", code: "ACC-422" }
+          ]
+        },
+        oscilloscope4000: {
+          articles: [
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "Oscilloscope – Waveform Measurement & Display Module", code: "IES-OS401" },
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "Oscilloscope – Frequency & Phase Analysis Module", code: "IES-OS402" },
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "Oscilloscope – Triggering & Cursor Measurement Module", code: "IES-OS403" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Process Control/Digital Oscilloscope 6000 Series.jpg", name: "Digital Oscilloscope – 6000 Series", code: "IES-OS601", link: "oscilloscope6000" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "10X Passive Probe Set (4 Pcs)", code: "ACC-430" },
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "USB Storage Drive for Data Export", code: "ACC-431" },
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "Oscilloscope Carry Case", code: "ACC-432" }
+          ]
+        },
+        mso7000: {
+          articles: [
+            { img: "images/Process Control/MSO 7000 Series.jpg", name: "MSO 7000 – Analog & Digital Channel Analysis Module", code: "IES-MSO701" },
+            { img: "images/Process Control/MSO 7000 Series.jpg", name: "MSO 7000 – Serial Bus Decoding Module (I2C, SPI, UART)", code: "IES-MSO702" },
+            { img: "images/Process Control/MSO 7000 Series.jpg", name: "MSO 7000 – Signal Integrity & Protocol Analysis Module", code: "IES-MSO703" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Process Control/mso-mixed-signal-oscilloscope.jpg", name: "MSO Mixed Signal Oscilloscope", code: "IES-MSO100", link: "msomixedsignal" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/MSO 7000 Series.jpg", name: "Logic Probe Set – 16 Channel", code: "ACC-440" },
+            { img: "images/Process Control/MSO 7000 Series.jpg", name: "MSO Active Probe Kit", code: "ACC-441" },
+            { img: "images/Process Control/MSO 7000 Series.jpg", name: "MSO 7000 User Manual", code: "ACC-442" }
+          ]
+        },
+        universalworkbench: {
+          articles: [
+            { img: "images/Process Control/universal-work-bench.jpg", name: "Workbench – Power Supply & Distribution Module", code: "IES-UW101" },
+            { img: "images/Process Control/universal-work-bench.jpg", name: "Workbench – Component Storage & Organization Module", code: "IES-UW102" },
+            { img: "images/Process Control/universal-work-bench.jpg", name: "Workbench – Safety & ESD Protection Module", code: "IES-UW103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "Digital Oscilloscope – 4000 Series", code: "IES-OS401", link: "oscilloscope4000" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/universal-work-bench.jpg", name: "Anti-Static Work Mat", code: "ACC-450" },
+            { img: "images/Process Control/universal-work-bench.jpg", name: "Tool Tray & Organizer Set", code: "ACC-451" },
+            { img: "images/Process Control/universal-work-bench.jpg", name: "Workbench Lighting Attachment", code: "ACC-452" }
+          ]
+        },
+        oscilloscope6000: {
+          articles: [
+            { img: "images/Process Control/Digital Oscilloscope 6000 Series.jpg", name: "Oscilloscope 6000 – High Bandwidth Signal Capture Module", code: "IES-OS601" },
+            { img: "images/Process Control/Digital Oscilloscope 6000 Series.jpg", name: "Oscilloscope 6000 – Advanced Math & FFT Analysis Module", code: "IES-OS602" },
+            { img: "images/Process Control/Digital Oscilloscope 6000 Series.jpg", name: "Oscilloscope 6000 – Protocol Decoding Module", code: "IES-OS603" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Process Control/MSO 7000 Series.jpg", name: "MSO 7000 Series", code: "IES-MSO700", link: "mso7000" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/Digital Oscilloscope 6000 Series.jpg", name: "High Voltage Differential Probe", code: "ACC-460" },
+            { img: "images/Process Control/Digital Oscilloscope 6000 Series.jpg", name: "Current Probe – Clamp Type", code: "ACC-461" },
+            { img: "images/Process Control/Digital Oscilloscope 6000 Series.jpg", name: "Oscilloscope 6000 Carry Case", code: "ACC-462" }
+          ]
+        },
+        digitalsensortrainer: {
+          articles: [
+            { img: "images/Process Control/Digital Sensor Trainer.png", name: "Digital Sensor – ON/OFF Proximity Detection Module", code: "IES-DS101" },
+            { img: "images/Process Control/Digital Sensor Trainer.png", name: "Digital Sensor – Encoder & Pulse Output Module", code: "IES-DS102" },
+            { img: "images/Process Control/Digital Sensor Trainer.png", name: "Digital Sensor – Industrial Interface & Wiring Module", code: "IES-DS103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png", name: "Analog & Digital Sensor Trainer", code: "IES-2040", link: "analogsensortrainer" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/Digital Sensor Trainer.png", name: "Digital Sensor Spare Set", code: "ACC-470" },
+            { img: "images/Process Control/Digital Sensor Trainer.png", name: "DIN Rail Terminal Block Kit", code: "ACC-471" },
+            { img: "images/Process Control/Digital Sensor Trainer.png", name: "Digital Sensor Lab Manual", code: "ACC-472" }
+          ]
+        },
+        ds1000oscilloscope: {
+          articles: [
+            { img: "images/Process Control/DS1000 Series Digital Oscilloscopes.jpg", name: "DS1000 – Basic Waveform Observation Module", code: "IES-DS1001" },
+            { img: "images/Process Control/DS1000 Series Digital Oscilloscopes.jpg", name: "DS1000 – Frequency & Amplitude Measurement Module", code: "IES-DS1002" },
+            { img: "images/Process Control/DS1000 Series Digital Oscilloscopes.jpg", name: "DS1000 – Signal Storage & Recall Module", code: "IES-DS1003" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "Digital Oscilloscope – 4000 Series", code: "IES-OS401", link: "oscilloscope4000" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/DS1000 Series Digital Oscilloscopes.jpg", name: "DS1000 Passive Probe (100MHz)", code: "ACC-480" },
+            { img: "images/Process Control/DS1000 Series Digital Oscilloscopes.jpg", name: "USB Cable for PC Connection", code: "ACC-481" },
+            { img: "images/Process Control/DS1000 Series Digital Oscilloscopes.jpg", name: "DS1000 User Manual", code: "ACC-482" }
+          ]
+        },
+        faultfindingboard: {
+          articles: [
+            { img: "images/Process Control/Electronic fault finding test simulation board- IES2041.png", name: "Fault Finding – Open Circuit & Short Circuit Simulation", code: "IES-FF101" },
+            { img: "images/Process Control/Electronic fault finding test simulation board- IES2041.png", name: "Fault Finding – Component Failure Simulation Module", code: "IES-FF102" },
+            { img: "images/Process Control/Electronic fault finding test simulation board- IES2041.png", name: "Fault Finding – Systematic Troubleshooting Methodology", code: "IES-FF103" }
+          ],
+          required: [
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "Electronic Workbench with Instrument Panel", code: "IES-EL200", link: "instrumentpanel" }
+          ],
+          recommended: [
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "Digital Oscilloscope – 4000 Series", code: "IES-OS401", link: "oscilloscope4000" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/Electronic fault finding test simulation board- IES2041.png", name: "Fault Insertion Tool Kit", code: "ACC-490" },
+            { img: "images/Process Control/Electronic fault finding test simulation board- IES2041.png", name: "Spare Component Replacement Kit", code: "ACC-491" },
+            { img: "images/Process Control/Electronic fault finding test simulation board- IES2041.png", name: "IES2041 Fault Finding Lab Manual", code: "ACC-492" }
+          ]
+        },
+        msomixedsignal: {
+          articles: [
+            { img: "images/Process Control/mso-mixed-signal-oscilloscope.jpg", name: "MSO – Mixed Signal Analog & Logic Analysis Module", code: "IES-MS101" },
+            { img: "images/Process Control/mso-mixed-signal-oscilloscope.jpg", name: "MSO – Embedded Systems Debug Module (UART/I2C/SPI)", code: "IES-MS102" },
+            { img: "images/Process Control/mso-mixed-signal-oscilloscope.jpg", name: "MSO – Timing Correlation & Waveform Analysis Module", code: "IES-MS103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/Process Control/MSO 7000 Series.jpg", name: "MSO 7000 Series", code: "IES-MSO700", link: "mso7000" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Process Control/mso-mixed-signal-oscilloscope.jpg", name: "Mixed Signal Logic Probe Kit", code: "ACC-500" },
+            { img: "images/Process Control/mso-mixed-signal-oscilloscope.jpg", name: "Protocol Decode License – I2C/SPI", code: "ACC-501" },
+            { img: "images/Process Control/mso-mixed-signal-oscilloscope.jpg", name: "MSO User Manual", code: "ACC-502" }
+          ]
+        },
+
+        // ═══════════════ RENEWABLE ENERGY ═══════════════
+        solarwind: {
+          articles: [
+            { img: "images/renewable/SOLAR & WIND ENERGY TRAINING KIT-IES-0534.png", name: "Solar PV Module – Panel Characteristics & MPPT Module", code: "IES-RN101" },
+            { img: "images/renewable/SOLAR & WIND ENERGY TRAINING KIT-IES-0534.png", name: "Wind Energy Module – Turbine & Generator Module", code: "IES-RN102" },
+            { img: "images/renewable/SOLAR & WIND ENERGY TRAINING KIT-IES-0534.png", name: "Hybrid System – Solar & Wind Combined Module", code: "IES-RN103" },
+            { img: "images/renewable/SOLAR & WIND ENERGY TRAINING KIT-IES-0534.png", name: "Charge Controller & Battery Storage Module", code: "IES-RN104" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg", name: "Solar Power Generation & Training System", code: "IES-RN200", link: "solarpower" }
+          ]
+        ,
+          accessories: [
+            { img: "images/renewable/SOLAR & WIND ENERGY TRAINING KIT-IES-0534.png", name: "Solar Panel Cleaning & Maintenance Kit", code: "ACC-510" },
+            { img: "images/renewable/SOLAR & WIND ENERGY TRAINING KIT-IES-0534.png", name: "Energy Monitoring Data Logger", code: "ACC-511" },
+            { img: "images/renewable/SOLAR & WIND ENERGY TRAINING KIT-IES-0534.png", name: "Solar & Wind Lab Manual", code: "ACC-512" }
+          ]
+        },
+        solarpower: {
+          articles: [
+            { img: "images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg", name: "Solar PV Panel – Characteristics & I-V Curve Module", code: "IES-SP101" },
+            { img: "images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg", name: "Solar Inverter – DC to AC Conversion Module", code: "IES-SP102" },
+            { img: "images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg", name: "Battery Bank – Charging & Discharge Cycle Module", code: "IES-SP103" },
+            { img: "images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg", name: "Energy Monitoring & Power Measurement Module", code: "IES-SP104" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/renewable/SOLAR TRAINING KIT.png", name: "Solar Training Kit", code: "IES-SK100", link: "solarkit" }
+          ]
+        ,
+          accessories: [
+            { img: "images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg", name: "Pyranometer – Solar Irradiance Meter", code: "ACC-520" },
+            { img: "images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg", name: "Battery State of Charge Indicator", code: "ACC-521" },
+            { img: "images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg", name: "Solar Power Lab Manual", code: "ACC-522" }
+          ]
+        },
+        solarthermal: {
+          articles: [
+            { img: "images/renewable/SOLAR THERMAL EVACUATED TUBE.png", name: "Solar Thermal – Evacuated Tube Collector Module", code: "IES-STH101" },
+            { img: "images/renewable/SOLAR THERMAL EVACUATED TUBE.png", name: "Solar Thermal – Heat Transfer & Energy Efficiency Module", code: "IES-STH102" },
+            { img: "images/renewable/SOLAR THERMAL EVACUATED TUBE.png", name: "Solar Thermal – Water Heating Experiment Module", code: "IES-STH103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg", name: "Solar Power Generation System", code: "IES-RN200", link: "solarpower" }
+          ]
+        ,
+          accessories: [
+            { img: "images/renewable/SOLAR THERMAL EVACUATED TUBE.png", name: "Digital Temperature & Flow Meter Kit", code: "ACC-530" },
+            { img: "images/renewable/SOLAR THERMAL EVACUATED TUBE.png", name: "Thermal Insulation Pipe Lagging Kit", code: "ACC-531" },
+            { img: "images/renewable/SOLAR THERMAL EVACUATED TUBE.png", name: "Solar Thermal Lab Manual", code: "ACC-532" }
+          ]
+        },
+        greentech: {
+          articles: [
+            { img: "images/renewable/green-technology-trainer-kit.jpg", name: "Green Tech – Solar Energy Integration Module", code: "IES-GT101" },
+            { img: "images/renewable/green-technology-trainer-kit.jpg", name: "Green Tech – Wind Energy Integration Module", code: "IES-GT102" },
+            { img: "images/renewable/green-technology-trainer-kit.jpg", name: "Green Tech – Hybrid System & Energy Management Module", code: "IES-GT103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/renewable/SOLAR & WIND ENERGY TRAINING KIT-IES-0534.png", name: "Solar & Wind Energy Training Kit – IES0534", code: "IES-RN100", link: "solarwind" }
+          ]
+        ,
+          accessories: [
+            { img: "images/renewable/green-technology-trainer-kit.jpg", name: "Multi-Source Energy Monitor", code: "ACC-540" },
+            { img: "images/renewable/green-technology-trainer-kit.jpg", name: "Data Acquisition & Logging Module", code: "ACC-541" },
+            { img: "images/renewable/green-technology-trainer-kit.jpg", name: "Green Technology Lab Manual", code: "ACC-542" }
+          ]
+        },
+        solarkit: {
+          articles: [
+            { img: "images/renewable/SOLAR TRAINING KIT.png", name: "Solar Kit – PV Panel & Load Connection Module", code: "IES-SK101" },
+            { img: "images/renewable/SOLAR TRAINING KIT.png", name: "Solar Kit – MPPT Controller Experiment Module", code: "IES-SK102" },
+            { img: "images/renewable/SOLAR TRAINING KIT.png", name: "Solar Kit – Battery Charging & Inverter Module", code: "IES-SK103" },
+            { img: "images/renewable/SOLAR TRAINING KIT.png", name: "Solar Kit – Real-Time Power Monitoring Module", code: "IES-SK104" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg", name: "Solar Power Generation System", code: "IES-RN200", link: "solarpower" }
+          ]
+        ,
+          accessories: [
+            { img: "images/renewable/SOLAR TRAINING KIT.png", name: "MPPT Controller Spare Module", code: "ACC-550" },
+            { img: "images/renewable/SOLAR TRAINING KIT.png", name: "Solar Cable & MC4 Connector Kit", code: "ACC-551" },
+            { img: "images/renewable/SOLAR TRAINING KIT.png", name: "Solar Training Lab Manual", code: "ACC-552" }
+          ]
+        },
+
+        // ═══════════════ EV TECHNOLOGY ═══════════════
+        evworkingmodel: {
+          articles: [
+            { img: "images/evtechnology/2-W Electric Vehicle Working Model Training Setup.png", name: "EV Working Model – Motor Drive & Controller Module", code: "IES-EV101" },
+            { img: "images/evtechnology/2-W Electric Vehicle Working Model Training Setup.png", name: "EV Working Model – Battery Pack Operation Module", code: "IES-EV102" },
+            { img: "images/evtechnology/2-W Electric Vehicle Working Model Training Setup.png", name: "EV Working Model – Powertrain Demonstration Module", code: "IES-EV103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", name: "2-Wheeler EV Drivetrain Trainer", code: "IES-EV200", link: "2wevdrivetrain" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/2-W Electric Vehicle Working Model Training Setup.png", name: "EV Battery Charger Unit", code: "ACC-560" },
+            { img: "images/evtechnology/2-W Electric Vehicle Working Model Training Setup.png", name: "Motor Controller Spare Module", code: "ACC-561" },
+            { img: "images/evtechnology/2-W Electric Vehicle Working Model Training Setup.png", name: "EV Working Model Lab Manual", code: "ACC-562" }
+          ]
+        },
+        "2wevdrivetrain": {
+          articles: [
+            { img: "images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", name: "2W EV Drivetrain – BLDC Motor Control Module", code: "IES-2WD101" },
+            { img: "images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", name: "2W EV Drivetrain – Battery Pack & BMS Module", code: "IES-2WD102" },
+            { img: "images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", name: "2W EV Drivetrain – Mechanical Load Testing Module", code: "IES-2WD103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/2-Wheeler EV Motor Drivetrain Training & Research Setup.png", name: "2-Wheeler EV Motor Research Trainer", code: "IES-2WR100", link: "2wevresearch" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", name: "BLDC Motor Spare Unit", code: "ACC-570" },
+            { img: "images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", name: "Motor Controller Interface Cable", code: "ACC-571" },
+            { img: "images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", name: "2W EV Drivetrain Lab Manual", code: "ACC-572" }
+          ]
+        },
+        "2wevresearch": {
+          articles: [
+            { img: "images/evtechnology/2-Wheeler EV Motor Drivetrain Training & Research Setup.png", name: "2W EV Research – Motor Performance Analysis Module", code: "IES-2WR101" },
+            { img: "images/evtechnology/2-Wheeler EV Motor Drivetrain Training & Research Setup.png", name: "2W EV Research – Efficiency & Torque Measurement Module", code: "IES-2WR102" },
+            { img: "images/evtechnology/2-Wheeler EV Motor Drivetrain Training & Research Setup.png", name: "2W EV Research – Drive Cycle Simulation Module", code: "IES-2WR103" }
+          ],
+          required: [
+            { img: "images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", name: "2-Wheeler EV Drivetrain Trainer", code: "IES-EV200", link: "2wevdrivetrain" }
+          ],
+          recommended: [
+            { img: "images/evtechnology/Model-Based Development (MBD) Real-Time Controller .png", name: "MBD Real-Time Controller", code: "IES-MBD100", link: "mbdcontroller" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/2-Wheeler EV Motor Drivetrain Training & Research Setup.png", name: "Torque & Speed Measurement Sensor", code: "ACC-580" },
+            { img: "images/evtechnology/2-Wheeler EV Motor Drivetrain Training & Research Setup.png", name: "Data Acquisition System Module", code: "ACC-581" },
+            { img: "images/evtechnology/2-Wheeler EV Motor Drivetrain Training & Research Setup.png", name: "EV Research Lab Manual", code: "ACC-582" }
+          ]
+        },
+        "3wevdrivetrain": {
+          articles: [
+            { img: "images/evtechnology/03-Wheeler EV Motor Drivetrain with Loading Facility.png", name: "3W EV Drivetrain – Motor Drive & Speed Control Module", code: "IES-3WD101" },
+            { img: "images/evtechnology/03-Wheeler EV Motor Drivetrain with Loading Facility.png", name: "3W EV Drivetrain – Load Testing & Performance Module", code: "IES-3WD102" },
+            { img: "images/evtechnology/03-Wheeler EV Motor Drivetrain with Loading Facility.png", name: "3W EV Drivetrain – Regenerative Braking Module", code: "IES-3WD103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/3-Wheeler Electric Vehicle Training Setup with Solar Powered Charging System .png", name: "Solar Powered 3-Wheeler EV Trainer", code: "IES-3WS100", link: "3wevsolartrainer" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/03-Wheeler EV Motor Drivetrain with Loading Facility.png", name: "3W EV Drivetrain Controller Spare", code: "ACC-590" },
+            { img: "images/evtechnology/03-Wheeler EV Motor Drivetrain with Loading Facility.png", name: "Battery Pack BMS Module", code: "ACC-591" },
+            { img: "images/evtechnology/03-Wheeler EV Motor Drivetrain with Loading Facility.png", name: "3W EV Drivetrain Lab Manual", code: "ACC-592" }
+          ]
+        },
+        "3wevsolartrainer": {
+          articles: [
+            { img: "images/evtechnology/3-Wheeler Electric Vehicle Training Setup with Solar Powered Charging System .png", name: "Solar EV – PV Charging System Integration Module", code: "IES-3WS101" },
+            { img: "images/evtechnology/3-Wheeler Electric Vehicle Training Setup with Solar Powered Charging System .png", name: "Solar EV – Battery Management & Charge Control Module", code: "IES-3WS102" },
+            { img: "images/evtechnology/3-Wheeler Electric Vehicle Training Setup with Solar Powered Charging System .png", name: "Solar EV – Energy Monitoring & Performance Module", code: "IES-3WS103" }
+          ],
+          required: [
+            { img: "images/evtechnology/03-Wheeler EV Motor Drivetrain with Loading Facility.png", name: "3-Wheeler EV Motor Drivetrain Trainer", code: "IES-3WD100", link: "3wevdrivetrain" }
+          ],
+          recommended: []
+        ,
+          accessories: [
+            { img: "images/evtechnology/3-Wheeler Electric Vehicle Training Setup with Solar Powered Charging System .png", name: "Solar Charging Cable & Connector Kit", code: "ACC-600" },
+            { img: "images/evtechnology/3-Wheeler Electric Vehicle Training Setup with Solar Powered Charging System .png", name: "Energy Monitoring Display Module", code: "ACC-601" },
+            { img: "images/evtechnology/3-Wheeler Electric Vehicle Training Setup with Solar Powered Charging System .png", name: "Solar EV Lab Manual", code: "ACC-602" }
+          ]
+        },
+        "4wevdrivetrain": {
+          articles: [
+            { img: "images/evtechnology/4-Wheeler EV Motor Drivetrain Training & Research Setup .png", name: "4W EV Drivetrain – Motor & Inverter Control Module", code: "IES-4WD101" },
+            { img: "images/evtechnology/4-Wheeler EV Motor Drivetrain Training & Research Setup .png", name: "4W EV Drivetrain – Battery Pack & BMS Module", code: "IES-4WD102" },
+            { img: "images/evtechnology/4-Wheeler EV Motor Drivetrain Training & Research Setup .png", name: "4W EV Drivetrain – Vehicle Dynamics Research Module", code: "IES-4WD103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/Full Hybrid Electric Vehicle (HEV) Anatomical Working Car Platform.png", name: "Hybrid EV Anatomical Platform", code: "IES-HEV100", link: "hevcarplatform" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/4-Wheeler EV Motor Drivetrain Training & Research Setup .png", name: "EV Inverter Spare Module", code: "ACC-610" },
+            { img: "images/evtechnology/4-Wheeler EV Motor Drivetrain Training & Research Setup .png", name: "CAN Bus Interface Module", code: "ACC-611" },
+            { img: "images/evtechnology/4-Wheeler EV Motor Drivetrain Training & Research Setup .png", name: "4W EV Drivetrain Lab Manual", code: "ACC-612" }
+          ]
+        },
+        evchassisdyno: {
+          articles: [
+            { img: "images/evtechnology/Electric Vehicle Chassis Dynamometer for 2-Wheeler EVs with Electric 2-Wheeler .png", name: "Chassis Dyno – Speed & Torque Measurement Module", code: "IES-CD101" },
+            { img: "images/evtechnology/Electric Vehicle Chassis Dynamometer for 2-Wheeler EVs with Electric 2-Wheeler .png", name: "Chassis Dyno – Load Simulation & Power Analysis Module", code: "IES-CD102" },
+            { img: "images/evtechnology/Electric Vehicle Chassis Dynamometer for 2-Wheeler EVs with Electric 2-Wheeler .png", name: "Chassis Dyno – EV Efficiency Testing Module", code: "IES-CD103" }
+          ],
+          required: [
+            { img: "images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", name: "2-Wheeler EV Drivetrain Trainer", code: "IES-EV200", link: "2wevdrivetrain" }
+          ],
+          recommended: []
+        ,
+          accessories: [
+            { img: "images/evtechnology/Electric Vehicle Chassis Dynamometer for 2-Wheeler EVs with Electric 2-Wheeler .png", name: "Roller Bearing Replacement Kit", code: "ACC-620" },
+            { img: "images/evtechnology/Electric Vehicle Chassis Dynamometer for 2-Wheeler EVs with Electric 2-Wheeler .png", name: "Load Cell Calibration Kit", code: "ACC-621" },
+            { img: "images/evtechnology/Electric Vehicle Chassis Dynamometer for 2-Wheeler EVs with Electric 2-Wheeler .png", name: "Chassis Dynamometer Lab Manual", code: "ACC-622" }
+          ]
+        },
+        evbatterycutsection: {
+          articles: [
+            { img: "images/evtechnology/E-Mobility Motors & Li-Ion Battery Cut-Section Display Workbench.png", name: "EV Battery – Lithium-Ion Cell & Pack Structure Module", code: "IES-BC101" },
+            { img: "images/evtechnology/E-Mobility Motors & Li-Ion Battery Cut-Section Display Workbench.png", name: "EV Motor – Internal Stator & Rotor Construction Module", code: "IES-BC102" },
+            { img: "images/evtechnology/E-Mobility Motors & Li-Ion Battery Cut-Section Display Workbench.png", name: "EV Battery – BMS & Protection Circuit Module", code: "IES-BC103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", name: "2-Wheeler EV Drivetrain Trainer", code: "IES-EV200", link: "2wevdrivetrain" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/E-Mobility Motors & Li-Ion Battery Cut-Section Display Workbench.png", name: "Li-Ion Cell Display Samples Kit", code: "ACC-630" },
+            { img: "images/evtechnology/E-Mobility Motors & Li-Ion Battery Cut-Section Display Workbench.png", name: "EV Motor Cross Section Poster Set", code: "ACC-631" },
+            { img: "images/evtechnology/E-Mobility Motors & Li-Ion Battery Cut-Section Display Workbench.png", name: "EV Battery Technology Lab Manual", code: "ACC-632" }
+          ]
+        },
+        evgolfkart: {
+          articles: [
+            { img: "images/evtechnology/EV Golf Kart (Battery Operated) 4-Wheeler Working Model.png", name: "EV Golf Cart – Drive System & Controller Module", code: "IES-GK101" },
+            { img: "images/evtechnology/EV Golf Kart (Battery Operated) 4-Wheeler Working Model.png", name: "EV Golf Cart – Battery Pack & Charger Module", code: "IES-GK102" },
+            { img: "images/evtechnology/EV Golf Kart (Battery Operated) 4-Wheeler Working Model.png", name: "EV Golf Cart – Steering & Braking System Module", code: "IES-GK103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/Four-Wheeler EV Working Cut-Section Model.png", name: "4-Wheeler EV Cut Section Model", code: "IES-4WC100", link: "4wevcutsection" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/EV Golf Kart (Battery Operated) 4-Wheeler Working Model.png", name: "Golf Cart Battery Pack Charger", code: "ACC-640" },
+            { img: "images/evtechnology/EV Golf Kart (Battery Operated) 4-Wheeler Working Model.png", name: "Speed Controller Spare Module", code: "ACC-641" },
+            { img: "images/evtechnology/EV Golf Kart (Battery Operated) 4-Wheeler Working Model.png", name: "EV Golf Cart Lab Manual", code: "ACC-642" }
+          ]
+        },
+        "4wevcutsection": {
+          articles: [
+            { img: "images/evtechnology/Four-Wheeler EV Working Cut-Section Model.png", name: "4W EV Cut Section – Motor & Gearbox Display Module", code: "IES-4WC101" },
+            { img: "images/evtechnology/Four-Wheeler EV Working Cut-Section Model.png", name: "4W EV Cut Section – Battery Layout & BMS Module", code: "IES-4WC102" },
+            { img: "images/evtechnology/Four-Wheeler EV Working Cut-Section Model.png", name: "4W EV Cut Section – Powertrain Architecture Module", code: "IES-4WC103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/4-Wheeler EV Motor Drivetrain Training & Research Setup .png", name: "4-Wheeler EV Drivetrain Trainer", code: "IES-4WD100", link: "4wevdrivetrain" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/Four-Wheeler EV Working Cut-Section Model.png", name: "EV Drivetrain Component Label Kit", code: "ACC-650" },
+            { img: "images/evtechnology/Four-Wheeler EV Working Cut-Section Model.png", name: "EV Cut Section Display Stand", code: "ACC-651" },
+            { img: "images/evtechnology/Four-Wheeler EV Working Cut-Section Model.png", name: "4W EV Cut Section Lab Manual", code: "ACC-652" }
+          ]
+        },
+        hevcarplatform: {
+          articles: [
+            { img: "images/evtechnology/Full Hybrid Electric Vehicle (HEV) Anatomical Working Car Platform.png", name: "HEV Platform – ICE Engine & Electric Motor Integration Module", code: "IES-HEV101" },
+            { img: "images/evtechnology/Full Hybrid Electric Vehicle (HEV) Anatomical Working Car Platform.png", name: "HEV Platform – Power Split Device & Transmission Module", code: "IES-HEV102" },
+            { img: "images/evtechnology/Full Hybrid Electric Vehicle (HEV) Anatomical Working Car Platform.png", name: "HEV Platform – Energy Flow & Regeneration Module", code: "IES-HEV103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/Hybrid Electric Vehicle (HEV) Powertrain Training Setup .png", name: "Hybrid EV Powertrain Trainer", code: "IES-HEV200", link: "hevpowertrain" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/Full Hybrid Electric Vehicle (HEV) Anatomical Working Car Platform.png", name: "HEV System Component Label Set", code: "ACC-660" },
+            { img: "images/evtechnology/Full Hybrid Electric Vehicle (HEV) Anatomical Working Car Platform.png", name: "HEV Diagnostic Tool Interface", code: "ACC-661" },
+            { img: "images/evtechnology/Full Hybrid Electric Vehicle (HEV) Anatomical Working Car Platform.png", name: "HEV Anatomical Platform Lab Manual", code: "ACC-662" }
+          ]
+        },
+        hevpowertrain: {
+          articles: [
+            { img: "images/evtechnology/Hybrid Electric Vehicle (HEV) Powertrain Training Setup .png", name: "Hybrid Powertrain – Engine & Motor Coupling Module", code: "IES-HP101" },
+            { img: "images/evtechnology/Hybrid Electric Vehicle (HEV) Powertrain Training Setup .png", name: "Hybrid Powertrain – Energy Distribution Module", code: "IES-HP102" },
+            { img: "images/evtechnology/Hybrid Electric Vehicle (HEV) Powertrain Training Setup .png", name: "Hybrid Powertrain – Regenerative Braking System Module", code: "IES-HP103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/Full Hybrid Electric Vehicle (HEV) Anatomical Working Car Platform.png", name: "HEV Anatomical Platform", code: "IES-HEV100", link: "hevcarplatform" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/Hybrid Electric Vehicle (HEV) Powertrain Training Setup .png", name: "Hybrid System Interface Cable Kit", code: "ACC-670" },
+            { img: "images/evtechnology/Hybrid Electric Vehicle (HEV) Powertrain Training Setup .png", name: "Energy Flow Analyzer Module", code: "ACC-671" },
+            { img: "images/evtechnology/Hybrid Electric Vehicle (HEV) Powertrain Training Setup .png", name: "HEV Powertrain Lab Manual", code: "ACC-672" }
+          ]
+        },
+        hydrogenfcev: {
+          articles: [
+            { img: "images/evtechnology/Hydrogen Fuel Cell Electric Vehicle Training System Integrated with Renewable Energy.png", name: "Hydrogen FCEV – Fuel Cell Stack & Electrolyser Module", code: "IES-FC101" },
+            { img: "images/evtechnology/Hydrogen Fuel Cell Electric Vehicle Training System Integrated with Renewable Energy.png", name: "Hydrogen FCEV – Power Management & Motor Drive Module", code: "IES-FC102" },
+            { img: "images/evtechnology/Hydrogen Fuel Cell Electric Vehicle Training System Integrated with Renewable Energy.png", name: "Hydrogen FCEV – Renewable Energy Integration Module", code: "IES-FC103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/renewable/SOLAR & WIND ENERGY TRAINING KIT-IES-0534.png", name: "Solar & Wind Energy Training Kit", code: "IES-RN100" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/Hydrogen Fuel Cell Electric Vehicle Training System Integrated with Renewable Energy.png", name: "Hydrogen Gas Detector Module", code: "ACC-680" },
+            { img: "images/evtechnology/Hydrogen Fuel Cell Electric Vehicle Training System Integrated with Renewable Energy.png", name: "Fuel Cell Membrane Spare", code: "ACC-681" },
+            { img: "images/evtechnology/Hydrogen Fuel Cell Electric Vehicle Training System Integrated with Renewable Energy.png", name: "Hydrogen FCEV Lab Manual", code: "ACC-682" }
+          ]
+        },
+        smart2wevtrainer: {
+          articles: [
+            { img: "images/evtechnology/Interactive Electric Two-Wheeler Training System with Fault Simulation, IoT & Voice Control.png", name: "Smart EV – IoT Sensor & Data Monitoring Module", code: "IES-SE101" },
+            { img: "images/evtechnology/Interactive Electric Two-Wheeler Training System with Fault Simulation, IoT & Voice Control.png", name: "Smart EV – Fault Simulation & Diagnostic Module", code: "IES-SE102" },
+            { img: "images/evtechnology/Interactive Electric Two-Wheeler Training System with Fault Simulation, IoT & Voice Control.png", name: "Smart EV – Voice Control & Smart Interface Module", code: "IES-SE103" }
+          ],
+          required: [
+            { img: "images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", name: "2-Wheeler EV Drivetrain Trainer", code: "IES-EV200", link: "2wevdrivetrain" }
+          ],
+          recommended: [
+            { img: "images/evtechnology/Model-Based Development (MBD) Real-Time Controller .png", name: "MBD Real-Time Controller", code: "IES-MBD100", link: "mbdcontroller" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/Interactive Electric Two-Wheeler Training System with Fault Simulation, IoT & Voice Control.png", name: "IoT Sensor Expansion Kit", code: "ACC-690" },
+            { img: "images/evtechnology/Interactive Electric Two-Wheeler Training System with Fault Simulation, IoT & Voice Control.png", name: "Smart EV Mobile App License", code: "ACC-691" },
+            { img: "images/evtechnology/Interactive Electric Two-Wheeler Training System with Fault Simulation, IoT & Voice Control.png", name: "Smart EV Lab Manual", code: "ACC-692" }
+          ]
+        },
+        mbdcontroller: {
+          articles: [
+            { img: "images/evtechnology/Model-Based Development (MBD) Real-Time Controller .png", name: "MBD Controller – Simulink & Code Generation Module", code: "IES-MBD101" },
+            { img: "images/evtechnology/Model-Based Development (MBD) Real-Time Controller .png", name: "MBD Controller – Hardware-in-Loop (HIL) Simulation Module", code: "IES-MBD102" },
+            { img: "images/evtechnology/Model-Based Development (MBD) Real-Time Controller .png", name: "MBD Controller – EV System Modelling & Testing Module", code: "IES-MBD103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/Interactive Electric Two-Wheeler Training System with Fault Simulation, IoT & Voice Control.png", name: "Smart Electric Two-Wheeler Trainer", code: "IES-SE100", link: "smart2wevtrainer" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/Model-Based Development (MBD) Real-Time Controller .png", name: "MATLAB/Simulink Student License", code: "ACC-700" },
+            { img: "images/evtechnology/Model-Based Development (MBD) Real-Time Controller .png", name: "Real-Time Target Interface Cable", code: "ACC-701" },
+            { img: "images/evtechnology/Model-Based Development (MBD) Real-Time Controller .png", name: "MBD Real-Time Controller Lab Manual", code: "ACC-702" }
+          ]
+        },
+        evautorickshaw: {
+          articles: [
+            { img: "images/evtechnology/Working Electric Passenger Auto-Rickshaw – Cut-Sectioned Training System .png", name: "EV Auto Rickshaw – Motor & Controller Display Module", code: "IES-AR101" },
+            { img: "images/evtechnology/Working Electric Passenger Auto-Rickshaw – Cut-Sectioned Training System .png", name: "EV Auto Rickshaw – Battery & Charging System Module", code: "IES-AR102" },
+            { img: "images/evtechnology/Working Electric Passenger Auto-Rickshaw – Cut-Sectioned Training System .png", name: "EV Auto Rickshaw – Drivetrain & Wheel Assembly Module", code: "IES-AR103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/03-Wheeler EV Motor Drivetrain with Loading Facility.png", name: "3-Wheeler EV Drivetrain Trainer", code: "IES-3WD100", link: "3wevdrivetrain" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/Working Electric Passenger Auto-Rickshaw – Cut-Sectioned Training System .png", name: "Auto Rickshaw Component Label Kit", code: "ACC-710" },
+            { img: "images/evtechnology/Working Electric Passenger Auto-Rickshaw – Cut-Sectioned Training System .png", name: "EV Auto Rickshaw Display Stand", code: "ACC-711" },
+            { img: "images/evtechnology/Working Electric Passenger Auto-Rickshaw – Cut-Sectioned Training System .png", name: "EV Auto Rickshaw Lab Manual", code: "ACC-712" }
+          ]
+        },
+        hybridengine: {
+          articles: [
+            { img: "images/evtechnology/Working Model of Hybrid Petrol Engine.png", name: "Hybrid Engine – ICE Operation & 4-Stroke Cycle Module", code: "IES-HE101" },
+            { img: "images/evtechnology/Working Model of Hybrid Petrol Engine.png", name: "Hybrid Engine – Electric Motor Assistance Module", code: "IES-HE102" },
+            { img: "images/evtechnology/Working Model of Hybrid Petrol Engine.png", name: "Hybrid Engine – Energy Recovery & Efficiency Module", code: "IES-HE103" }
+          ],
+          required: [],
+          recommended: [
+            { img: "images/evtechnology/Hybrid Electric Vehicle (HEV) Powertrain Training Setup .png", name: "Hybrid EV Powertrain Trainer", code: "IES-HEV200", link: "hevpowertrain" }
+          ]
+        ,
+          accessories: [
+            { img: "images/evtechnology/Working Model of Hybrid Petrol Engine.png", name: "Engine Spare Parts & Gasket Kit", code: "ACC-720" },
+            { img: "images/evtechnology/Working Model of Hybrid Petrol Engine.png", name: "Engine Display Stand & Cover", code: "ACC-721" },
+            { img: "images/evtechnology/Working Model of Hybrid Petrol Engine.png", name: "Hybrid Engine Lab Manual", code: "ACC-722" }
+          ]
+        },
+
+        // ═══════════════ HOME PAGE FEATURED ═══════════════
+        sensor: {
+          articles: [
+            { img: "images/sensor.png", name: "Proximity Sensor Module – Inductive & Capacitive", code: "IES-S101" },
+            { img: "images/sensor.png", name: "Photoelectric Sensor – Through Beam & Diffuse Module", code: "IES-S102" },
+            { img: "images/sensor.png", name: "Ultrasonic Sensor – Distance Measurement Module", code: "IES-S103" },
+            { img: "images/sensor.png", name: "Temperature Sensor – RTD & Thermocouple Module", code: "IES-S104" }
+          ],
+          required: [
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "Micro-Controller Training Kit – IES 2044", code: "IES-2044", link: "microcontroller" }
+          ],
+          recommended: [
+            { img: "images/Electrical-Electronics-Training-Kit.png", name: "Basic Electricity & Electronics Training Kit", code: "IES-E201", link: "basicelectrical" }
+          ]
+        ,
+          accessories: [
+            { img: "images/sensor.png", name: "M12 Sensor Connector & Extension Cable Kit", code: "ACC-730" },
+            { img: "images/sensor.png", name: "Sensor Mounting Bracket Set", code: "ACC-731" },
+            { img: "images/sensor.png", name: "Sensor Training Lab Manual", code: "ACC-732" }
+          ]
+        },
+        micro: {
+          articles: [
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "Microcontroller Programming – I/O & Timer Module", code: "IES-MC101" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "LCD & Keypad Interfacing Module", code: "IES-MC102" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "UART / SPI / I2C Communication Module", code: "IES-MC103" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "ADC, PWM & Motor Control Module", code: "IES-MC104" }
+          ],
+          required: [
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "Electronic Workbench with Instrument Panel", code: "IES-EL200", link: "instrumentpanel" }
+          ],
+          recommended: [
+            { img: "images/INDUSTRIAL SENSOR TRAINER KIT.jpeg", name: "Industrial Sensor Trainer Kit", code: "IES-IST100", link: "industrialSensor" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "USB Programming & Debug Cable", code: "ACC-740" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "WiFi & Bluetooth Expansion Module", code: "ACC-741" },
+            { img: "images/Micro-Controller Training Kit – IES 2044.png", name: "Microcontroller Lab Manual", code: "ACC-742" }
+          ]
+        },
+        electronics: {
+          articles: [
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Component Identification & Testing Module", code: "IES-ELT101" },
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Circuit Design & Breadboard Prototyping Module", code: "IES-ELT102" },
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Troubleshooting & Fault Finding Module", code: "IES-ELT103" }
+          ],
+          required: [
+            { img: "images/Electronic Workbench with Instrument Panel .jpg", name: "Electronic Workbench with Instrument Panel", code: "IES-EL200", link: "instrumentpanel" }
+          ],
+          recommended: [
+            { img: "images/Process Control/Digital Oscilloscope 4000 Series.png", name: "Digital Oscilloscope – 4000 Series", code: "IES-OS401", link: "oscilloscope4000" }
+          ]
+        ,
+          accessories: [
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Electronic Component Assorted Kit", code: "ACC-750" },
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Soldering Station & Tool Kit", code: "ACC-751" },
+            { img: "images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", name: "Electronics Lab Manual", code: "ACC-752" }
+          ]
+        }
+
+      };
+      // ─────────────────────────────────────────────────────────────────────
+
+
+      const product = products[key] || products.sensor;
+
+      // ── Populate page ────────────────────────────────────────────────────
+      document.title = product.title + " | Intelitek";
+      document.getElementById("productTitle").innerText = product.title;
+      document.getElementById("breadcrumbCurrent").innerText = product.short || product.title;
+      document.getElementById("productImage").src = product.image;
+      document.getElementById("productImage").alt = product.title;
+      document.getElementById("productLead").innerText = product.lead;
+      document.getElementById("productBadge").innerText = product.badge;
+      document.getElementById("productExtra").innerText = "Ideal for engineering colleges, ITIs and skill development centres across India.";
+
+      // Item No display — use product.itemNo if set, otherwise generate from key
+      const itemNo = product.itemNo || ("IES-" + key.toUpperCase().replace(/[^A-Z0-9]/g, "").substring(0, 8));
+      document.getElementById("itemNoDisplay").innerText = itemNo;
+
+      // features list
+      const fwrap = document.getElementById("productFeatures");
+      fwrap.innerHTML = "";
+      (product.features || []).forEach(f => {
+        const li = document.createElement("li");
+        li.textContent = f;
+        fwrap.appendChild(li);
+      });
+
+      // specs table
+      const specsBody = document.querySelector("#specsBlock tbody");
+      const specsHeading = document.getElementById("specsHeading");
+      const specsEntries = Object.entries(product.specs || {});
+      if (specsEntries.length > 0) {
+        specsHeading.style.display = "";
+        specsBody.innerHTML = specsEntries.map(([k, v]) =>
+          `<tr><td>${k}</td><td>${v}</td></tr>`
+        ).join("");
+      }
+
+      // ── Render Articles / Required / Recommended / Accessories ───────────
+      const artData = articlesData[key] || {};
+
+      function buildTable(items, sectionType) {
+        if (!items || items.length === 0) return "";
+        const rows = items.map((item, i) => {
+          let url;
+          if (item.link) {
+            // Known product — open its full product page
+            url = `product-details.html?name=${encodeURIComponent(item.link)}`;
+          } else {
+            // Article module, accessory, or any other item
+            // — open as a detail page using its own data
+            url = `product-details.html?artname=${encodeURIComponent(item.name)}&artcode=${encodeURIComponent(item.code)}&artimg=${encodeURIComponent(item.img)}&artparent=${encodeURIComponent(key)}&artsection=${encodeURIComponent(sectionType)}`;
+          }
+          return `
+          <tr class="art-row" onclick="window.location='${url}'" style="cursor:pointer;" title="Click to view details">
+            <td class="art-num">${i + 1}</td>
+            <td class="art-img"><img src="${item.img}" alt="" onerror="this.style.display='none'"></td>
+            <td class="art-name">
+              ${item.name}
+              <span class="art-row-hint">→ View Details</span>
+            </td>
+            <td class="art-code">${item.code}</td>
+          </tr>`;
+        }).join("");
+        return `<table class="article-table">
+          <thead><tr>
+            <th style="width:36px; text-align:center;">#</th>
+            <th style="width:68px;"></th>
+            <th>NAME</th>
+            <th style="text-align:right;">Code</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+      }
+
+      const sections = [];
+      if (artData.articles     && artData.articles.length > 0)     sections.push({ label: "LIST OF ARTICLES",          items: artData.articles,     type: "articles" });
+      if (artData.required     && artData.required.length > 0)     sections.push({ label: "ADDITIONALLY REQUIRED",     items: artData.required,     type: "linked" });
+      if (artData.recommended  && artData.recommended.length > 0)  sections.push({ label: "ADDITIONALLY RECOMMENDED",  items: artData.recommended,  type: "linked" });
+      if (artData.accessories  && artData.accessories.length > 0)  sections.push({ label: "ACCESSORIES",               items: artData.accessories,  type: "accessories" });
+
+      const artContainer = document.getElementById("articlesSection");
+      if (sections.length > 0) {
+        artContainer.innerHTML = `<div class="articles-wrapper">` +
+          sections.map(s => `
+            <div class="articles-block">
+              <div class="articles-block-header">${s.label}</div>
+              ${buildTable(s.items, s.type)}
+            </div>`).join("") +
+          `</div>`;
+      }
+      // ─────────────────────────────────────────────────────────────────────
+
+      // Enquiry button
+      document.getElementById("enquiryBtn").href = "contact.html?product=" + encodeURIComponent(product.title);
+      document.getElementById("emailUsBtn").href  = "contact.html?product=" + encodeURIComponent(product.title);
+
+      // WhatsApp button
+      document.getElementById("whatsappBtn").href =
+        "https://wa.me/919187562018?text=Hello%20Intelitek%2C%20I%20am%20interested%20in%20" +
+        encodeURIComponent(product.title);
+
+      // Brochure button
+      document.getElementById("brochureBtn").href = "brochures/" + key + ".pdf";
+
+      // Image error fallback
+      const imgEl = document.getElementById("productImage");
+      imgEl.onerror = function () {
+        imgEl.src = "images/placeholder.png";
+      };
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+
+  const productImg = document.getElementById("productImage");
+  const popup = document.getElementById("imagePopup");
+  const popupImg = document.getElementById("popupImage");
+  const closePopup = document.querySelector(".close-popup");
+
+  // CHECK ELEMENTS EXIST
+  if(productImg && popup && popupImg && closePopup){
+
+    // OPEN POPUP
+    productImg.addEventListener("click", function () {
+      popup.style.display = "block";
+      popupImg.src = this.src;
+    });
+
+    // CLOSE BUTTON
+    closePopup.addEventListener("click", function () {
+      popup.style.display = "none";
+    });
+
+    // CLICK OUTSIDE IMAGE
+    popup.addEventListener("click", function (e) {
+      if (e.target === popup) {
+        popup.style.display = "none";
+      }
+    });
+
+  }
+
+});
+    
+  </script>
+  <!-- IMAGE POPUP -->
+<div id="imagePopup" class="image-popup">
+  <span class="close-popup">&times;</span>
+  <img class="popup-content" id="popupImage">
+</div>
+
+ 
+
+
+</body>
+</html>

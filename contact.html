@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Intelitek</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Intelitek Logo">
+        </a>
+      <button class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="our-work.html">Our Work</a></li>
+      </ul>
+       <div class="search-container">
+
+<input 
+type="search" 
+id="searchInput" 
+name="search_q"
+placeholder="Search training systems..."
+autocomplete="new-password">
+
+<div id="searchResults"></div>
+
+</div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Contact Us</h1>
+        <p>Get in touch for a consultation or quote</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="contact-grid">
+          <form id="contact-form"
+           class="contact-form animate-on-scroll"
+           action="https://formspree.io/f/xvzlrwpj"
+           method="POST">
+           <div id="form-message" style="display:none; margin-top:20px; padding:15px; background:#e6f7ff; color:#003366; border-radius:8px;">
+           ✅ Thank you! Your message has been sent successfully.
+           </div>
+            <h2>Send Us a Message</h2>
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" placeholder="Your company (optional)">
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="How can we help?" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us about your project or inquiry..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-accent" style="width: 100%;">Send Message</button>
+          </form>
+          <div class="contact-info animate-on-scroll">
+            <h3>Contact Information</h3>
+            <p><strong>Email:</strong><br><a href="mailto:sales@intelitek.in">sales@intelitek.in</a></p>
+            <p><strong>Phone:</strong><br><a href="tel:+91 9187562018">+91 9187562018</a></p>
+            <p><strong>Address:</strong><br>No.14/2 and 14/5,Off Magadi main Road, Near Dakshinamurthy Temple<br> Channenahalli Village, Bangalore South, Karnataka, India - 562130</p>
+            <p><strong>Business Hours:</strong><br>Monday – Friday: 8:00 AM – 6:00 PM<br>Saturday: 9:00 AM – 1:00 PM</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4><span style="font-size:1.1em; font-weight:700; color:#0ea5e9;">INTELITEK</span> edu solution private limited</h4></h4>
+        <p>Automation & Engineering Solutions for Industry 4.0</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+  <h4>Contact</h4>
+  <p><a href="mailto:sales@intelitek.in">sales@intelitek.in</a></p>
+  <p><a href="tel:+919187562018">+91 9187562018</a></p>
+</div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Intelitek. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+
+  <script>
+  const params = new URLSearchParams(window.location.search);
+  const product = params.get("product");
+
+  if (product) {
+    document.getElementById("subject").value = "Enquiry for " + product;
+    document.getElementById("message").value =
+      "I am interested in the product: " + product + ". Please share more details.";
+  }
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>
