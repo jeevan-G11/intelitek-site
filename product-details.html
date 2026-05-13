@@ -416,31 +416,48 @@
       .product-body-grid { grid-template-columns: 1fr !important; }
       .product-img-col { border-right: none !important; border-bottom: 1px solid var(--border) !important; }
       .bulk-cta-strip { flex-direction: column !important; }
-      .art-img { display: none !important; }
 
-      /* Fix table on mobile — name wraps properly, code stays on one line */
+      /* Hide image column on mobile */
+      .art-img { display: none !important; }
+      .article-table thead th:nth-child(2) { display: none !important; }
+
+      /* Table fixed layout — 3 visible columns: # | NAME | CODE */
       .article-table { table-layout: fixed !important; width: 100% !important; }
-      .art-num  { width: 30px !important; padding: 10px 6px 10px 10px !important; }
-      .art-name {
-        width: auto !important;
-        padding: 10px 8px !important;
+
+      /* # column — narrow fixed */
+      .art-num {
+        width: 32px !important;
+        padding: 12px 4px 12px 12px !important;
         font-size: 13px !important;
-        word-break: normal !important;
-        overflow-wrap: break-word !important;
-        white-space: normal !important;
-        line-height: 1.5 !important;
+        text-align: center !important;
+        vertical-align: top !important;
       }
+
+      /* NAME column — takes all remaining space, wraps by WORD not syllable */
+      .art-name {
+        padding: 12px 8px !important;
+        font-size: 13px !important;
+        word-break: keep-all !important;
+        overflow-wrap: anywhere !important;
+        white-space: normal !important;
+        line-height: 1.6 !important;
+        vertical-align: top !important;
+      }
+
+      /* CODE column — fixed 95px, never wraps */
       .art-code {
-        width: 90px !important;
-        padding: 10px 10px 10px 4px !important;
+        width: 95px !important;
+        padding: 12px 12px 12px 4px !important;
         font-size: 12px !important;
         white-space: nowrap !important;
         text-align: right !important;
-        vertical-align: middle !important;
+        vertical-align: top !important;
       }
-      /* Header alignment matches cells */
-      .article-table thead th:nth-child(2) { text-align: left !important; }
-      .article-table thead th:last-child { text-align: right !important; padding-right: 10px !important; }
+
+      /* Header matches cell widths */
+      .article-table thead th:first-child { width: 32px !important; text-align: center !important; padding: 10px 4px 10px 12px !important; }
+      .article-table thead th:nth-child(3) { text-align: left !important; padding: 10px 8px !important; }
+      .article-table thead th:last-child { width: 95px !important; text-align: right !important; padding: 10px 12px 10px 4px !important; }
     }
 
     /* Hide elements from main styles.css that we don't need */
@@ -3575,7 +3592,7 @@ badge:"Hybrid Engine"
         return `<table class="article-table">
           <thead><tr>
             <th style="width:40px; text-align:center;">#</th>
-            <th style="width:68px;"></th>
+            <th class="art-img" style="width:68px;"></th>
             <th style="text-align:left;">NAME</th>
             <th style="width:100px; text-align:right;">Code</th>
           </tr></thead>
