@@ -1852,50 +1852,46 @@ section.our-work-cta .ow-cta-text h2 { color: #ffffff; }
 section.our-work-cta .ow-cta-text p  { color: rgba(255,255,255,0.65); }
 
 
-/* ── MOBILE FIX: Force 1 column on all product grids under 600px ── */
-@media (max-width: 600px) {
-  .products-grid-training {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-  }
-
-  .product-card-training {
-    width: 100% !important;
-  }
-
-  .product-card-actions {
-    flex-direction: column !important;
-    gap: 8px !important;
-  }
-
-  .product-card-actions .btn,
-  .btn-whatsapp-icon {
-    width: 100% !important;
-    text-align: center !important;
-  }
-}
-
-/* ── MOBILE NAV: hamburger first, then logo ── */
+/* ── MOBILE NAV FIX (max 768px only) ── */
 @media (max-width: 768px) {
-  nav {
+
+  header nav {
+    display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 8px;
   }
 
+  /* Row 1: hamburger + logo side by side */
   .menu-toggle {
     order: 1;
+    flex-shrink: 0;
   }
 
   .logo {
     order: 2;
     flex: 1;
-    text-align: center;
   }
 
+  .logo img {
+    height: 36px !important;
+    width: auto !important;
+  }
+
+  /* Row 2: search bar full width */
   .search-container {
     order: 3;
     width: 100%;
+    margin: 0;
   }
 
+  .search-container input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Row 3: nav links (dropdown) */
   .nav-links {
     order: 4;
     width: 100%;
