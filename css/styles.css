@@ -1851,3 +1851,53 @@ section.our-work-cta {
 section.our-work-cta .ow-cta-text h2 { color: #ffffff; }
 section.our-work-cta .ow-cta-text p  { color: rgba(255,255,255,0.65); }
 
+
+/* ── MOBILE FIX: Force 1 column on all product grids under 600px ── */
+@media (max-width: 600px) {
+  .products-grid-training {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .product-card-training {
+    width: 100% !important;
+  }
+
+  .product-card-actions {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .product-card-actions .btn,
+  .btn-whatsapp-icon {
+    width: 100% !important;
+    text-align: center !important;
+  }
+}
+
+/* ── MOBILE NAV: hamburger first, then logo ── */
+@media (max-width: 768px) {
+  nav {
+    flex-wrap: wrap;
+  }
+
+  .menu-toggle {
+    order: 1;
+  }
+
+  .logo {
+    order: 2;
+    flex: 1;
+    text-align: center;
+  }
+
+  .search-container {
+    order: 3;
+    width: 100%;
+  }
+
+  .nav-links {
+    order: 4;
+    width: 100%;
+  }
+}
