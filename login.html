@@ -140,7 +140,7 @@
   </div>
 
   <script>
-    const OTP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUlL84RlYrUzQJJ6eujG5BjIZDG7g14dJDtmrsWrO0Tt5pi_D9y01V1KGTKgif_5Qn/exec";
+    const OTP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8y4Ig6OWDZowjQcR1c-vLV0GL03fJtBepSzO6CiMSNyy3K_3G4RKcsXfqKqATR5M/exec";
 
     let generatedOTP = "", timerInterval = null, timeLeft = 60;
 
@@ -163,8 +163,9 @@
         body: JSON.stringify({ email: email, otp: otp })
       });
       const result = await response.json();
-      if (!result.success) {
-        throw new Error(result.error || "Failed to send OTP");
+      // Accept success true OR code 200/201
+      if (!result.success && result.code !== 200 && result.code !== 201) {
+        throw new Error(result.error || result.body || "Failed to send OTP");
       }
       return true;
     }
