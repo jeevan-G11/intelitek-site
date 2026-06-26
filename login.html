@@ -157,16 +157,14 @@
     }
 
     async function sendBrevoOTP(email, otp) {
-      const response = await fetch(OTP_SCRIPT_URL, {
+      // Use no-cors mode for Google Apps Script
+      await fetch(OTP_SCRIPT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
         body: JSON.stringify({ email: email, otp: otp })
       });
-      const result = await response.json();
-      // Accept success true OR code 200/201
-      if (!result.success && result.code !== 200 && result.code !== 201) {
-        throw new Error(result.error || result.body || "Failed to send OTP");
-      }
+      // no-cors returns opaque response — we assume success if no exception
       return true;
     }
 
