@@ -3,362 +3,506 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intelitek | edu solution private limited</title>
-  <meta name="description" content="Intelitek Edu Solution Pvt Ltd provides industrial automation and engineering training equipment for engineering colleges, ITI institutes and polytechnics across India.">
-<meta name="keywords" content="Industrial Automation Training, Electrical Training Equipment, Electronics Lab Trainer, Engineering Lab Equipment India, ITI Training Systems">
-<meta name="author" content="Intelitek Edu Solution Pvt Ltd">
+  <title>Login | Intelitek</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-<!-- Open Graph (Social Sharing) -->
-<meta property="og:title" content="Intelitek | Industrial Automation Training Equipment">
-<meta property="og:description" content="Trusted provider of electrical and electronics engineering training systems across India.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="images/logo.png">
-  <link rel="preload" href="css/styles.css" as="style">
-  <link rel="stylesheet" href="css/styles.css">
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      background: #002244;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    /* ── LOGO AREA ── */
+    .login-logo {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .login-logo img {
+      height: 52px;
+      object-fit: contain;
+    }
+    .login-logo-text {
+      margin-top: 8px;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── CARD ── */
+    .login-card {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 420px;
+      padding: 40px 36px 32px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+    }
+
+    .login-card h1 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #002244;
+      margin-bottom: 4px;
+    }
+    .login-card .subtitle {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 28px;
+    }
+
+    /* ── STEP INDICATOR ── */
+    .steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 28px;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #9ca3af;
+    }
+    .step.active { color: #002244; }
+    .step.done { color: #16a34a; }
+    .step-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      color: #6b7280;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step.active .step-num {
+      background: #002244;
+      color: #fff;
+    }
+    .step.done .step-num {
+      background: #16a34a;
+      color: #fff;
+    }
+    .step-line {
+      flex: 1;
+      height: 2px;
+      background: #e5e7eb;
+      margin: 0 8px;
+    }
+    .step-line.done { background: #16a34a; }
+
+    /* ── FORM ── */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 5px;
+    }
+    label span.req { color: #e8700a; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"] {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-family: 'Inter', sans-serif;
+      color: #111827;
+      background: #f9fafb;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    input:focus {
+      border-color: #002244;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(0,34,68,0.1);
+    }
+    input::placeholder { color: #9ca3af; }
+
+    /* ── OTP BOX ── */
+    .otp-section {
+      display: none;
+      margin-top: 4px;
+    }
+    .otp-section.show { display: block; }
+
+    .otp-info {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: #0369a1;
+      margin-bottom: 12px;
+    }
+
+    /* ── TIMER ── */
+    .otp-timer {
+      font-size: 0.78rem;
+      color: #6b7280;
+      margin-top: 6px;
+      min-height: 18px;
+    }
+    .otp-timer.expired { color: #dc2626; }
+
+    /* ── BUTTONS ── */
+    .btn-main {
+      width: 100%;
+      padding: 12px;
+      background: #002244;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.01em;
+    }
+    .btn-main:hover { background: #003366; }
+    .btn-main:active { transform: scale(0.99); }
+    .btn-main:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .btn-resend {
+      display: none;
+      background: none;
+      border: none;
+      color: #002244;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 6px;
+      padding: 0;
+      text-decoration: underline;
+    }
+    .btn-resend:hover { color: #003366; }
+
+    /* ── SUCCESS STATE ── */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 16px 0 8px;
+    }
+    .success-state.show { display: block; }
+    .success-icon {
+      width: 60px; height: 60px;
+      background: #dcfce7;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1.8rem;
+    }
+    .success-state h2 {
+      font-size: 1.2rem;
+      color: #002244;
+      margin-bottom: 6px;
+    }
+    .success-state p {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 24px 0 16px;
+    }
+
+    /* ── BACK LINK ── */
+    .back-home {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .back-home a {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.82rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.2s;
+    }
+    .back-home a:hover { color: #fff; }
+
+    /* ── ERROR ── */
+    .error-msg {
+      font-size: 0.78rem;
+      color: #dc2626;
+      margin-top: 4px;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 460px) {
+      .login-card { padding: 32px 24px 28px; }
+    }
+  </style>
 </head>
-
-
 <body>
-  <!-- Robot Assistant -->
-<div id="robot-container">
 
-<a href="robotics.html">
-<img src="images/robot.gif" id="robot">
-</a>
+  <!-- LOGO -->
+  <div class="login-logo">
+    <img src="images/logo.png" alt="Intelitek Logo"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <div style="display:none; color:#fff; font-size:1.4rem; font-weight:700; letter-spacing:0.04em;">
+      INTELITEK
+    </div>
+    <div class="login-logo-text">edu solution private limited</div>
+  </div>
 
-<div id="robot-message">
-👋 Hello! Have a great day!
-</div>
+  <!-- CARD -->
+  <div class="login-card" id="loginCard">
 
-</div>
-  <header>
-    <nav>
-      <a href="index.html" class="logo">
-        <img src="images/logo.png" alt="Intelitek Logo">
-        </a>
-      <button class="menu-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
+    <!-- STEP INDICATOR -->
+    <div class="steps" id="stepBar">
+      <div class="step active" id="step1">
+        <div class="step-num">1</div>
+        <span>Your Details</span>
+      </div>
+      <div class="step-line" id="stepLine"></div>
+      <div class="step" id="step2">
+        <div class="step-num">2</div>
+        <span>Verify OTP</span>
+      </div>
+    </div>
+
+    <h1 id="cardTitle">Welcome</h1>
+    <p class="subtitle" id="cardSubtitle">Enter your details to access Intelitek</p>
+
+    <!-- STEP 1: DETAILS FORM -->
+    <div id="detailsForm">
+      <div class="form-group">
+        <label>Full Name <span class="req">*</span></label>
+        <input type="text" id="userName" placeholder="Your full name">
+        <div class="error-msg" id="nameErr">Please enter your name</div>
+      </div>
+
+      <div class="form-group">
+        <label>Organization / College</label>
+        <input type="text" id="userOrg" placeholder="Company or institute name (optional)">
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number <span class="req">*</span></label>
+        <input type="tel" id="userPhone" placeholder="+91 XXXXXXXXXX">
+        <div class="error-msg" id="phoneErr">Please enter a valid phone number</div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address <span class="req">*</span></label>
+        <input type="email" id="userEmail" placeholder="you@example.com">
+        <div class="error-msg" id="emailErr">Please enter a valid email</div>
+      </div>
+
+      <button class="btn-main" id="sendOTPBtn" onclick="sendOTP()">
+        Send OTP to Email
       </button>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="products.html">Products</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="our-work.html">Our Work</a></li>
-    
-      </ul>
-      <div class="search-container">
-
-<input 
-type="search" 
-id="searchInput" 
-name="search_q"
-placeholder="Search training systems..."
-autocomplete="new-password">
-
-<div id="searchResults"></div>
-
-</div>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Innovative Automation & Engineering Solutions</h1>
-        <p>We design, develop, and deliver cutting-edge industrial automation systems and engineering services to drive your business forward.</p>
-        <div class="hero-btns">
-        
-          <a href="contact.html" class="btn btn-secondary">Get in Touch</a>
-          <p class="hero-trust">Trusted by 100+ Institutions Across India</p>
-        </div>
-      </div>
-    </section>
-    <section class="product-categories">
-  <div class="container">
-
-    <div class="section-title">
-      <h2>Our Product Categories</h2>
-      <p>Comprehensive engineering training solutions designed for institutions and industrial skill development.</p>
     </div>
 
-    <div class="category-grid">
-
-      <div class="category-card">
-        <h3>Electrical Engineering</h3>
-        <p>
-          Industrial electrical training systems including motor control, installation trainers, DC machines and automation-based lab equipment.
-        </p>
-        <a href="electrical.html" class="btn btn-primary">
-  View Products
-</a>
+    <!-- STEP 2: OTP FORM -->
+    <div class="otp-section" id="otpSection">
+      <div class="otp-info" id="otpInfo">
+        📧 OTP sent to <strong id="otpEmailDisplay"></strong>
       </div>
 
-      <div class="category-card">
-        <h3>Electronics Engineering</h3>
-        <p>
-          Advanced electronics lab trainers including communication kits, microcontroller systems and embedded learning platforms.
-        </p>
-        <a href="electronics.html" class="btn btn-primary">
-         View Products
-        </a>
+      <div class="form-group">
+        <label>Enter OTP <span class="req">*</span></label>
+        <input type="number" id="otpInput" placeholder="6-digit OTP" maxlength="6">
+        <div class="error-msg" id="otpErr">Incorrect OTP. Please try again.</div>
+        <div class="otp-timer" id="otpTimer"></div>
       </div>
-      <div class="category-card">
-  <h3>Green Technology / Renewable Energy</h3>
-  <p>
-    Advanced renewable energy training systems including solar power,
-    wind energy, hybrid systems and sustainable energy lab equipment
-    designed for modern engineering institutions.
-  </p>
-  <a href="renewable.html" class="btn btn-primary">
-    View Products
-  </a>
-</div>
-<div class="category-card">
-  <h3>Mechanical Engineering</h3>
-  <p>
-    Advanced mechanical training systems including refrigeration,
-    pneumatic, hydraulic and electro-hydraulic lab equipment
-    for engineering institutions.
-  </p>
-  <a href="mechanical.html" class="btn btn-accent">
-    View Products
-  </a>
-</div>
-<div class="category-card">
-  <h3>Mechatronics, Robotics & Automation</h3>
-  <p>
-    Industrial automation training systems including PLC, SCADA,
-    robotics and smart manufacturing modules.
-  </p>
-  <a href="mechatronics.html" class="btn btn-accent">
-    View Products
-  </a>
-</div>
-<div class="category-card">
-  <h3>Process Control</h3>
-  <p>Industrial process control training systems including PLC based flow, pressure and sensor trainers.</p>
-  <a href="process-control.html" class="btn btn-accent">
-   View Products
-  </a>
-</div>
-<div class="category-card">
-<h3>EV Technology</h3>
 
-<p>
-Advanced electric vehicle training systems including EV drivetrain trainers,
-battery management systems, hybrid vehicle platforms and EV diagnostic equipment
-for modern engineering laboratories.
-</p>
+      <button class="btn-main" id="verifyBtn" onclick="verifyOTP()">
+        Verify &amp; Login
+      </button>
 
-<a href="evtechnology.html" class="btn btn-primary">
-View Products
-</a>
-
-</div>
+      <button class="btn-resend" id="resendBtn" onclick="resendOTP()">
+        Resend OTP
+      </button>
     </div>
 
-  </div>
-</section>
-      
-
-<section class="our-work-cta" id="our-work">
-  <div class="container">
-    <div class="ow-cta-inner">
-      <div class="ow-cta-text">
-        <span class="ow-cta-label">OUR WORK</span>
-        <h2>See What We've Built Across India & Global</h2>
-        <p>From engineering colleges to industrial facilities — explore real installations, delivered training systems and projects completed by Intelitek.</p>
-        <a href="our-work.html" class="ow-cta-btn">
-          View Our Projects
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-      <div class="ow-cta-visual">
-        <div class="ow-img-stack">
-          <img src="images/robort1.jpg"     alt="" class="ow-img ow-img-1">
-          <img src="images/dcs2.jpg" alt="" class="ow-img ow-img-2">
-          <img src="images/iot3.jpg" alt="" class="ow-img ow-img-3">
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <section class="why-section animate-on-scroll">
-  <div class="container">
-
-    <div class="section-title">
-      <h2>Why Choose Intelitek?</h2>
-      <p>Delivering industry-ready automation training systems for modern engineering education.</p>
+    <!-- SUCCESS STATE -->
+    <div class="success-state" id="successState">
+      <div class="success-icon">✅</div>
+      <h2>Login Successful!</h2>
+      <p>Redirecting you to the home page...</p>
     </div>
 
-    <div class="why-grid">
-      <div class="why-item">
-        <h3>Industry 4.0 Focused</h3>
-        <p>Designed according to modern industrial automation standards and real-world applications.</p>
-      </div>
-
-      <div class="why-item">
-        <h3>Hands-On Learning</h3>
-        <p>Practical training systems that bridge the gap between theory and industrial practice.</p>
-      </div>
-
-      <div class="why-item">
-        <h3>Custom Lab Solutions</h3>
-        <p>Complete laboratory setup solutions tailored for engineering colleges and ITI institutes.</p>
-      </div>
-
-      <div class="why-item">
-        <h3>Technical Support</h3>
-        <p>Expert guidance, documentation, and after-sales technical assistance.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<section class="trust-section animate-on-scroll">
-  <div class="container">
-
-    <div class="section-title">
-      <h2>Trusted by Institutions Across India & Global</h2>
-      <p>Supplying automation and electrical training systems to engineering colleges, polytechnics and ITIs.</p>
-    </div>
-
-    <div class="trust-stats">
-      <div class="trust-item">
-        <span class="trust-number">80+</span>
-        <p>Institutions Served</p>
-      </div>
-
-      <div class="trust-item">
-        <span class="trust-number">1000+</span>
-        <p>Training Systems Installed</p>
-      </div>
-
-      <div class="trust-item">
-        <span class="trust-number">7+</span>
-        <p>Years Industry Experience</p>
-      </div>
-
-      <div class="trust-item">
-        <span class="trust-number">24/7</span>
-        <p>Technical Support</p>
-      </div>
-    </div>
-    <div class="institution-logos">
-  <img src="images/institutions/bajayltd.png" alt="Institution 1">
-  <img src="images/institutions/igtr.png" alt="Institution 2">
-  <img src="images/institutions/rvcollege.png" alt="Institution 3">
-  <img src="images/institutions/tvsmotor.png" alt="Institution 4">
-</div>
-
+    <hr class="divider">
+    <p style="text-align:center; font-size:0.75rem; color:#9ca3af;">
+      Your information is kept private and secure
+    </p>
   </div>
 
-  
+  <!-- BACK TO HOME -->
+  <div class="back-home">
+    <a href="index.html">
+      ← Back to Home
+    </a>
+  </div>
 
-    <section class="cta-section animate-on-scroll">
-      <div class="container">
-        <h2>Ready to Automate Your Future?</h2>
-        <p>Let's discuss how our solutions can transform your operations and boost productivity.</p>
-        <a href="contact.html" class="btn btn-primary">Contact Us Today</a>
-      </div>
-    </section>
-  </main>
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){ emailjs.init("S9HfH2EIMX57RlFSq"); })();
 
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>Intelitek edu solution private limited</h4>
-        <p>Automation & Engineering Solutions for Industry 4.0</p>
-      </div>
-      <div class="footer-section">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="products.html">Products</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Contact</h4>
-        <p><a href="tel:+919187562018">+91 9187562018</a></p>
-        <p><a href="mailto:sales@intelitek.in">sales@intelitek.in</a></p>
-        </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Intelitek. All rights reserved.</p>
-    </div>
- </footer>
+    let generatedOTP = "";
+    let timerInterval = null;
+    let timeLeft = 60;
 
- <button onclick="document.getElementById('loginPopup').style.display='flex'">
-TEST LOGIN
-</button>
+    function validate() {
+      let ok = true;
+      const name  = document.getElementById("userName").value.trim();
+      const phone = document.getElementById("userPhone").value.trim();
+      const email = document.getElementById("userEmail").value.trim();
+      const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneReg = /^[\d\s\+\-]{7,15}$/;
 
-<!-- LOGIN POPUP -->
-<div id="loginPopup" class="login-popup">
+      document.getElementById("nameErr").classList.toggle("show", !name);
+      document.getElementById("phoneErr").classList.toggle("show", !phoneReg.test(phone));
+      document.getElementById("emailErr").classList.toggle("show", !emailReg.test(email));
 
-<div class="login-box">
+      if (!name || !phoneReg.test(phone) || !emailReg.test(email)) ok = false;
+      return ok;
+    }
 
-<span class="close-login" onclick="closeLogin()">×</span>
+    function sendOTP() {
+      if (!validate()) return;
 
-<h2>User Login</h2>
+      const email = document.getElementById("userEmail").value.trim();
+      const name  = document.getElementById("userName").value.trim();
 
-<label>User Name*</label>
-<input type="text" id="userName" placeholder="Enter your name">
+      generatedOTP = Math.floor(100000 + Math.random() * 900000);
 
-<label>Organization / Institute</label>
-<input type="text" id="userOrg" placeholder="Enter company or institute name">
+      const btn = document.getElementById("sendOTPBtn");
+      btn.disabled = true;
+      btn.textContent = "Sending OTP...";
 
-<label>Contact Number*</label>
-<input type="text" id="userPhone" placeholder="Enter phone number">
+      emailjs.send("service_j08fdih", "template_14467na", {
+        otp: generatedOTP,
+        email: email,
+        name: name
+      }).then(function() {
+        // Show OTP step
+        document.getElementById("detailsForm").style.display = "none";
+        document.getElementById("otpSection").classList.add("show");
+        document.getElementById("otpEmailDisplay").textContent = email;
+        document.getElementById("cardTitle").textContent = "Check your email";
+        document.getElementById("cardSubtitle").textContent = "Enter the 6-digit OTP we sent you";
 
-<label>Email Address*</label>
-<input type="email" id="userEmail" placeholder="Enter email address">
-<button onclick="sendEmailOTP()">Send OTP</button>
-<div id="otpSection" style="display:none">
+        // Update step indicator
+        document.getElementById("step1").classList.remove("active");
+        document.getElementById("step1").classList.add("done");
+        document.getElementById("step1").querySelector(".step-num").textContent = "✓";
+        document.getElementById("step2").classList.add("active");
+        document.getElementById("stepLine").classList.add("done");
 
-<label>Enter OTP</label>
-<input type="text" id="otpInput" placeholder="Enter OTP">
+        startTimer();
+        btn.disabled = false;
+        btn.textContent = "Send OTP to Email";
 
-<button onclick="verifyOTP()">Verify OTP</button>
+      }).catch(function() {
+        alert("Failed to send OTP. Please check your email and try again.");
+        btn.disabled = false;
+        btn.textContent = "Send OTP to Email";
+      });
+    }
 
-</div>
+    function startTimer() {
+      timeLeft = 60;
+      clearInterval(timerInterval);
+      document.getElementById("resendBtn").style.display = "none";
+      document.getElementById("otpTimer").classList.remove("expired");
 
-<p id="otpTimer"></p>
+      timerInterval = setInterval(function() {
+        timeLeft--;
+        const t = document.getElementById("otpTimer");
+        if (timeLeft > 0) {
+          t.textContent = "OTP expires in " + timeLeft + " seconds";
+        } else {
+          t.textContent = "OTP expired";
+          t.classList.add("expired");
+          document.getElementById("resendBtn").style.display = "inline";
+          clearInterval(timerInterval);
+        }
+      }, 1000);
+    }
 
-<button id="resendBtn" onclick="sendEmailOTP()" style="display:none">
-Resend OTP
-</button>
+    function resendOTP() {
+      sendOTP();
+      document.getElementById("detailsForm").style.display = "none";
+      document.getElementById("otpSection").classList.add("show");
+    }
 
-</div>
+    function verifyOTP() {
+      const entered = document.getElementById("otpInput").value.trim();
+      if (String(entered) === String(generatedOTP)) {
+        clearInterval(timerInterval);
 
-</div>
+        // Save to Google Sheets
+        const name  = document.getElementById("userName").value.trim();
+        const phone = document.getElementById("userPhone").value.trim();
+        const email = document.getElementById("userEmail").value.trim();
+        const org   = document.getElementById("userOrg").value.trim();
 
-</div>
+        fetch("https://script.google.com/macros/s/AKfycbyDhUCzK0l01LqQ7jdiz6m-ZPZEn1oSscdJQKQIacmL7sa3NJJBqbVuhIMC0WezBT3p/exec", {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, phone, email, organization: org })
+        });
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+        // Save to localStorage
+        localStorage.setItem("userLogged", "true");
+        localStorage.setItem("userName", name);
+        localStorage.setItem("userEmail", email);
 
-<script>
-(function(){
-emailjs.init("S9HfH2EIMX57RlFSq");
-})();
-</script>
+        // Show success
+        document.getElementById("otpSection").classList.remove("show");
+        document.getElementById("stepBar").style.display = "none";
+        document.getElementById("cardTitle").textContent = "";
+        document.getElementById("cardSubtitle").textContent = "";
+        document.getElementById("successState").classList.add("show");
 
-<script src="js/main.js"></script>
-<a href="https://wa.me/919187562018?text=Hello%20Intelitek%2C%20I%20want%20details%20about%20your%20training%20kits" 
-target="_blank"
-style="position:fixed; bottom:20px; right:20px; background:#25D366; color:white; 
-padding:15px 18px; border-radius:50px; font-size:18px; text-decoration:none; 
-box-shadow:0 4px 10px rgba(0,0,0,0.3); z-index:1000;">
- 💬 Chat with Expert
-</a>
+        // Redirect after 2 seconds
+        setTimeout(function() {
+          window.location.href = "index.html";
+        }, 2000);
 
+      } else {
+        document.getElementById("otpErr").classList.add("show");
+        document.getElementById("otpInput").style.borderColor = "#dc2626";
+        setTimeout(function() {
+          document.getElementById("otpErr").classList.remove("show");
+          document.getElementById("otpInput").style.borderColor = "";
+        }, 3000);
+      }
+    }
+  </script>
 
+</body>
+</html>
