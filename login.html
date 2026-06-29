@@ -50,11 +50,14 @@
     .success-icon { width: 68px; height: 68px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-size: 2rem; }
     .success-wrap h2 { font-size: 1.25rem; font-weight: 700; color: #002244; margin-bottom: 6px; }
     .success-wrap p { font-size: 0.84rem; color: #6b7280; }
+    /* Returning user info box */
+    .returning-info { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 12px 16px; margin-bottom: 18px; font-size: 0.83rem; color: #166534; display: flex; align-items: center; gap: 10px; }
+    .returning-info strong { display: block; font-size: 0.92rem; color: #14532d; }
     .screen { display: none; }
     .screen.active { display: block; }
     hr { border: none; border-top: 1px solid #e5e7eb; margin: 24px 0 14px; }
     .privacy-note { text-align: center; font-size: 0.74rem; color: #9ca3af; }
-@media (max-width: 460px) { .login-card { padding: 32px 20px 28px; } }
+    @media (max-width: 460px) { .login-card { padding: 32px 20px 28px; } }
   </style>
 </head>
 <body>
@@ -98,7 +101,7 @@
       <div class="change-email">Wrong email? <a onclick="goBack()">Change email</a></div>
     </div>
 
-    <!-- SCREEN 3 — USER DETAILS -->
+    <!-- SCREEN 3 — USER DETAILS (only for NEW users) -->
     <div class="screen" id="screen3">
       <h1>Almost done!</h1>
       <p class="subtitle">Tell us a bit about yourself so we can serve you better</p>
@@ -123,7 +126,7 @@
     <div class="screen" id="screen4">
       <div class="success-wrap">
         <div class="success-icon">✅</div>
-        <h2>Welcome to Intelitek!</h2>
+        <h2 id="welcomeMsg">Welcome back!</h2>
         <p>Please wait while we take you to the home page...</p>
       </div>
     </div>
@@ -132,10 +135,9 @@
     <p class="privacy-note">🔒 Your information is kept private and secure</p>
   </div>
 
-
-
   <script>
-    const OTP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8y4Ig6OWDZowjQcR1c-vLV0GL03fJtBepSzO6CiMSNyy3K_3G4RKcsXfqKqATR5M/exec";
+    const OTP_SCRIPT_URL    = "https://script.google.com/macros/s/AKfycbz8y4Ig6OWDZowjQcR1c-vLV0GL03fJtBepSzO6CiMSNyy3K_3G4RKcsXfqKqATR5M/exec";
+    const LEADS_SCRIPT_URL  = "https://script.google.com/macros/s/AKfycbyfsV4h4TBvaMSfZigtpbvsUXt9D_JXb2hIu-oRMSYD6f7JdJDDhuVGapcB_rA7j3D8Vg/exec";
 
     let generatedOTP = "", timerInterval = null, timeLeft = 60;
 
@@ -152,14 +154,12 @@
     }
 
     async function sendBrevoOTP(email, otp) {
-      // Use no-cors mode for Google Apps Script
       await fetch(OTP_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify({ email: email, otp: otp })
       });
-      // no-cors returns opaque response — we assume success if no exception
       return true;
     }
 
@@ -229,19 +229,59 @@
 
     function verifyOTP() {
       const entered = document.getElementById("otpInput").value.trim();
-      if (String(entered) === String(generatedOTP)) {
-        clearInterval(timerInterval);
-        document.getElementById("otpErr").classList.remove("show");
-        document.getElementById("otpInput").classList.remove("error-border");
-        showScreen("screen3");
-        document.getElementById("userName").focus();
-      } else {
+      if (String(entered) !== String(generatedOTP)) {
         document.getElementById("otpErr").classList.add("show");
         document.getElementById("otpInput").classList.add("error-border");
         setTimeout(function() {
           document.getElementById("otpInput").classList.remove("error-border");
         }, 2500);
+        return;
       }
+
+      clearInterval(timerInterval);
+      document.getElementById("otpErr").classList.remove("show");
+      document.getElementById("otpInput").classList.remove("error-border");
+
+      const enteredEmail = document.getElementById("userEmail").value.trim();
+      const savedEmail   = localStorage.getItem("userEmail") || "";
+      const savedName    = localStorage.getItem("userName")  || "";
+
+      // ── RETURNING USER: same email already saved ──
+      if (savedEmail && savedEmail.toLowerCase() === enteredEmail.toLowerCase() && savedName) {
+        // Restore login flag
+        localStorage.setItem("userLogged", "true");
+
+        // Log this visit to Google Sheets (so you know who logged in today)
+        logReturningVisit(savedEmail, savedName);
+
+        // Show success and go home
+        document.getElementById("welcomeMsg").textContent = "Welcome back, " + savedName.split(" ")[0] + "!";
+        showScreen("screen4");
+        setTimeout(function() { window.location.href = "index.html"; }, 2000);
+
+      } else {
+        // ── NEW USER: different or no email saved — ask for details ──
+        showScreen("screen3");
+        document.getElementById("userName").focus();
+      }
+    }
+
+    // Silently log returning user visit to Google Sheets
+    function logReturningVisit(email, name) {
+      const savedPhone = localStorage.getItem("userPhone") || "";
+      const savedOrg   = localStorage.getItem("userOrg")   || "";
+      fetch(LEADS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({
+          name: name,
+          phone: savedPhone,
+          email: email,
+          organization: savedOrg,
+          loginType: "returning"
+        })
+      });
     }
 
     function completeLogin() {
@@ -258,20 +298,21 @@
       const email = document.getElementById("userEmail").value.trim();
       const org   = document.getElementById("userOrg").value.trim();
 
-      // Save to Google Sheets
-      fetch("https://script.google.com/macros/s/AKfycbyfsV4h4TBvaMSfZigtpbvsUXt9D_JXb2hIu-oRMSYD6f7JdJDDhuVGapcB_rA7j3D8Vg/exec", {
+      // Save new user to Google Sheets
+      fetch(LEADS_SCRIPT_URL, {
         method: "POST", mode: "no-cors",
         headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify({ name, phone, email, organization: org })
+        body: JSON.stringify({ name, phone, email, organization: org, loginType: "new" })
       });
 
       // Save to localStorage
-      localStorage.setItem("userLogged", "true");
-      localStorage.setItem("userName",   name);
-      localStorage.setItem("userEmail",  email);
-      localStorage.setItem("userPhone",  phone);
-      localStorage.setItem("userOrg",    org);
+      localStorage.setItem("userLogged",  "true");
+      localStorage.setItem("userName",    name);
+      localStorage.setItem("userEmail",   email);
+      localStorage.setItem("userPhone",   phone);
+      localStorage.setItem("userOrg",     org);
 
+      document.getElementById("welcomeMsg").textContent = "Welcome, " + name.split(" ")[0] + "!";
       showScreen("screen4");
       setTimeout(function() { window.location.href = "index.html"; }, 2000);
     }
