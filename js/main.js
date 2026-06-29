@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initHeaderScroll();
   initSmoothScroll();
+  initSkeletonLoaders();
 });
 
 // Mobile menu toggle
@@ -68,6 +69,43 @@ function initSmoothScroll() {
     });
   });
 }
+// ===== SKELETON LOADER FOR PRODUCT IMAGES =====
+function initSkeletonLoaders() {
+  document.querySelectorAll(".product-image-wrap").forEach(function(wrap) {
+    const img = wrap.querySelector("img");
+    if (!img) return;
+
+    // Add skeleton class to the wrap immediately
+    wrap.classList.add("img-skeleton");
+
+    // If image already loaded from cache (complete & natural size ok)
+    if (img.complete && img.naturalWidth > 0) {
+      wrap.classList.remove("img-skeleton");
+      img.classList.add("img-loaded");
+      return;
+    }
+
+    // Image loaded successfully — remove skeleton
+    img.addEventListener("load", function() {
+      wrap.classList.remove("img-skeleton");
+      img.classList.add("img-loaded");
+    });
+
+    // Image failed — remove skeleton, show broken icon
+    img.addEventListener("error", function() {
+      wrap.classList.remove("img-skeleton");
+      wrap.classList.add("img-error");
+      // Only add icon if not already there
+      if (!wrap.querySelector(".img-error-icon")) {
+        const icon = document.createElement("span");
+        icon.className = "img-error-icon";
+        icon.textContent = "🖼️";
+        wrap.appendChild(icon);
+      }
+    });
+  });
+}
+
 // PRODUCT IMAGE POPUP
 document.querySelectorAll(".product-image-wrap img").forEach(img => {
   img.addEventListener("click", function() {
