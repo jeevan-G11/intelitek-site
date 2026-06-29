@@ -1853,7 +1853,7 @@ section.our-work-cta .ow-cta-text p  { color: rgba(255,255,255,0.65); }
 
 
 
-/* ── MOBILE NAV: one clean row - hamburger | logo | search ── */
+/* ── MOBILE NAV: hamburger | logo | search ── */
 @media (max-width: 768px) {
 
   header nav {
@@ -1861,7 +1861,7 @@ section.our-work-cta .ow-cta-text p  { color: rgba(255,255,255,0.65); }
     flex-wrap: nowrap !important;
     align-items: center !important;
     padding: 8px 12px !important;
-    gap: 10px !important;
+    gap: 8px !important;
   }
 
   .menu-toggle {
@@ -1873,35 +1873,47 @@ section.our-work-cta .ow-cta-text p  { color: rgba(255,255,255,0.65); }
   .logo {
     order: 2 !important;
     flex-shrink: 0 !important;
-    display: block !important;
+    display: flex !important;
+    align-items: center !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
 
   .logo img {
-    height: 34px !important;
+    height: 38px !important;
     width: auto !important;
     display: block !important;
   }
 
+  /* Search takes remaining space */
   .search-container {
     order: 3 !important;
     flex: 1 1 auto !important;
     width: auto !important;
     min-width: 0 !important;
     margin: 0 !important;
+    display: flex !important;
+  }
+
+  .search-input-wrap {
+    width: 100% !important;
   }
 
   .search-container input {
     width: 100% !important;
     box-sizing: border-box !important;
     font-size: 0.82rem !important;
-    padding: 8px 10px !important;
+    padding: 7px 8px !important;
   }
 
   .nav-links {
-    order: 4 !important;
+    order: 5 !important;
     width: 100% !important;
+  }
+
+  .profile-wrap {
+    order: 4 !important;
+    display: none !important;
   }
 
   /* Mobile 1 col grid fix */
