@@ -25,11 +25,9 @@
   const initial   = firstWord.charAt(0).toUpperCase();
 
   function logout() {
+    // Only remove the login flag — keep name/email/phone/org
+    // so returning users don't have to fill details again
     localStorage.removeItem("userLogged");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("userPhone");
-    localStorage.removeItem("userOrg");
     window.location.href = "login.html";
   }
 
