@@ -47,80 +47,80 @@
     { name:"Industrial Sensor Trainer Kit", category:"Electrical", image:"images/sensor.png", link:"product-details.html?name=industrialSensor" },
 
     /* ELECTRONICS */
-    { name:"Basic Electricity and Electronics Fundamental Trainer", category:"Electronics", image:"images/Basic Electricity and Electronics Fundamental Trainer.jpeg", link:"product-details.html?name=electronicsbasic" },
-    { name:"Electronic Workbench with Analog Trainer IES4041", category:"Electronics", image:"images/Electronic Workbench with Analog Trainer – IES4041.png", link:"product-details.html?name=analogtrainer" },
-    { name:"Electronic Workbench with Instrument Panel", category:"Electronics", image:"images/Electronic Workbench with Instrument Panel .jpg", link:"product-details.html?name=instrumentpanel" },
-    { name:"Electronics Lab Trainer Kit", category:"Electronics", image:"images/Electronics Lab Trainer Kit Manufacturers & Suppliers.jpg", link:"product-details.html?name=electronicslab" },
-    { name:"Industrial Sensor Trainer Kit", category:"Electronics", image:"images/INDUSTRIAL SENSOR TRAINER KIT.jpeg", link:"product-details.html?name=industrialsensor" },
-    { name:"Micro Controller Training Kit IES 2044", category:"Electronics", image:"images/Micro-Controller Training Kit – IES 2044.png", link:"product-details.html?name=microcontroller" },
+    { name:"Basic Electricity and Electronics Fundamental Trainer", category:"Electronics", image:"images/Basic%20Electricity%20and%20Electronics%20Fundamental%20Trainer.jpeg", link:"product-details.html?name=electronicsbasic" },
+    { name:"Electronic Workbench with Analog Trainer IES4041", category:"Electronics", image:"images/Electronic%20Workbench%20with%20Analog%20Trainer%20%E2%80%93%20IES4041.png", link:"product-details.html?name=analogtrainer" },
+    { name:"Electronic Workbench with Instrument Panel", category:"Electronics", image:"images/Electronic%20Workbench%20with%20Instrument%20Panel%20.jpg", link:"product-details.html?name=instrumentpanel" },
+    { name:"Electronics Lab Trainer Kit", category:"Electronics", image:"images/Electronics%20Lab%20Trainer%20Kit%20Manufacturers%20%26%20Suppliers.jpg", link:"product-details.html?name=electronicslab" },
+    { name:"Industrial Sensor Trainer Kit", category:"Electronics", image:"images/INDUSTRIAL%20SENSOR%20TRAINER%20KIT.jpeg", link:"product-details.html?name=industrialsensor" },
+    { name:"Micro Controller Training Kit IES 2044", category:"Electronics", image:"images/Micro-Controller%20Training%20Kit%20%E2%80%93%20IES%202044.png", link:"product-details.html?name=microcontroller" },
 
     /* MECHANICAL */
-    { name:"Basic Refrigeration Trainer", category:"Mechanical", image:"images/mechanical/Basic Refrigeration Trainer.jpeg", link:"product-details.html?name=refrigeration" },
+    { name:"Basic Refrigeration Trainer", category:"Mechanical", image:"images/mechanical/Basic%20Refrigeration%20Trainer.jpeg", link:"product-details.html?name=refrigeration" },
     { name:"Pneumatic Trainer Kit", category:"Mechanical", image:"images/mechanical/basic-pneumatic-trainer.jpg", link:"product-details.html?name=pneumatic" },
-    { name:"Hydraulic Trainer Kit", category:"Mechanical", image:"images/mechanical/Hydraulic Trainer Kits.jpg", link:"product-details.html?name=hydraulic" },
-    { name:"Electro Hydraulic Training Kit", category:"Mechanical", image:"images/mechanical/ELECTRO-HYDRAULIC TRAINING KIT.png", link:"product-details.html?name=electrohydraulic" },
-    { name:"Electro Hydraulic Trainer Kit Advanced", category:"Mechanical", image:"images/mechanical/Electro Hydraulic Trainer Kit.png", link:"product-details.html?name=electrohydraulictrainer" },
-    { name:"Electro Pneumatic Trainer Kit", category:"Mechanical", image:"images/mechanical/Electro Pneumatic Trainer Kit .png", link:"product-details.html?name=electropneumatic" },
+    { name:"Hydraulic Trainer Kit", category:"Mechanical", image:"images/mechanical/Hydraulic%20Trainer%20Kits.jpg", link:"product-details.html?name=hydraulic" },
+    { name:"Electro Hydraulic Training Kit", category:"Mechanical", image:"images/mechanical/ELECTRO-HYDRAULIC%20TRAINING%20KIT.png", link:"product-details.html?name=electrohydraulic" },
+    { name:"Electro Hydraulic Trainer Kit Advanced", category:"Mechanical", image:"images/mechanical/Electro%20Hydraulic%20Trainer%20Kit.png", link:"product-details.html?name=electrohydraulictrainer" },
+    { name:"Electro Pneumatic Trainer Kit", category:"Mechanical", image:"images/mechanical/Electro%20Pneumatic%20Trainer%20Kit%20.png", link:"product-details.html?name=electropneumatic" },
 
     /* MECHATRONICS */
-    { name:"6 Axis Articulated Robot Training Kit", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/6 Axis Articulated Training Robot Kit.jpeg", link:"product-details.html?name=sixaxisrobot" },
-    { name:"Advance PLC Training Kit", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/Advance PLC Trainer kit.png", link:"product-details.html?name=advanceplc" },
-    { name:"Miniature Industrial Production System", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/MINIATURE INDUSTRIAL PRODUCTION SYSTEM.png", link:"product-details.html?name=productionmodule" },
-    { name:"Robot Training Cell", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/ROBOT TRAINING CELL.png", link:"product-details.html?name=robotcell" },
-    { name:"Integrated Smart Control System with SCADA", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/INTEGRATED SMART CONTROL SYSTEM WITH SCADA.png", link:"product-details.html?name=scadasystem" },
-    { name:"Automation Trainer Kit Industrial 4.0", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/Automation Trainer Kit-Industrial 4.0 Automation System Kit.jpg", link:"product-details.html?name=automationtrainer" },
-    { name:"Basic PLC Trainer", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/basic-plc.jpg", link:"product-details.html?name=basicplc" },
-    { name:"Bottle Filling Module Training Kit", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/Bottle Filling Module Training Kit.png", link:"product-details.html?name=bottlefilling" },
-    { name:"Building Automation Training Booth", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/Building Automation Training Booth.jpeg", link:"product-details.html?name=buildingautomation" },
-    { name:"CCTV Security System Training Kit", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/CCTV Security System Training Kit.jpeg", link:"product-details.html?name=cctvtraining" },
-    { name:"COBOT Training Kit", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/COBOT-TRAINING-KIT.png", link:"product-details.html?name=cobot" },
-    { name:"Fire Alarm Demonstrator", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/Fire Alarm Demonstrator.jpeg", link:"product-details.html?name=firealarm" },
-    { name:"Hydraulic Training Kit IES1203A", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/Hydraulic Training Kit- IES1203A.png", link:"product-details.html?name=hydraulictrainer" },
-    { name:"Modular Manufacturing Systems", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/Modular Manufacturing Systems.jpeg", link:"product-details.html?name=modularmanufacturing" },
-    { name:"PLC Application System IES 3046", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/PLC APPLICATION SYSTEM – IES 3046.png", link:"product-details.html?name=plcapplication" },
-    { name:"PLC Training Kit IES3040", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/PLC Training Kit – IES3040.png", link:"product-details.html?name=plctraining" },
-    { name:"PLC Based Level Temperature Control System", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/PLC-Based-Level-Temperature-control-System.jpg", link:"product-details.html?name=plcleveltemp" },
-    { name:"SCARA Robot Training Cell IES 7650", category:"Mechatronics", image:"images/Mechatronics, Robotics and Automation/SCARA Robot training cell (ABB-FANUC-KUKA)-IES-7650.png", link:"product-details.html?name=scararobot" },
+    { name:"6 Axis Articulated Robot Training Kit", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/6%20Axis%20Articulated%20Training%20Robot%20Kit.jpeg", link:"product-details.html?name=sixaxisrobot" },
+    { name:"Advance PLC Training Kit", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/Advance%20PLC%20Trainer%20kit.png", link:"product-details.html?name=advanceplc" },
+    { name:"Miniature Industrial Production System", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/MINIATURE%20INDUSTRIAL%20PRODUCTION%20SYSTEM.png", link:"product-details.html?name=productionmodule" },
+    { name:"Robot Training Cell", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/ROBOT%20TRAINING%20CELL.png", link:"product-details.html?name=robotcell" },
+    { name:"Integrated Smart Control System with SCADA", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/INTEGRATED%20SMART%20CONTROL%20SYSTEM%20WITH%20SCADA.png", link:"product-details.html?name=scadasystem" },
+    { name:"Automation Trainer Kit Industrial 4.0", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/Automation%20Trainer%20Kit-Industrial%204.0%20Automation%20System%20Kit.jpg", link:"product-details.html?name=automationtrainer" },
+    { name:"Basic PLC Trainer", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/basic-plc.jpg", link:"product-details.html?name=basicplc" },
+    { name:"Bottle Filling Module Training Kit", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/Bottle%20Filling%20Module%20Training%20Kit.png", link:"product-details.html?name=bottlefilling" },
+    { name:"Building Automation Training Booth", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/Building%20Automation%20Training%20Booth.jpeg", link:"product-details.html?name=buildingautomation" },
+    { name:"CCTV Security System Training Kit", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/CCTV%20Security%20System%20Training%20Kit.jpeg", link:"product-details.html?name=cctvtraining" },
+    { name:"COBOT Training Kit", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/COBOT-TRAINING-KIT.png", link:"product-details.html?name=cobot" },
+    { name:"Fire Alarm Demonstrator", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/Fire%20Alarm%20Demonstrator.jpeg", link:"product-details.html?name=firealarm" },
+    { name:"Hydraulic Training Kit IES1203A", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/Hydraulic%20Training%20Kit-%20IES1203A.png", link:"product-details.html?name=hydraulictrainer" },
+    { name:"Modular Manufacturing Systems", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/Modular%20Manufacturing%20Systems.jpeg", link:"product-details.html?name=modularmanufacturing" },
+    { name:"PLC Application System IES 3046", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/PLC%20APPLICATION%20SYSTEM%20%E2%80%93%20IES%203046.png", link:"product-details.html?name=plcapplication" },
+    { name:"PLC Training Kit IES3040", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/PLC%20Training%20Kit%20%E2%80%93%20IES3040.png", link:"product-details.html?name=plctraining" },
+    { name:"PLC Based Level Temperature Control System", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/PLC-Based-Level-Temperature-control-System.jpg", link:"product-details.html?name=plcleveltemp" },
+    { name:"SCARA Robot Training Cell IES 7650", category:"Mechatronics", image:"images/Mechatronics%2C%20Robotics%20and%20Automation/SCARA%20Robot%20training%20cell%20%28ABB-FANUC-KUKA%29-IES-7650.png", link:"product-details.html?name=scararobot" },
 
     /* RENEWABLE ENERGY */
-    { name:"Solar Wind Energy Training Kit IES0534", category:"Renewable Energy", image:"images/renewable/SOLAR & WIND ENERGY TRAINING KIT-IES-0534.png", link:"product-details.html?name=solarwind" },
-    { name:"Solar Power Generation Training System", category:"Renewable Energy", image:"images/renewable/Solar Energy-Solar Power Generation & Training System.jpeg", link:"product-details.html?name=solarpower" },
-    { name:"Solar Thermal Evacuated Tube System", category:"Renewable Energy", image:"images/renewable/SOLAR THERMAL EVACUATED TUBE.png", link:"product-details.html?name=solarthermal" },
+    { name:"Solar Wind Energy Training Kit IES0534", category:"Renewable Energy", image:"images/renewable/SOLAR%20%26%20WIND%20ENERGY%20TRAINING%20KIT-IES-0534.png", link:"product-details.html?name=solarwind" },
+    { name:"Solar Power Generation Training System", category:"Renewable Energy", image:"images/renewable/Solar%20Energy-Solar%20Power%20Generation%20%26%20Training%20System.jpeg", link:"product-details.html?name=solarpower" },
+    { name:"Solar Thermal Evacuated Tube System", category:"Renewable Energy", image:"images/renewable/SOLAR%20THERMAL%20EVACUATED%20TUBE.png", link:"product-details.html?name=solarthermal" },
     { name:"Green Technology Trainer Kit", category:"Renewable Energy", image:"images/renewable/green-technology-trainer-kit.jpg", link:"product-details.html?name=greentech" },
-    { name:"Solar Training Kit", category:"Renewable Energy", image:"images/renewable/SOLAR TRAINING KIT.png", link:"product-details.html?name=solarkit" },
+    { name:"Solar Training Kit", category:"Renewable Energy", image:"images/renewable/SOLAR%20TRAINING%20KIT.png", link:"product-details.html?name=solarkit" },
 
     /* PROCESS CONTROL */
-    { name:"Sensor Training Kit IES 2045", category:"Process Control", image:"images/Process Control/Sensor Training Kit – IES 2045.png", link:"product-details.html?name=sensortrainer2045" },
-    { name:"Analog Digital Sensor Trainer IES 2040", category:"Process Control", image:"images/Process Control/Analog and Digital Sensor Trainer Kit – IES 2040.png", link:"product-details.html?name=analogsensortrainer" },
-    { name:"Industrial Process Control Trainer Kit", category:"Process Control", image:"images/Process Control/Industrial Process Control Trainer Kit.jpeg", link:"product-details.html?name=processcontroltrainer" },
-    { name:"PLC Based Flow Pressure Control System", category:"Process Control", image:"images/Process Control/PLC-Based-Flow-Pressure-Control-System-1.jpg", link:"product-details.html?name=flowpressurecontrol" },
-    { name:"Digital Oscilloscope 4000 Series", category:"Process Control", image:"images/Process Control/Digital Oscilloscope 4000 Series.png", link:"product-details.html?name=oscilloscope4000" },
-    { name:"MSO 7000 Series Mixed Signal Oscilloscope", category:"Process Control", image:"images/Process Control/MSO 7000 Series.jpg", link:"product-details.html?name=mso7000" },
-    { name:"Universal Work Bench Workstation", category:"Process Control", image:"images/Process Control/universal-work-bench.jpg", link:"product-details.html?name=universalworkbench" },
-    { name:"Digital Oscilloscope 6000 Series", category:"Process Control", image:"images/Process Control/Digital Oscilloscope 6000 Series.jpg", link:"product-details.html?name=oscilloscope6000" },
-    { name:"Digital Sensor Trainer", category:"Process Control", image:"images/Process Control/Digital Sensor Trainer.png", link:"product-details.html?name=digitalsensortrainer" },
-    { name:"DS1000 Series Digital Oscilloscope", category:"Process Control", image:"images/Process Control/DS1000 Series Digital Oscilloscopes.jpg", link:"product-details.html?name=ds1000oscilloscope" },
-    { name:"Electronic Fault Finding Test Simulation Board IES2041", category:"Process Control", image:"images/Process Control/Electronic fault finding test simulation board- IES2041.png", link:"product-details.html?name=faultfindingboard" },
-    { name:"MSO Mixed Signal Oscilloscope", category:"Process Control", image:"images/Process Control/mso-mixed-signal-oscilloscope.jpg", link:"product-details.html?name=msomixedsignal" },
+    { name:"Sensor Training Kit IES 2045", category:"Process Control", image:"images/Process%20Control/Sensor%20Training%20Kit%20%E2%80%93%20IES%202045.png", link:"product-details.html?name=sensortrainer2045" },
+    { name:"Analog Digital Sensor Trainer IES 2040", category:"Process Control", image:"images/Process%20Control/Analog%20and%20Digital%20Sensor%20Trainer%20Kit%20%E2%80%93%20IES%202040.png", link:"product-details.html?name=analogsensortrainer" },
+    { name:"Industrial Process Control Trainer Kit", category:"Process Control", image:"images/Process%20Control/Industrial%20Process%20Control%20Trainer%20Kit.jpeg", link:"product-details.html?name=processcontroltrainer" },
+    { name:"PLC Based Flow Pressure Control System", category:"Process Control", image:"images/Process%20Control/PLC-Based-Flow-Pressure-Control-System-1.jpg", link:"product-details.html?name=flowpressurecontrol" },
+    { name:"Digital Oscilloscope 4000 Series", category:"Process Control", image:"images/Process%20Control/Digital%20Oscilloscope%204000%20Series.png", link:"product-details.html?name=oscilloscope4000" },
+    { name:"MSO 7000 Series Mixed Signal Oscilloscope", category:"Process Control", image:"images/Process%20Control/MSO%207000%20Series.jpg", link:"product-details.html?name=mso7000" },
+    { name:"Universal Work Bench Workstation", category:"Process Control", image:"images/Process%20Control/universal-work-bench.jpg", link:"product-details.html?name=universalworkbench" },
+    { name:"Digital Oscilloscope 6000 Series", category:"Process Control", image:"images/Process%20Control/Digital%20Oscilloscope%206000%20Series.jpg", link:"product-details.html?name=oscilloscope6000" },
+    { name:"Digital Sensor Trainer", category:"Process Control", image:"images/Process%20Control/Digital%20Sensor%20Trainer.png", link:"product-details.html?name=digitalsensortrainer" },
+    { name:"DS1000 Series Digital Oscilloscope", category:"Process Control", image:"images/Process%20Control/DS1000%20Series%20Digital%20Oscilloscopes.jpg", link:"product-details.html?name=ds1000oscilloscope" },
+    { name:"Electronic Fault Finding Test Simulation Board IES2041", category:"Process Control", image:"images/Process%20Control/Electronic%20fault%20finding%20test%20simulation%20board-%20IES2041.png", link:"product-details.html?name=faultfindingboard" },
+    { name:"MSO Mixed Signal Oscilloscope", category:"Process Control", image:"images/Process%20Control/mso-mixed-signal-oscilloscope.jpg", link:"product-details.html?name=msomixedsignal" },
 
     /* EV TECHNOLOGY */
-    { name:"Electric Vehicle Working Model Trainer", category:"EV Technology", image:"images/evtechnology/2-W Electric Vehicle Working Model Training Setup.png", link:"product-details.html?name=evworkingmodel" },
-    { name:"2 Wheeler EV Drivetrain Trainer", category:"EV Technology", image:"images/evtechnology/2–Wheeler Electric Vehicle Drivetrain Training Setup with Mechanical Loading.png", link:"product-details.html?name=2wevdrivetrain" },
-    { name:"2 Wheeler EV Motor Research Trainer", category:"EV Technology", image:"images/evtechnology/2-Wheeler EV Motor Drivetrain Training & Research Setup.png", link:"product-details.html?name=2wevresearch" },
-    { name:"3 Wheeler EV Motor Drivetrain Trainer", category:"EV Technology", image:"images/evtechnology/03-Wheeler EV Motor Drivetrain with Loading Facility.png", link:"product-details.html?name=3wevdrivetrain" },
-    { name:"Solar Powered 3 Wheeler EV Trainer", category:"EV Technology", image:"images/evtechnology/3-Wheeler Electric Vehicle Training Setup with Solar Powered Charging System .png", link:"product-details.html?name=3wevsolartrainer" },
-    { name:"4 Wheeler EV Drivetrain Trainer", category:"EV Technology", image:"images/evtechnology/4-Wheeler EV Motor Drivetrain Training & Research Setup .png", link:"product-details.html?name=4wevdrivetrain" },
-    { name:"2 Wheeler EV Chassis Dynamometer", category:"EV Technology", image:"images/evtechnology/Electric Vehicle Chassis Dynamometer for 2-Wheeler EVs with Electric 2-Wheeler .png", link:"product-details.html?name=evchassisdyno" },
-    { name:"EV Motor Li Ion Battery Cut Section Trainer", category:"EV Technology", image:"images/evtechnology/E-Mobility Motors & Li-Ion Battery Cut-Section Display Workbench.png", link:"product-details.html?name=evbatterycutsection" },
-    { name:"EV Golf Cart Working Model", category:"EV Technology", image:"images/evtechnology/EV Golf Kart (Battery Operated) 4-Wheeler Working Model.png", link:"product-details.html?name=evgolfkart" },
-    { name:"4 Wheeler EV Cut Section Model", category:"EV Technology", image:"images/evtechnology/Four-Wheeler EV Working Cut-Section Model.png", link:"product-details.html?name=4wevcutsection" },
-    { name:"Hybrid Electric Vehicle Anatomical Platform", category:"EV Technology", image:"images/evtechnology/Full Hybrid Electric Vehicle (HEV) Anatomical Working Car Platform.png", link:"product-details.html?name=hevcarplatform" },
-    { name:"Hybrid Electric Vehicle Powertrain Trainer", category:"EV Technology", image:"images/evtechnology/Hybrid Electric Vehicle (HEV) Powertrain Training Setup .png", link:"product-details.html?name=hevpowertrain" },
-    { name:"Hydrogen Fuel Cell EV Trainer", category:"EV Technology", image:"images/evtechnology/Hydrogen Fuel Cell Electric Vehicle Training System Integrated with Renewable Energy.png", link:"product-details.html?name=hydrogenfcev" },
-    { name:"Smart Electric Two Wheeler Trainer IoT Fault Simulation", category:"EV Technology", image:"images/evtechnology/Interactive Electric Two-Wheeler Training System with Fault Simulation, IoT & Voice Control.png", link:"product-details.html?name=smart2wevtrainer" },
-    { name:"Model Based Development Real Time Controller", category:"EV Technology", image:"images/evtechnology/Model-Based Development (MBD) Real-Time Controller .png", link:"product-details.html?name=mbdcontroller" },
-    { name:"Electric Auto Rickshaw Cut Section Trainer", category:"EV Technology", image:"images/evtechnology/Working Electric Passenger Auto-Rickshaw – Cut-Sectioned Training System .png", link:"product-details.html?name=evautorickshaw" },
-    { name:"Hybrid Petrol Engine Working Model", category:"EV Technology", image:"images/evtechnology/Working Model of Hybrid Petrol Engine.png", link:"product-details.html?name=hybridengine" }
+    { name:"Electric Vehicle Working Model Trainer", category:"EV Technology", image:"images/evtechnology/2-W%20Electric%20Vehicle%20Working%20Model%20Training%20Setup.png", link:"product-details.html?name=evworkingmodel" },
+    { name:"2 Wheeler EV Drivetrain Trainer", category:"EV Technology", image:"images/evtechnology/2%E2%80%93Wheeler%20Electric%20Vehicle%20Drivetrain%20Training%20Setup%20with%20Mechanical%20Loading.png", link:"product-details.html?name=2wevdrivetrain" },
+    { name:"2 Wheeler EV Motor Research Trainer", category:"EV Technology", image:"images/evtechnology/2-Wheeler%20EV%20Motor%20Drivetrain%20Training%20%26%20Research%20Setup.png", link:"product-details.html?name=2wevresearch" },
+    { name:"3 Wheeler EV Motor Drivetrain Trainer", category:"EV Technology", image:"images/evtechnology/03-Wheeler%20EV%20Motor%20Drivetrain%20with%20Loading%20Facility.png", link:"product-details.html?name=3wevdrivetrain" },
+    { name:"Solar Powered 3 Wheeler EV Trainer", category:"EV Technology", image:"images/evtechnology/3-Wheeler%20Electric%20Vehicle%20Training%20Setup%20with%20Solar%20Powered%20Charging%20System%20.png", link:"product-details.html?name=3wevsolartrainer" },
+    { name:"4 Wheeler EV Drivetrain Trainer", category:"EV Technology", image:"images/evtechnology/4-Wheeler%20EV%20Motor%20Drivetrain%20Training%20%26%20Research%20Setup%20.png", link:"product-details.html?name=4wevdrivetrain" },
+    { name:"2 Wheeler EV Chassis Dynamometer", category:"EV Technology", image:"images/evtechnology/Electric%20Vehicle%20Chassis%20Dynamometer%20for%202-Wheeler%20EVs%20with%20Electric%202-Wheeler%20.png", link:"product-details.html?name=evchassisdyno" },
+    { name:"EV Motor Li Ion Battery Cut Section Trainer", category:"EV Technology", image:"images/evtechnology/E-Mobility%20Motors%20%26%20Li-Ion%20Battery%20Cut-Section%20Display%20Workbench.png", link:"product-details.html?name=evbatterycutsection" },
+    { name:"EV Golf Cart Working Model", category:"EV Technology", image:"images/evtechnology/EV%20Golf%20Kart%20%28Battery%20Operated%29%204-Wheeler%20Working%20Model.png", link:"product-details.html?name=evgolfkart" },
+    { name:"4 Wheeler EV Cut Section Model", category:"EV Technology", image:"images/evtechnology/Four-Wheeler%20EV%20Working%20Cut-Section%20Model.png", link:"product-details.html?name=4wevcutsection" },
+    { name:"Hybrid Electric Vehicle Anatomical Platform", category:"EV Technology", image:"images/evtechnology/Full%20Hybrid%20Electric%20Vehicle%20%28HEV%29%20Anatomical%20Working%20Car%20Platform.png", link:"product-details.html?name=hevcarplatform" },
+    { name:"Hybrid Electric Vehicle Powertrain Trainer", category:"EV Technology", image:"images/evtechnology/Hybrid%20Electric%20Vehicle%20%28HEV%29%20Powertrain%20Training%20Setup%20.png", link:"product-details.html?name=hevpowertrain" },
+    { name:"Hydrogen Fuel Cell EV Trainer", category:"EV Technology", image:"images/evtechnology/Hydrogen%20Fuel%20Cell%20Electric%20Vehicle%20Training%20System%20Integrated%20with%20Renewable%20Energy.png", link:"product-details.html?name=hydrogenfcev" },
+    { name:"Smart Electric Two Wheeler Trainer IoT Fault Simulation", category:"EV Technology", image:"images/evtechnology/Interactive%20Electric%20Two-Wheeler%20Training%20System%20with%20Fault%20Simulation%2C%20IoT%20%26%20Voice%20Control.png", link:"product-details.html?name=smart2wevtrainer" },
+    { name:"Model Based Development Real Time Controller", category:"EV Technology", image:"images/evtechnology/Model-Based%20Development%20%28MBD%29%20Real-Time%20Controller%20.png", link:"product-details.html?name=mbdcontroller" },
+    { name:"Electric Auto Rickshaw Cut Section Trainer", category:"EV Technology", image:"images/evtechnology/Working%20Electric%20Passenger%20Auto-Rickshaw%20%E2%80%93%20Cut-Sectioned%20Training%20System%20.png", link:"product-details.html?name=evautorickshaw" },
+    { name:"Hybrid Petrol Engine Working Model", category:"EV Technology", image:"images/evtechnology/Working%20Model%20of%20Hybrid%20Petrol%20Engine.png", link:"product-details.html?name=hybridengine" }
   ];
 
   // Category color map
@@ -430,7 +430,18 @@
           .search-container { width: 160px; }
         }
         @media (max-width: 768px) {
-          .search-container { display: none; }
+          /* Show search bar on mobile, hide profile avatar */
+          .search-container {
+            display: flex !important;
+            flex: 1 1 auto !important;
+            width: auto !important;
+            min-width: 0 !important;
+            margin: 0 !important;
+            order: 3 !important;
+          }
+          .search-input-wrap {
+            width: 100% !important;
+          }
           .profile-wrap { display: none; }
         }
       </style>
@@ -499,7 +510,7 @@
         const catColor = CAT_COLORS[p.category] || "#475569";
 
         item.innerHTML = `
-          <img class="sri-img" src="${p.image}" alt="" loading="lazy"
+          <img class="sri-img" src="${p.image}" alt="" loading="eager"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <span class="sri-img-fallback" style="display:none;">🔧</span>
           <span class="sri-text">
