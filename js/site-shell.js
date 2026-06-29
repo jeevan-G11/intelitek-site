@@ -54,10 +54,9 @@
           <li><a href="our-work.html" class="${isActive("our-work") ? "active" : ""}">Our Work</a></li>
         </ul>
         <div class="search-container">
-          <input type="text" id="productSearch" placeholder="Search products..."
-                 autocomplete="off" aria-label="Search products">
-          <button id="searchBtn" type="button">Search</button>
-          <div id="searchResults" class="search-results" aria-hidden="true"></div>
+          <input type="search" id="searchInput" placeholder="Search training systems..."
+                 autocomplete="new-password" aria-label="Search products">
+          <div id="searchResults"></div>
         </div>
 
         <!-- PROFILE DROPDOWN -->
