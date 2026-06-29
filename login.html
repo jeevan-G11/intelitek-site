@@ -259,9 +259,9 @@
       const org   = document.getElementById("userOrg").value.trim();
 
       // Save to Google Sheets
-      fetch("https://script.google.com/macros/s/AKfycbyDhUCzK0l01LqQ7jdiz6m-ZPZEn1oSscdJQKQIacmL7sa3NJJBqbVuhIMC0WezBT3p/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbyfsV4h4TBvaMSfZigtpbvsUXt9D_JXb2hIu-oRMSYD6f7JdJDDhuVGapcB_rA7j3D8Vg/exec", {
         method: "POST", mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "text/plain" },
         body: JSON.stringify({ name, phone, email, organization: org })
       });
 
