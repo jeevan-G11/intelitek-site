@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<script>if(!localStorage.getItem("userLogged")){window.location.href="login.html";}</script>
+  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Robotics Training Equipment | Intelitek</title>
@@ -11,37 +12,7 @@
 
 <body>
 
-<header>
-<nav>
-    <a href="index.html" class="logo">
-      <img src="images/logo.png" alt="Intelitek Logo">
-    </a>
-
-    <button class="menu-toggle">
-      <span></span><span></span><span></span>
-    </button>
-
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="products.html" class="active">Products</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-     <div class="search-container">
-
-<input 
-type="text" 
-id="searchInput" 
-placeholder="Search training systems..."
-autocomplete="off">
-
-<div id="searchResults"></div>
-
-</div>
-    
-  </nav>
-</header>
+<header></header>
 
 <main>
 
@@ -189,5 +160,6 @@ autocomplete="off">
 
 <script src="js/main.js"></script>
 
+<script src="js/site-shell.js"></script>
 </body>
 </html>
