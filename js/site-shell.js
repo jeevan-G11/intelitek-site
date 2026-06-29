@@ -509,16 +509,40 @@
 
         const catColor = CAT_COLORS[p.category] || "#475569";
 
-        item.innerHTML = `
-          <img class="sri-img" src="${p.image}" alt="" loading="eager"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <span class="sri-img-fallback" style="display:none;">🔧</span>
-          <span class="sri-text">
-            <span class="sri-name">${highlightMatch(p.name, query.trim())}</span><br>
-            <span class="sri-cat" style="background:${catColor};">${p.category}</span>
-          </span>
-          <span class="sri-arrow">›</span>
+        // Build image element safely using createElement (avoids innerHTML src encoding issues)
+        const imgEl = document.createElement("img");
+        imgEl.className = "sri-img";
+        imgEl.alt = "";
+        imgEl.loading = "eager";
+        imgEl.decoding = "async";
+        // Use encodeURI to handle any remaining spaces/special chars in path
+        imgEl.src = encodeURI(p.image);
+
+        const fallbackEl = document.createElement("span");
+        fallbackEl.className = "sri-img-fallback";
+        fallbackEl.style.display = "none";
+        fallbackEl.textContent = "🔧";
+
+        imgEl.onerror = function() {
+          imgEl.style.display = "none";
+          fallbackEl.style.display = "flex";
+        };
+
+        const textEl = document.createElement("span");
+        textEl.className = "sri-text";
+        textEl.innerHTML = `
+          <span class="sri-name">${highlightMatch(p.name, query.trim())}</span><br>
+          <span class="sri-cat" style="background:${catColor};">${p.category}</span>
         `;
+
+        const arrowEl = document.createElement("span");
+        arrowEl.className = "sri-arrow";
+        arrowEl.textContent = "›";
+
+        item.appendChild(imgEl);
+        item.appendChild(fallbackEl);
+        item.appendChild(textEl);
+        item.appendChild(arrowEl);
 
         searchResults.appendChild(item);
       });
@@ -640,4 +664,17 @@
 
   renderHeader();
   renderFooter();
+
+  // ── BACKGROUND IMAGE PRELOADER ──
+  // After page is fully loaded, silently preload all product images
+  // so they appear instantly when user searches
+  window.addEventListener("load", function() {
+    // Small delay so page content loads first
+    setTimeout(function() {
+      ALL_PRODUCTS.forEach(function(p) {
+        var img = new Image();
+        img.src = encodeURI(p.image);
+      });
+    }, 1500);
+  });
 })();
