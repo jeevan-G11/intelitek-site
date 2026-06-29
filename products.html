@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<script>if(!localStorage.getItem("userLogged")){window.location.href="login.html";}</script>
+  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Training Equipment | Intelitek</title>
 <link rel="stylesheet" href="css/styles.css">
@@ -9,41 +10,7 @@
 
 <body>
 
-<header>
-<nav>
-
-<a href="index.html" class="logo">
-<img src="images/logo.png" alt="Intelitek Logo">
-</a>
-
-<button class="menu-toggle">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-
-<ul class="nav-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html">About Us</a></li>
-<li><a href="products.html" class="active">Products</a></li>
-<li><a href="services.html">Services</a></li>
-<li><a href="contact.html">Contact</a></li>
-<li><a href="our-work.html">Our Work</a></li>
-</ul>
- <div class="search-container">
-
-<input 
-type="search" 
-id="searchInput" 
-name="search_q"
-placeholder="Search training systems..."
-autocomplete="new-password">
-
-<div id="searchResults"></div>
-
-</div>
-</nav>
-</header>
+<header></header>
 
 
 <section class="page-hero">
@@ -163,5 +130,6 @@ View Products
 
 <script src="js/main.js"></script>
 
+<script src="js/site-shell.js"></script>
 </body>
 </html>
