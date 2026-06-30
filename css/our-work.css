@@ -1,0 +1,406 @@
+/* ═══════════════════════════════════════
+   OUR WORK PAGE — matches Intelitek design system
+   Navy #002244 | Orange accent #E8700A | Barlow font
+   ═══════════════════════════════════════ */
+
+.ow-hero {
+  background: #002244;
+  padding: clamp(66px, 11vw, 122px) 24px 80px;
+  text-align: center;
+  margin-top: 0;
+}
+.ow-hero .container { max-width: 840px; }
+.ow-hero-label {
+  font-size: 13px;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+  color: #7fa0c4;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.ow-hero-title {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(44px, 7.6vw, 80px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -1.5px;
+}
+.ow-hero-bar {
+  width: 70px;
+  height: 5px;
+  background: #E8700A;
+  border-radius: 3px;
+  margin: 22px auto 0;
+}
+.ow-hero-sub {
+  margin: 26px auto 0;
+  max-width: 640px;
+  color: #b9c6d8;
+  font-size: clamp(17px, 2.4vw, 21px);
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+/* ── STATS ── */
+.ow-stats-section {
+  background: #F8F9FA;
+  padding: 0 24px 50px;
+}
+.ow-stats-card {
+  max-width: 1080px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0, 34, 68, 0.12);
+  transform: translateY(-48px);
+  padding: clamp(26px, 4vw, 40px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px;
+}
+.ow-stat { text-align: center; padding: 8px 6px; }
+.ow-stat-num {
+  font-size: clamp(34px, 4.7vw, 52px);
+  font-weight: 800;
+  color: #002244;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.ow-stat-label {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #5b6573;
+  text-transform: uppercase;
+}
+
+/* ── FILTERS ── */
+.ow-projects-section {
+  background: #fff;
+  padding: 4px 24px 84px;
+}
+.ow-filters {
+  max-width: 1180px;
+  margin: 0 auto 36px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.ow-filter-btn {
+  font-family: inherit;
+  cursor: pointer;
+  border: 1.5px solid #dfe4ea;
+  background: #fff;
+  color: #475569;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+.ow-filter-btn:hover { border-color: #002244; }
+.ow-filter-btn.active {
+  background: #002244;
+  border-color: #002244;
+  color: #fff;
+}
+
+/* ── GRID ── */
+.ow-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 26px;
+  align-items: start;
+}
+.ow-loading, .ow-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+/* ── CARD ── */
+.ow-card {
+  background: #fff;
+  border: 1px solid #e8ebf0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 34, 68, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.ow-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 44px rgba(0, 34, 68, 0.16);
+}
+
+.ow-card-photo {
+  position: relative;
+  height: 204px;
+  border-bottom: 1px solid #eef1f5;
+  overflow: hidden;
+}
+.ow-card-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.ow-card-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.ow-card-photo-icon { font-size: 2.4rem; opacity: 0.85; }
+.ow-card-photo-tag {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  color: #9aa6b4;
+}
+
+.ow-card-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.ow-card-year {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.92);
+  color: #002244;
+  border: 1px solid #e6e9ef;
+}
+
+.ow-card-body {
+  padding: 20px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ow-card-title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #13233b;
+  line-height: 1.25;
+}
+.ow-card-desc {
+  margin: 0;
+  color: #5b6573;
+  font-size: 14.5px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ow-card-loc {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #7a8493;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.ow-view-btn {
+  margin-top: 4px;
+  font-family: inherit;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: #002244;
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 9px;
+  transition: background 0.2s ease;
+}
+.ow-view-btn:hover { background: #00346b; }
+
+.ow-detail-panel {
+  margin-top: 6px;
+  border-top: 1px solid #eef1f5;
+  padding-top: 20px;
+  flex-direction: column;
+  gap: 22px;
+}
+.ow-detail-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #9aa6b4;
+  margin-bottom: 12px;
+}
+.ow-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.ow-gallery-thumb {
+  aspect-ratio: 1/1;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid #edf0f4;
+  cursor: zoom-in;
+  transition: transform 0.18s ease;
+}
+.ow-gallery-thumb:hover { transform: scale(1.04); }
+
+.ow-video-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #02274d, #001a36);
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: transform 0.18s ease;
+}
+.ow-video-card:hover { transform: translateY(-2px); }
+.ow-video-play {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #E8700A;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.ow-video-title {
+  color: #b9c6d8;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.ow-video-player {
+  width: 100%;
+  border-radius: 10px;
+  background: #000;
+  display: block;
+  margin-bottom: 6px;
+}
+.ow-video-caption {
+  font-size: 13px;
+  color: #7a8493;
+  margin-bottom: 12px;
+}
+
+.ow-close-btn {
+  align-self: flex-start;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1.5px solid #cfd6e0;
+  background: #fff;
+  color: #002244;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 9px;
+  transition: all 0.18s ease;
+}
+.ow-close-btn:hover { border-color: #002244; background: #f3f6fa; }
+
+/* ── CTA ── */
+.ow-cta {
+  background: #002244;
+  padding: clamp(64px, 9vw, 104px) 24px;
+  text-align: center;
+}
+.ow-cta .container { max-width: 720px; }
+.ow-cta h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(30px, 5vw, 46px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.5px;
+}
+.ow-cta-btn {
+  display: inline-block;
+  margin-top: 30px;
+  background: #E8700A;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 15px 34px;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(232, 112, 10, 0.32);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ow-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px rgba(232, 112, 10, 0.44);
+}
+
+/* ── LIGHTBOX ── */
+.ow-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(3, 10, 20, 0.92);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.ow-lightbox.open { display: flex; }
+.ow-lightbox img {
+  max-width: 92vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+}
+.ow-lb-close {
+  position: fixed;
+  top: 22px;
+  right: 26px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .ow-grid { grid-template-columns: 1fr; }
+  .ow-stats-card { grid-template-columns: repeat(2, 1fr); }
+  .ow-filters { gap: 8px; }
+  .ow-filter-btn { font-size: 12.5px; padding: 8px 14px; }
+}
