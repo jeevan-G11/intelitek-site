@@ -200,6 +200,12 @@
       flex:1; height:6px; background:#e2e8f0; border-radius:4px; overflow:hidden;
     }
     .video-upload-progress { background:#f8fafc; border-radius:8px; padding:10px 14px; }
+    .video-upload-cancel {
+      margin-left:10px; background:none; border:1px solid #cbd5e1; color:#64748b;
+      font-size:0.74rem; font-weight:600; padding:2px 9px; border-radius:6px;
+      cursor:pointer; font-family:inherit;
+    }
+    .video-upload-cancel:hover { border-color:#dc2626; color:#dc2626; }
     .video-upload-progress-bar {
       height:6px; width:0%; background:var(--accent); border-radius:4px;
       transition:width 0.2s ease; display:block; margin-bottom:6px;
@@ -728,21 +734,50 @@
 
       videoProgressWrap.style.display = 'block';
       videoProgressBar.style.width = '0%';
-      videoProgressLabel.textContent = 'Uploading 0%...';
+      videoProgressLabel.innerHTML = 'Starting upload... <button id="videoUploadCancelBtn" class="video-upload-cancel">Cancel</button>';
+
+      document.getElementById('videoUploadCancelBtn').addEventListener('click', () => {
+        uploadTask.cancel();
+      });
+
+      // Fail fast if nothing happens within 15s — almost always means
+      // Storage isn't enabled yet on this Firebase project.
+      let gotFirstByte = false;
+      const stallTimer = setTimeout(() => {
+        if (!gotFirstByte) {
+          uploadTask.cancel();
+          videoProgressLabel.textContent = 'Upload stalled — Storage may not be enabled on this project yet.';
+          toast('error', 'Upload stalled. Firebase Storage is likely not enabled/upgraded yet on this project.');
+          setTimeout(() => { videoProgressWrap.style.display = 'none'; }, 3500);
+        }
+      }, 15000);
 
       uploadTask.on('state_changed',
         (snapshot) => {
+          gotFirstByte = true;
+          clearTimeout(stallTimer);
           const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
           videoProgressBar.style.width = pct + '%';
-          videoProgressLabel.textContent = `Uploading ${pct}%...`;
+          videoProgressLabel.innerHTML = `Uploading ${pct}%... <button id="videoUploadCancelBtn" class="video-upload-cancel">Cancel</button>`;
+          const cancelBtn = document.getElementById('videoUploadCancelBtn');
+          if (cancelBtn) cancelBtn.addEventListener('click', () => uploadTask.cancel());
         },
         (err) => {
+          clearTimeout(stallTimer);
           console.error(err);
-          videoProgressLabel.textContent = 'Upload failed.';
-          toast('error', 'Video upload failed. Please try again.');
-          setTimeout(() => { videoProgressWrap.style.display = 'none'; }, 2000);
+          if (err.code === 'storage/canceled') {
+            videoProgressLabel.textContent = 'Upload canceled.';
+          } else if (err.code === 'storage/unknown' || err.code === 'storage/retry-limit-exceeded') {
+            videoProgressLabel.textContent = 'Upload failed — Storage may not be enabled yet.';
+            toast('error', 'Could not reach Firebase Storage. It may not be enabled/upgraded on this project yet.');
+          } else {
+            videoProgressLabel.textContent = 'Upload failed.';
+            toast('error', 'Video upload failed. Please try again.');
+          }
+          setTimeout(() => { videoProgressWrap.style.display = 'none'; }, 2500);
         },
         async () => {
+          clearTimeout(stallTimer);
           const url = await getDownloadURL(uploadTask.snapshot.ref);
           draftVideos.push({ url, title: file.name.replace(/\.mp4$/i, ''), type: 'mp4' });
           renderVideoList();
