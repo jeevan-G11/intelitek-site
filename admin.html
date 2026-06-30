@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Intelitek</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700&display=swap');
+
+    :root {
+      --navy: #002244;
+      --navy-dark: #001a36;
+      --accent: #E8700A;
+      --bg: #f4f6f9;
+      --border: #e2e8f0;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: #1e293b;
+      min-height: 100vh;
+    }
+
+    /* ───── LOGIN SCREEN ───── */
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      padding: 20px;
+    }
+    .login-box {
+      background: #fff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 380px;
+      padding: 40px 32px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+    }
+    .login-logo { text-align: center; margin-bottom: 8px; font-size: 1.3rem; font-weight: 800; color: var(--navy); }
+    .login-sub { text-align: center; color: #64748b; font-size: 0.85rem; margin-bottom: 28px; }
+    .login-box label { display:block; font-size:0.8rem; font-weight:600; color:#374151; margin-bottom:6px; }
+    .login-box input {
+      width:100%; padding:11px 14px; border:1.5px solid var(--border);
+      border-radius:8px; font-size:0.92rem; font-family:inherit; margin-bottom:16px;
+      outline:none; transition:border-color 0.2s;
+    }
+    .login-box input:focus { border-color: var(--navy); }
+    .login-btn {
+      width:100%; padding:12px; background:var(--navy); color:#fff; border:none;
+      border-radius:8px; font-size:0.95rem; font-weight:700; cursor:pointer;
+      font-family:inherit; transition:background 0.2s;
+    }
+    .login-btn:hover { background:#003a73; }
+    .login-btn:disabled { background:#94a3b8; cursor:not-allowed; }
+    .login-err {
+      display:none; background:#fef2f2; color:#dc2626; font-size:0.82rem;
+      padding:10px 12px; border-radius:8px; margin-bottom:16px;
+    }
+    .login-err.show { display:block; }
+
+    /* ───── ADMIN SHELL ───── */
+    #adminShell { display:none; min-height:100vh; }
+    #adminShell.active { display:flex; }
+
+    .sidebar {
+      width: 240px;
+      background: var(--navy);
+      color: #fff;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+    .sidebar-logo {
+      padding: 24px 22px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .sidebar-logo span { color: var(--accent); }
+    .sidebar-nav { flex:1; padding: 16px 12px; }
+    .sidebar-nav button {
+      width:100%; text-align:left; background:none; border:none;
+      color: rgba(255,255,255,0.75); font-family:inherit; font-size:0.92rem;
+      font-weight:600; padding:12px 14px; border-radius:8px; cursor:pointer;
+      margin-bottom:4px; transition: background 0.15s, color 0.15s;
+      display:flex; align-items:center; gap:10px;
+    }
+    .sidebar-nav button:hover { background: rgba(255,255,255,0.08); color:#fff; }
+    .sidebar-nav button.active { background: var(--accent); color:#fff; }
+    .sidebar-footer { padding: 16px 12px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-footer button {
+      width:100%; padding:11px; background: rgba(255,255,255,0.08); color:#fff;
+      border:none; border-radius:8px; font-family:inherit; font-weight:600;
+      font-size:0.85rem; cursor:pointer; transition: background 0.15s;
+    }
+    .sidebar-footer button:hover { background: rgba(255,255,255,0.16); }
+
+    .main-content { flex:1; padding: 32px 36px; max-width: 1200px; }
+    .page-title { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .page-subtitle { color:#64748b; font-size:0.92rem; margin-bottom: 28px; }
+
+    /* DASHBOARD STATS */
+    .dash-stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:16px; margin-bottom: 32px; }
+    .dash-stat-card { background:#fff; border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+    .dash-stat-num { font-size:2rem; font-weight:800; color:var(--navy); }
+    .dash-stat-label { font-size:0.82rem; color:#64748b; font-weight:600; margin-top:4px; }
+
+    /* PROJECTS LIST */
+    .toolbar { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px; }
+    .btn-new {
+      background:var(--accent); color:#fff; border:none; padding:11px 22px;
+      border-radius:8px; font-family:inherit; font-weight:700; font-size:0.9rem; cursor:pointer;
+      transition: background 0.2s;
+    }
+    .btn-new:hover { background:#d4640a; }
+    .search-box {
+      flex:1; max-width:320px; padding:10px 14px; border:1.5px solid var(--border);
+      border-radius:8px; font-family:inherit; font-size:0.88rem; outline:none;
+    }
+    .search-box:focus { border-color:var(--navy); }
+
+    .filter-row { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+    .filter-chip {
+      background:#fff; border:1.5px solid var(--border); padding:7px 16px;
+      border-radius:999px; font-family:inherit; font-size:0.82rem; font-weight:600;
+      color:#475569; cursor:pointer; transition:all 0.18s;
+    }
+    .filter-chip:hover { border-color:var(--navy); }
+    .filter-chip.active { background:var(--navy); border-color:var(--navy); color:#fff; }
+
+    .proj-table { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+    .proj-row {
+      display:grid; grid-template-columns: 56px 1fr 130px 110px 90px 140px;
+      align-items:center; gap:14px; padding:14px 18px; border-bottom:1px solid #f1f5f9;
+    }
+    .proj-row:last-child { border-bottom:none; }
+    .proj-row.header { background:#f8fafc; font-size:0.74rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.04em; }
+    .proj-thumb { width:48px; height:48px; border-radius:8px; background:#e2e8f0; background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+    .proj-title { font-weight:700; color:#1e293b; font-size:0.92rem; }
+    .proj-loc { font-size:0.78rem; color:#94a3b8; margin-top:2px; }
+    .proj-cat-badge { display:inline-block; padding:4px 10px; border-radius:999px; font-size:0.74rem; font-weight:700; color:#fff; }
+    .proj-status { font-size:0.78rem; font-weight:700; padding:4px 10px; border-radius:999px; display:inline-block; }
+    .proj-status.published { background:#dcfce7; color:#15803d; }
+    .proj-status.draft { background:#fef3c7; color:#b45309; }
+    .proj-actions { display:flex; gap:6px; }
+    .proj-actions button {
+      background:none; border:1.5px solid var(--border); border-radius:6px;
+      padding:6px 10px; cursor:pointer; font-size:0.78rem; font-weight:600;
+      font-family:inherit; color:#475569; transition:all 0.15s;
+    }
+    .proj-actions button:hover { border-color:var(--navy); color:var(--navy); }
+    .proj-actions button.danger:hover { border-color:#dc2626; color:#dc2626; }
+    .empty-state { text-align:center; padding:60px 20px; color:#94a3b8; }
+
+    /* FORM */
+    .form-card { background:#fff; border-radius:12px; padding:28px; box-shadow:0 2px 8px rgba(0,0,0,0.05); max-width:760px; }
+    .form-row { margin-bottom:18px; }
+    .form-row label { display:block; font-size:0.84rem; font-weight:700; color:#374151; margin-bottom:6px; }
+    .form-row input, .form-row select, .form-row textarea {
+      width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:8px;
+      font-family:inherit; font-size:0.9rem; outline:none; transition:border-color 0.2s;
+    }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color:var(--navy); }
+    .form-row textarea { resize:vertical; min-height:90px; }
+    .form-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+    .upload-zone {
+      border:2px dashed var(--border); border-radius:10px; padding:28px;
+      text-align:center; cursor:pointer; transition:border-color 0.2s, background 0.2s;
+      margin-bottom:14px;
+    }
+    .upload-zone:hover, .upload-zone.dragover { border-color:var(--accent); background:#fff8f0; }
+    .upload-zone p { color:#64748b; font-size:0.85rem; margin-top:6px; }
+    .img-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:10px; margin-bottom:18px; }
+    .img-thumb-wrap { position:relative; aspect-ratio:1/1; border-radius:8px; overflow:hidden; border:2px solid transparent; cursor:pointer; }
+    .img-thumb-wrap.cover { border-color:var(--accent); }
+    .img-thumb-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+    .img-thumb-wrap .img-remove {
+      position:absolute; top:3px; right:3px; width:20px; height:20px; border-radius:50%;
+      background:rgba(0,0,0,0.6); color:#fff; border:none; font-size:12px; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .img-thumb-wrap .cover-tag {
+      position:absolute; bottom:0; left:0; right:0; background:var(--accent); color:#fff;
+      font-size:0.62rem; font-weight:700; text-align:center; padding:2px;
+    }
+
+    .video-input-row { display:flex; gap:8px; margin-bottom:10px; }
+    .video-upload-progress {
+      display:flex; align-items:center; gap:10px; margin-bottom:14px;
+      font-size:0.8rem; color:#64748b;
+    }
+    .video-upload-progress-bar-track {
+      flex:1; height:6px; background:#e2e8f0; border-radius:4px; overflow:hidden;
+    }
+    .video-upload-progress { background:#f8fafc; border-radius:8px; padding:10px 14px; }
+    .video-upload-progress-bar {
+      height:6px; width:0%; background:var(--accent); border-radius:4px;
+      transition:width 0.2s ease; display:block; margin-bottom:6px;
+    }
+    .video-input-row input { flex:1; }
+    .video-input-row button {
+      background:var(--navy); color:#fff; border:none; padding:0 16px;
+      border-radius:8px; font-family:inherit; font-weight:600; font-size:0.84rem; cursor:pointer;
+    }
+    .video-list-item {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:8px 12px; background:#f8fafc; border-radius:8px; margin-bottom:6px; font-size:0.84rem;
+    }
+    .video-list-item button { background:none; border:none; color:#dc2626; cursor:pointer; font-size:0.8rem; font-weight:600; }
+
+    .form-actions { display:flex; gap:10px; margin-top:24px; }
+    .btn-save { background:var(--accent); color:#fff; border:none; padding:12px 28px; border-radius:8px; font-family:inherit; font-weight:700; font-size:0.92rem; cursor:pointer; }
+    .btn-cancel { background:#fff; border:1.5px solid var(--border); color:#475569; padding:12px 28px; border-radius:8px; font-family:inherit; font-weight:700; font-size:0.92rem; cursor:pointer; }
+
+    /* TOASTS */
+    #toastContainer { position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:10px; z-index:9999; }
+    .toast {
+      background:#1e293b; color:#fff; padding:14px 18px; border-radius:10px;
+      font-size:0.85rem; box-shadow:0 8px 24px rgba(0,0,0,0.25); min-width:240px;
+      animation: toastIn 0.25s ease;
+    }
+    .toast.success { background:#15803d; }
+    .toast.error { background:#dc2626; }
+    @keyframes toastIn { from{opacity:0;transform:translateX(20px);} to{opacity:1;transform:translateX(0);} }
+
+    @media (max-width: 900px) {
+      .sidebar { position:fixed; left:-240px; transition:left 0.25s; z-index:1000; }
+      .sidebar.open { left:0; }
+      .main-content { padding:20px; }
+      .proj-row { grid-template-columns: 44px 1fr; }
+      .proj-row > *:nth-child(3), .proj-row > *:nth-child(4), .proj-row > *:nth-child(5) { display:none; }
+      .form-grid-2 { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen">
+    <div class="login-box">
+      <div class="login-logo">INTELITEK <span>Admin</span></div>
+      <div class="login-sub">Sign in to manage projects</div>
+      <div class="login-err" id="loginErr">Invalid email or password.</div>
+      <label>Email</label>
+      <input type="email" id="loginEmail" placeholder="admin@intelitek.in">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="login-btn" id="loginBtn" onclick="doLogin()">Sign In</button>
+    </div>
+  </div>
+
+  <!-- ADMIN SHELL -->
+  <div id="adminShell">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">INTELITEK <span>Admin</span></div>
+      <nav class="sidebar-nav">
+        <button data-sec="dashboard" class="active" onclick="navTo('dashboard')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg> Dashboard</button>
+        <button data-sec="projects" onclick="navTo('projects')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg> Projects</button>
+      </nav>
+      <div class="sidebar-footer">
+        <button onclick="doLogout()">Logout</button>
+      </div>
+    </aside>
+
+    <div class="main-content">
+
+      <!-- DASHBOARD -->
+      <div id="secDashboard">
+        <div class="page-title">Dashboard</div>
+        <div class="page-subtitle">Overview of your project portfolio</div>
+        <div class="dash-stats" id="dashStats"></div>
+        <div class="page-title" style="font-size:1.1rem;margin-bottom:14px;">Recent Projects</div>
+        <div class="proj-table" id="dashRecent"></div>
+      </div>
+
+      <!-- PROJECTS LIST -->
+      <div id="secProjects" style="display:none;">
+        <div class="page-title">Projects</div>
+        <div class="page-subtitle">Manage all our-work projects</div>
+        <div class="toolbar">
+          <input type="text" class="search-box" id="searchBox" placeholder="Search projects..." oninput="renderProjectsList()">
+          <button class="btn-new" onclick="openNewProject()">+ Add New Project</button>
+        </div>
+        <div class="filter-row" id="filterRow"></div>
+        <div class="proj-table" id="projectsList"></div>
+      </div>
+
+      <!-- FORM -->
+      <div id="secForm" style="display:none;">
+        <div class="page-title" id="formTitle">Add Project</div>
+        <div class="page-subtitle">Fill in the project details below</div>
+        <div class="form-card">
+          <div class="form-row">
+            <label>Project Title *</label>
+            <input type="text" id="fTitle" placeholder="e.g. RV College of Engineering">
+          </div>
+          <div class="form-grid-2">
+            <div class="form-row">
+              <label>Category *</label>
+              <select id="fCategory">
+                <option value="">Select category</option>
+                <option>Electrical</option>
+                <option>Electronics</option>
+                <option>Mechanical</option>
+                <option>Robotics</option>
+                <option>EV Technology</option>
+                <option>Renewable Energy</option>
+                <option>Process Control</option>
+                <option>Mechatronics</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>Year</label>
+              <select id="fYear">
+                <option>2026</option><option>2025</option><option>2024</option>
+                <option>2023</option><option>2022</option><option>2021</option>
+                <option>2020</option><option>2019</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-row">
+              <label>Location *</label>
+              <input type="text" id="fLocation" placeholder="e.g. Bangalore">
+            </div>
+            <div class="form-row">
+              <label>Status</label>
+              <select id="fStatus">
+                <option>Draft</option>
+                <option>Published</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Description *</label>
+            <textarea id="fDescription" placeholder="Brief description of the project..."></textarea>
+          </div>
+
+          <div class="form-row">
+            <label>Project Photos (first photo or starred photo = cover image)</label>
+            <div class="upload-zone" id="uploadZone">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <p>Click or drag images here to upload (JPG, PNG, WEBP)</p>
+              <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple style="display:none;">
+            </div>
+            <div class="img-grid" id="imgGrid"></div>
+          </div>
+
+          <div class="form-row">
+            <label>Lab Videos</label>
+
+            <!-- MP4 FILE UPLOAD -->
+            <div class="upload-zone" id="videoUploadZone">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+              <p>Click or drag an MP4 file here to upload (max 50MB)</p>
+              <input type="file" id="videoFileInput" accept="video/mp4" style="display:none;">
+            </div>
+            <div id="videoUploadProgress" class="video-upload-progress" style="display:none;">
+              <div class="video-upload-progress-bar" id="videoUploadProgressBar"></div>
+              <span id="videoUploadProgressLabel">Uploading...</span>
+            </div>
+
+            <p style="font-size:0.78rem;color:#94a3b8;margin:14px 0 8px;">— or paste a YouTube / external video link instead —</p>
+            <div class="video-input-row">
+              <input type="text" id="fVideoUrl" placeholder="Video URL">
+              <input type="text" id="fVideoTitle" placeholder="Title (optional)" style="flex:0 0 160px;">
+              <button onclick="addVideo()">Add</button>
+            </div>
+            <div id="videoList"></div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn-save" onclick="saveProject()">Save Project</button>
+            <button class="btn-cancel" onclick="navTo('projects')">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="toastContainer"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
+      getFirestore, collection, doc, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import {
+      getStorage, ref, uploadBytesResumable, getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBkZG53VFyL-3kjTu6mwyr1T3qF-pOrLYI",
+      authDomain: "intelitek-login.firebaseapp.com",
+      projectId: "intelitek-login",
+      storageBucket: "intelitek-login.firebasestorage.app",
+      messagingSenderId: "483992755888",
+      appId: "1:483992755888:web:2c5cff88781fc6a87f2575"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    const CAT_COLORS = {
+      'Electrical':'#E8700A','Electronics':'#0A7EBE','Mechanical':'#475569','Robotics':'#7C3AED',
+      'EV Technology':'#15803D','Renewable Energy':'#0D9488','Process Control':'#B45309','Mechatronics':'#BE185D'
+    };
+    const CATEGORIES = ['Electrical','Electronics','Mechanical','Robotics','EV Technology','Renewable Energy','Process Control','Mechatronics'];
+
+    let projects = [];
+    let currentFilter = 'All';
+    let draft = null;
+    let draftImages = [];   // base64 strings
+    let coverIndex = 0;
+    let draftVideos = [];
+    let editingId = null;
+
+    /* ───────── AUTH ───────── */
+    window.doLogin = function() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const pw = document.getElementById('loginPassword').value;
+      const btn = document.getElementById('loginBtn');
+      const errEl = document.getElementById('loginErr');
+      errEl.classList.remove('show');
+      if (!email || !pw) {
+        errEl.textContent = 'Please enter email and password.';
+        errEl.classList.add('show');
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Signing in...';
+      signInWithEmailAndPassword(auth, email, pw)
+        .catch(err => {
+          errEl.textContent = 'Invalid email or password.';
+          errEl.classList.add('show');
+          console.error(err);
+        })
+        .finally(() => {
+          btn.disabled = false;
+          btn.textContent = 'Sign In';
+        });
+    };
+
+    window.doLogout = function() {
+      signOut(auth);
+    };
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminShell').classList.add('active');
+        loadProjects();
+      } else {
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('adminShell').classList.remove('active');
+      }
+    });
+
+    /* ───────── NAVIGATION ───────── */
+    window.navTo = function(sec) {
+      document.querySelectorAll('.sidebar-nav button').forEach(b => b.classList.remove('active'));
+      const btn = document.querySelector(`.sidebar-nav button[data-sec="${sec}"]`);
+      if (btn) btn.classList.add('active');
+
+      document.getElementById('secDashboard').style.display = sec === 'dashboard' ? 'block' : 'none';
+      document.getElementById('secProjects').style.display = sec === 'projects' ? 'block' : 'none';
+      document.getElementById('secForm').style.display = sec === 'form' ? 'block' : 'none';
+
+      if (sec === 'dashboard') renderDashboard();
+      if (sec === 'projects') renderProjectsList();
+    };
+
+    /* ───────── DATA LOAD ───────── */
+    async function loadProjects() {
+      try {
+        const snap = await getDocs(collection(db, 'projects'));
+        projects = [];
+        snap.forEach(d => projects.push({ id: d.id, ...d.data() }));
+        projects.sort((a,b) => (b.updatedAt||0) - (a.updatedAt||0));
+        renderDashboard();
+        renderFilterRow();
+      } catch (err) {
+        console.error(err);
+        toast('error', 'Failed to load projects.');
+      }
+    }
+
+    function renderDashboard() {
+      const total = projects.length;
+      const published = projects.filter(p => p.status === 'Published').length;
+      const draftCount = total - published;
+      const categories = new Set(projects.map(p => p.category)).size;
+
+      document.getElementById('dashStats').innerHTML = `
+        <div class="dash-stat-card"><div class="dash-stat-num">${total}</div><div class="dash-stat-label">Total Projects</div></div>
+        <div class="dash-stat-card"><div class="dash-stat-num">${published}</div><div class="dash-stat-label">Published</div></div>
+        <div class="dash-stat-card"><div class="dash-stat-num">${draftCount}</div><div class="dash-stat-label">Drafts</div></div>
+        <div class="dash-stat-card"><div class="dash-stat-num">${categories}</div><div class="dash-stat-label">Categories Used</div></div>
+      `;
+
+      const recent = projects.slice(0, 5);
+      document.getElementById('dashRecent').innerHTML = recent.length
+        ? recent.map(p => projectRowHtml(p)).join('')
+        : `<div class="empty-state">No projects yet. Click "Add New Project" to get started.</div>`;
+      attachRowEvents(document.getElementById('dashRecent'));
+    }
+
+    function renderFilterRow() {
+      const row = document.getElementById('filterRow');
+      const cats = ['All', ...CATEGORIES];
+      row.innerHTML = cats.map(c =>
+        `<button class="filter-chip ${c===currentFilter?'active':''}" data-cat="${c}">${c}</button>`
+      ).join('');
+      row.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          currentFilter = chip.dataset.cat;
+          renderFilterRow();
+          renderProjectsList();
+        });
+      });
+    }
+
+    window.renderProjectsList = function() {
+      const search = (document.getElementById('searchBox')?.value || '').toLowerCase();
+      let filtered = projects;
+      if (currentFilter !== 'All') filtered = filtered.filter(p => p.category === currentFilter);
+      if (search) filtered = filtered.filter(p =>
+        (p.title||'').toLowerCase().includes(search) || (p.location||'').toLowerCase().includes(search)
+      );
+
+      const list = document.getElementById('projectsList');
+      list.innerHTML = `
+        <div class="proj-row header">
+          <div></div><div>Project</div><div>Category</div><div>Status</div><div>Year</div><div>Actions</div>
+        </div>
+      ` + (filtered.length
+        ? filtered.map(p => projectRowHtml(p)).join('')
+        : `<div class="empty-state">No projects match your search.</div>`);
+      attachRowEvents(list);
+    };
+
+    function projectRowHtml(p) {
+      const color = CAT_COLORS[p.category] || '#475569';
+      const cover = (p.images && p.images.length) ? p.images[p.coverImageIndex||0] : null;
+      const thumbStyle = cover ? `background-image:url('${cover}')` : '';
+      return `
+        <div class="proj-row" data-id="${p.id}">
+          <div class="proj-thumb" style="${thumbStyle}">${cover ? '' : '<svg width="20" height="20" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"></path></svg>'}</div>
+          <div>
+            <div class="proj-title">${escapeHtml(p.title)}</div>
+            <div class="proj-loc">${escapeHtml(p.location||'')}</div>
+          </div>
+          <div><span class="proj-cat-badge" style="background:${color}">${escapeHtml(p.category||'')}</span></div>
+          <div><span class="proj-status ${p.status==='Published'?'published':'draft'}">${p.status||'Draft'}</span></div>
+          <div style="font-size:0.85rem;color:#64748b;">${p.year||''}</div>
+          <div class="proj-actions">
+            <button class="edit-btn">Edit</button>
+            <button class="danger delete-btn">Delete</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function attachRowEvents(container) {
+      container.querySelectorAll('.proj-row[data-id]').forEach(row => {
+        const id = row.dataset.id;
+        const editBtn = row.querySelector('.edit-btn');
+        const delBtn = row.querySelector('.delete-btn');
+        if (editBtn) editBtn.addEventListener('click', () => openEditProject(id));
+        if (delBtn) delBtn.addEventListener('click', () => confirmDelete(id));
+      });
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    /* ───────── FORM: NEW / EDIT ───────── */
+    window.openNewProject = function() {
+      editingId = null;
+      draft = { title:'', category:'', location:'', year:String(new Date().getFullYear()), description:'', status:'Draft' };
+      draftImages = [];
+      coverIndex = 0;
+      draftVideos = [];
+      document.getElementById('formTitle').textContent = 'Add Project';
+      fillForm();
+      navTo('form');
+    };
+
+    window.openEditProject = function(id) {
+      const p = projects.find(x => x.id === id);
+      if (!p) return;
+      editingId = id;
+      draft = { ...p };
+      draftImages = p.images ? [...p.images] : [];
+      coverIndex = p.coverImageIndex || 0;
+      draftVideos = p.videos ? JSON.parse(JSON.stringify(p.videos)) : [];
+      document.getElementById('formTitle').textContent = 'Edit Project';
+      fillForm();
+      navTo('form');
+    };
+
+    function fillForm() {
+      document.getElementById('fTitle').value = draft.title || '';
+      document.getElementById('fCategory').value = draft.category || '';
+      document.getElementById('fYear').value = draft.year || String(new Date().getFullYear());
+      document.getElementById('fLocation').value = draft.location || '';
+      document.getElementById('fStatus').value = draft.status || 'Draft';
+      document.getElementById('fDescription').value = draft.description || '';
+      renderImgGrid();
+      renderVideoList();
+    }
+
+    function renderImgGrid() {
+      const grid = document.getElementById('imgGrid');
+      grid.innerHTML = draftImages.map((img, i) => `
+        <div class="img-thumb-wrap ${i===coverIndex?'cover':''}" data-idx="${i}">
+          <img src="${img}">
+          <button class="img-remove" data-remove="${i}">✕</button>
+          ${i===coverIndex ? '<div class="cover-tag">COVER</div>' : ''}
+        </div>
+      `).join('');
+      grid.querySelectorAll('.img-thumb-wrap').forEach(el => {
+        el.addEventListener('click', (e) => {
+          if (e.target.dataset.remove !== undefined && e.target.hasAttribute('data-remove')) return;
+          coverIndex = parseInt(el.dataset.idx);
+          renderImgGrid();
+        });
+      });
+      grid.querySelectorAll('[data-remove]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const idx = parseInt(btn.dataset.remove);
+          draftImages.splice(idx, 1);
+          if (coverIndex >= draftImages.length) coverIndex = 0;
+          renderImgGrid();
+        });
+      });
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleFiles(files) {
+      const allowed = ['image/jpeg','image/png','image/webp'];
+      for (const file of files) {
+        if (!allowed.includes(file.type)) continue;
+        if (file.size > 2 * 1024 * 1024) {
+          toast('error', `"${file.name}" is too large (max 2MB).`);
+          continue;
+        }
+        try {
+          const b64 = await fileToBase64(file);
+          draftImages.push(b64);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      renderImgGrid();
+    }
+
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('fileInput');
+    uploadZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+    uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+    uploadZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+
+    /* ───────── MP4 VIDEO UPLOAD ───────── */
+    const videoUploadZone = document.getElementById('videoUploadZone');
+    const videoFileInput = document.getElementById('videoFileInput');
+    const videoProgressWrap = document.getElementById('videoUploadProgress');
+    const videoProgressBar = document.getElementById('videoUploadProgressBar');
+    const videoProgressLabel = document.getElementById('videoUploadProgressLabel');
+
+    videoUploadZone.addEventListener('click', () => videoFileInput.click());
+    videoFileInput.addEventListener('change', (e) => {
+      if (e.target.files[0]) uploadVideoFile(e.target.files[0]);
+    });
+    videoUploadZone.addEventListener('dragover', (e) => { e.preventDefault(); videoUploadZone.classList.add('dragover'); });
+    videoUploadZone.addEventListener('dragleave', () => videoUploadZone.classList.remove('dragover'));
+    videoUploadZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      videoUploadZone.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) uploadVideoFile(e.dataTransfer.files[0]);
+    });
+
+    function uploadVideoFile(file) {
+      if (file.type !== 'video/mp4') {
+        toast('error', 'Only MP4 files are supported.');
+        return;
+      }
+      const maxSize = 50 * 1024 * 1024; // 50MB
+      if (file.size > maxSize) {
+        toast('error', `"${file.name}" is too large (max 50MB).`);
+        return;
+      }
+
+      const path = `project-videos/${Date.now()}-${file.name}`;
+      const storageRef = ref(storage, path);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      videoProgressWrap.style.display = 'block';
+      videoProgressBar.style.width = '0%';
+      videoProgressLabel.textContent = 'Uploading 0%...';
+
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          videoProgressBar.style.width = pct + '%';
+          videoProgressLabel.textContent = `Uploading ${pct}%...`;
+        },
+        (err) => {
+          console.error(err);
+          videoProgressLabel.textContent = 'Upload failed.';
+          toast('error', 'Video upload failed. Please try again.');
+          setTimeout(() => { videoProgressWrap.style.display = 'none'; }, 2000);
+        },
+        async () => {
+          const url = await getDownloadURL(uploadTask.snapshot.ref);
+          draftVideos.push({ url, title: file.name.replace(/\.mp4$/i, ''), type: 'mp4' });
+          renderVideoList();
+          videoProgressLabel.textContent = 'Upload complete ✓';
+          toast('success', 'Video uploaded successfully.');
+          setTimeout(() => { videoProgressWrap.style.display = 'none'; }, 1500);
+          videoFileInput.value = '';
+        }
+      );
+    }
+
+    window.addVideo = function() {
+      const url = document.getElementById('fVideoUrl').value.trim();
+      const title = document.getElementById('fVideoTitle').value.trim();
+      if (!url) { toast('error', 'Please enter a video URL.'); return; }
+      draftVideos.push({ url, title: title || 'Lab walkthrough' });
+      document.getElementById('fVideoUrl').value = '';
+      document.getElementById('fVideoTitle').value = '';
+      renderVideoList();
+    };
+
+    function renderVideoList() {
+      const el = document.getElementById('videoList');
+      el.innerHTML = draftVideos.map((v, i) => `
+        <div class="video-list-item">
+          <span>${escapeHtml(v.title)} — <span style="color:#94a3b8;">${escapeHtml(v.url.slice(0,40))}${v.url.length>40?'…':''}</span></span>
+          <button data-remove-video="${i}">Remove</button>
+        </div>
+      `).join('');
+      el.querySelectorAll('[data-remove-video]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          draftVideos.splice(parseInt(btn.dataset.removeVideo), 1);
+          renderVideoList();
+        });
+      });
+    }
+
+    window.saveProject = async function() {
+      const title = document.getElementById('fTitle').value.trim();
+      const category = document.getElementById('fCategory').value;
+      const year = document.getElementById('fYear').value;
+      const location = document.getElementById('fLocation').value.trim();
+      const status = document.getElementById('fStatus').value;
+      const description = document.getElementById('fDescription').value.trim();
+
+      if (!title || !category || !location || !description) {
+        toast('error', 'Please fill in all required fields (*).');
+        return;
+      }
+
+      const payload = {
+        title, category, year, location, status, description,
+        images: draftImages,
+        coverImageIndex: coverIndex,
+        videos: draftVideos,
+        updatedAt: Date.now()
+      };
+
+      try {
+        if (editingId) {
+          await updateDoc(doc(db, 'projects', editingId), payload);
+          toast('success', 'Project updated successfully.');
+        } else {
+          await addDoc(collection(db, 'projects'), payload);
+          toast('success', 'Project created successfully.');
+        }
+        await loadProjects();
+        navTo('projects');
+      } catch (err) {
+        console.error(err);
+        toast('error', 'Failed to save project. Check console for details.');
+      }
+    };
+
+    window.confirmDelete = function(id) {
+      const p = projects.find(x => x.id === id);
+      if (!p) return;
+      if (!confirm(`Delete "${p.title}"? This cannot be undone.`)) return;
+      deleteDoc(doc(db, 'projects', id))
+        .then(() => {
+          toast('success', 'Project deleted.');
+          loadProjects().then(() => {
+            if (document.getElementById('secProjects').style.display !== 'none') renderProjectsList();
+          });
+        })
+        .catch(err => {
+          console.error(err);
+          toast('error', 'Failed to delete project.');
+        });
+    };
+
+    function toast(type, msg) {
+      const container = document.getElementById('toastContainer');
+      const el = document.createElement('div');
+      el.className = `toast ${type}`;
+      el.textContent = msg;
+      container.appendChild(el);
+      setTimeout(() => el.remove(), 3400);
+    }
+
+    // initial render of filter row in case dashboard loads first
+    renderFilterRow();
+  </script>
+</body>
+</html>
