@@ -4,1420 +4,268 @@
   <script>if(!localStorage.getItem("userLogged")){window.location.href="login.html";}</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Work | Intelitek - Case Studies & Projects</title>
-  <meta name="description" content="Explore Intelitek's completed projects and case studies showcasing industrial automation solutions delivered to engineering institutions across India.">
+  <title>Our Work | Intelitek</title>
+  <meta name="description" content="Real installations, real results. Explore Intelitek's training lab projects delivered across 80+ institutions in India.">
   <link rel="stylesheet" href="css/styles.css">
-  <style>
-    /* Our Work Page Styles */
-    .hero-banner {
-      background: linear-gradient(135deg, #002244 0%, #003a80 100%);
-      color: white;
-      padding: 80px 0;
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .hero-banner h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      font-weight: 700;
-      color: #ffffff;
-      text-shadow: none;
-    }
-
-    .hero-banner p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto;
-      color: rgba(255, 255, 255, 0.88);
-      opacity: 1;
-    }
-
-    /* Section Headers */
-    .section-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .section-header h2 {
-      font-size: 2.2rem;
-      margin-bottom: 12px;
-      color: var(--text-dark, #1a1a1a);
-    }
-
-    .section-header p {
-      font-size: 1rem;
-      color: var(--text-muted, #666);
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    /* Carousel */
-    .carousel-container {
-      position: relative;
-      max-width: 900px;
-      margin: 0 auto;
-      background: var(--bg-light, #f5f5f5);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .carousel-wrapper {
-      position: relative;
-      width: 100%;
-      padding-top: 66.67%;
-      background: #000;
-    }
-
-    .carousel-inner {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .carousel-slide {
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 0.6s ease-in-out;
-      background-size: cover;
-      background-position: center;
-      display: none;
-    }
-
-    .carousel-slide.active {
-      opacity: 1;
-      display: block;
-    }
-
-    .carousel-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .carousel-nav {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 12px;
-      z-index: 10;
-    }
-
-    .carousel-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: 2px solid white;
-    }
-
-    .carousel-dot.active {
-      background: white;
-      transform: scale(1.2);
-    }
-
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.4);
-      color: white;
-      border: none;
-      width: 50px;
-      height: 50px;
-      font-size: 24px;
-      cursor: pointer;
-      z-index: 5;
-      border-radius: 4px;
-      transition: background 0.3s ease;
-    }
-
-    .carousel-btn:hover {
-      background: rgba(0, 0, 0, 0.7);
-    }
-
-    .carousel-prev {
-      left: 20px;
-    }
-
-    .carousel-next {
-      right: 20px;
-    }
-
-    /* Projects Grid */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-bottom: 80px;
-      align-items: start;
-    }
-
-    .project-card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s ease;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
-    }
-
-    .project-card.expanded {
-      grid-column: 1 / -1;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    .project-image {
-      width: 100%;
-      height: 220px;
-      background: #f0f2f5;
-      overflow: hidden;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    /* When no image — show placeholder instead of broken icon */
-    .project-image.no-image {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #e8f1fb 0%, #d0e4f8 100%);
-    }
-    .project-image.no-image::after {
-      content: '📷';
-      font-size: 40px;
-      opacity: 0.3;
-    }
-
-    .project-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      transition: transform 0.4s ease;
-      display: block;
-    }
-
-    .project-card:hover .project-image img {
-      transform: scale(1.05);
-    }
-
-    .project-content {
-      padding: 20px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .project-tag {
-      display: inline-block;
-      background: #002244;
-      color: white;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
-
-    .project-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--text-dark, #1a1a1a);
-    }
-
-    .project-description {
-      font-size: 0.95rem;
-      color: var(--text-muted, #666);
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-
-    .project-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      color: var(--text-muted, #666);
-      padding-top: 12px;
-      border-top: 1px solid var(--border-color, #eee);
-    }
-
-    .expand-btn {
-      margin-top: 12px;
-      background: #002244;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      width: 100%;
-      transition: background 0.3s;
-    }
-
-    .expand-btn:hover {
-      background: #0052a3;
-    }
-
-    /* Expanded Content */
-    .expanded-content {
-      display: none;
-      padding: 40px 24px;
-      border-top: 2px solid #eee;
-      animation: expandDown 0.4s ease;
-    }
-
-    .expanded-content.show {
-      display: block;
-    }
-
-    @keyframes expandDown {
-      from {
-        opacity: 0;
-        max-height: 0;
-      }
-      to {
-        opacity: 1;
-        max-height: 2000px;
-      }
-    }
-
-    .expanded-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-
-    .expanded-header h3 {
-      font-size: 1.5rem;
-      color: #1a1a1a;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: #666;
-      transition: color 0.3s;
-    }
-
-    .close-btn:hover {
-      color: #1a1a1a;
-    }
-
-    /* Gallery Grid */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      cursor: zoom-in;
-      background: #f0f0f0;
-      aspect-ratio: 1;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .gallery-item:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.1);
-    }
-
-    .gallery-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s;
-      border-radius: 8px;
-    }
-
-    .gallery-item:hover .gallery-overlay {
-      opacity: 1;
-    }
-
-    .gallery-icon {
-      font-size: 2.5rem;
-      color: white;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Image Zoom Modal */
-    .image-zoom-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.95);
-      z-index: 3000;
-      padding: 20px;
-      overflow: auto;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .image-zoom-modal.active {
-      display: flex;
-    }
-
-    .zoom-modal-content {
-      position: relative;
-      max-width: 95vw;
-      max-height: 95vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .zoom-modal-image {
-      max-width: 100%;
-      max-height: 90vh;
-      object-fit: contain;
-      border-radius: 8px;
-      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
-      animation: zoomIn 0.3s ease;
-    }
-
-    @keyframes zoomIn {
-      from {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .zoom-modal-close {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1.5px solid rgba(255,255,255,0.7);
-      color: white;
-      font-size: 1.1rem;
-      cursor: pointer;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: all 0.2s;
-      z-index: 10;
-    }
-
-    .zoom-modal-close:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: scale(1.1);
-    }
-
-    .zoom-nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.2);
-      border: 1.5px solid rgba(255,255,255,0.7);
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: all 0.2s;
-      z-index: 10;
-    }
-
-    .zoom-nav-btn:hover {
-      background: rgba(255, 255, 255, 0.35);
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    .zoom-prev {
-      left: 12px;
-    }
-
-    .zoom-next {
-      right: 12px;
-    }
-
-    .zoom-counter {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 1rem;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 10px 20px;
-      border-radius: 20px;
-      z-index: 10;
-    }
-
-    .zoom-info {
-      position: absolute;
-      top: 20px;
-      left: 30px;
-      color: white;
-      font-size: 0.95rem;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 10px 20px;
-      border-radius: 6px;
-      z-index: 10;
-    }
-
-    /* ── FULLSCREEN LIGHTBOX with zoom/pan ── */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.96);
-      z-index: 9999;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .lightbox.active { display: flex; }
-
-    /* top toolbar */
-    .lb-toolbar {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(8px);
-      z-index: 10;
-    }
-    .lb-counter { color: rgba(255,255,255,0.7); font-size: 14px; }
-    .lb-tools { display: flex; gap: 6px; }
-    .lb-btn {
-      width: 38px; height: 38px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.1);
-      border: none; color: #fff;
-      font-size: 18px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background .15s;
-    }
-    .lb-btn:hover { background: rgba(255,255,255,0.22); }
-    .lb-btn:active { background: rgba(255,255,255,0.35); }
-
-    /* image viewport */
-    .lb-viewport {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-      cursor: zoom-in;
-      padding-top: 56px; /* space for toolbar */
-    }
-    .lb-viewport.zoomed { cursor: grab; }
-    .lb-viewport.zoomed:active { cursor: grabbing; }
-
-    .lightbox-image {
-      max-width: 92vw;
-      max-height: calc(92vh - 56px);
-      object-fit: contain;
-      border-radius: 6px;
-      transition: transform .25s ease;
-      transform-origin: center center;
-      user-select: none;
-      pointer-events: none; /* let viewport handle drag */
-    }
-
-    /* prev / next arrows */
-    .lb-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: #fff;
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      font-size: 22px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background .15s;
-      z-index: 10;
-    }
-    .lb-arrow:hover { background: rgba(255,255,255,0.28); }
-    .lb-arrow.lb-prev { left: 16px; }
-    .lb-arrow.lb-next { right: 16px; }
-
-    /* thumbnail strip at bottom */
-    .lb-strip {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 80px;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 0 12px;
-      overflow-x: auto;
-      z-index: 10;
-    }
-    .lb-strip-thumb {
-      width: 60px; height: 60px;
-      border-radius: 6px;
-      object-fit: cover;
-      cursor: pointer;
-      opacity: .5;
-      border: 2px solid transparent;
-      transition: opacity .15s, border-color .15s;
-      flex-shrink: 0;
-    }
-    .lb-strip-thumb.active,
-    .lb-strip-thumb:hover { opacity: 1; border-color: #fff; }
-
-    /* zoom level indicator */
-    .lb-zoom-label {
-      position: absolute;
-      bottom: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      font-size: 12px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      opacity: 0;
-      transition: opacity .3s;
-      pointer-events: none;
-      z-index: 10;
-    }
-    .lb-zoom-label.show { opacity: 1; }
-
-    /* Video Gallery */
-    .video-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      margin-bottom: 40px;
-    }
-
-    .video-item {
-      text-align: center;
-    }
-
-    .video-container {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%;
-      background: #000;
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .video-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-dark, #1a1a1a);
-      margin-bottom: 8px;
-    }
-
-    .video-description {
-      font-size: 0.9rem;
-      color: var(--text-muted, #666);
-      line-height: 1.5;
-    }
-
-    /* Stats Section */
-    .stats-section {
-      background: #002244;
-      color: white;
-      padding: 60px 0;
-      margin: 80px 0;
-      border-radius: 12px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 40px;
-      text-align: center;
-    }
-
-    .stat-item h3 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .stat-item p {
-      font-size: 1rem;
-      opacity: 0.95;
-    }
-
-    /* CTA Section */
-    .cta-section {
-      background: linear-gradient(135deg, #002244 0%, #003a80 100%);
-      color: white;
-      padding: 60px;
-      border-radius: 12px;
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .cta-section h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #ffffff;
-      font-weight: 700;
-    }
-
-    .cta-section p {
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      color: rgba(255, 255, 255, 0.85);
-    }
-
-    .cta-btn {
-      display: inline-block;
-      background: white;
-      color: #002244;
-      padding: 14px 40px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      border: none;
-    }
-
-    .cta-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      background: #f0f4ff;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero-banner h1 {
-        font-size: 2rem;
-      }
-
-      .section-header h2 {
-        font-size: 1.8rem;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-
-      .project-card.expanded {
-        grid-column: auto;
-      }
-
-      .project-image {
-        height: 180px;
-      }
-
-      .carousel-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-      }
-
-      .cta-section {
-        padding: 40px 20px;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-      }
-
-      .gallery-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      }
-
-      .video-gallery {
-        grid-template-columns: 1fr;
-      }
-
-      .lightbox-prev {
-        left: -30px;
-      }
-
-      .lightbox-next {
-        right: -30px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-      .project-image {
-        height: 200px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/our-work.css">
 </head>
 <body>
   <header></header>
 
   <main>
-    <!-- Hero Banner -->
-    <section class="hero-banner">
+    <!-- HERO -->
+    <section class="ow-hero">
       <div class="container">
-        <h1>Our Work</h1>
-        <p>Real installations, real results. Click on any project to see all images and videos from the installation.</p>
-
+        <div class="ow-hero-label">Intelitek Edu Solutions</div>
+        <h1 class="ow-hero-title">Our Work</h1>
+        <div class="ow-hero-bar"></div>
+        <p class="ow-hero-sub">Real installations. Real results. Trusted by 80+ institutions across India.</p>
       </div>
     </section>
 
-    <!-- Projects Grid Section -->
-    <section class="container" style="margin-bottom: 80px;">
-      <div class="section-header">
-        <h2>Project Gallery</h2>
-        <p>Click on any project card to expand and view all installation images and videos</p>
-      </div>
-
-      <div class="projects-grid" id="projects-grid">
-        <!-- Projects will be inserted here by JavaScript -->
+    <!-- STATS -->
+    <section class="ow-stats-section">
+      <div class="container">
+        <div class="ow-stats-card">
+          <div class="ow-stat"><div class="ow-stat-num">80+</div><div class="ow-stat-label">Institutions Served</div></div>
+          <div class="ow-stat"><div class="ow-stat-num">1000+</div><div class="ow-stat-label">Training Systems Installed</div></div>
+          <div class="ow-stat"><div class="ow-stat-num">7+</div><div class="ow-stat-label">Years Experience</div></div>
+          <div class="ow-stat"><div class="ow-stat-num">10+</div><div class="ow-stat-label">States Covered</div></div>
+        </div>
       </div>
     </section>
 
+    <!-- FILTERS + PROJECT GRID -->
+    <section class="ow-projects-section">
+      <div class="container">
+        <div class="ow-filters" id="owFilters">
+          <button class="ow-filter-btn active" data-cat="All">All</button>
+          <button class="ow-filter-btn" data-cat="Electrical">Electrical</button>
+          <button class="ow-filter-btn" data-cat="Electronics">Electronics</button>
+          <button class="ow-filter-btn" data-cat="Mechanical">Mechanical</button>
+          <button class="ow-filter-btn" data-cat="Robotics">Robotics</button>
+          <button class="ow-filter-btn" data-cat="EV Technology">EV Technology</button>
+          <button class="ow-filter-btn" data-cat="Renewable Energy">Renewable Energy</button>
+          <button class="ow-filter-btn" data-cat="Process Control">Process Control</button>
+          <button class="ow-filter-btn" data-cat="Mechatronics">Mechatronics</button>
+        </div>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
+        <div class="ow-grid" id="owGrid">
+          <div class="ow-loading" id="owLoading">Loading projects…</div>
+        </div>
+
+        <div class="ow-empty" id="owEmpty" style="display:none;">
+          <p>No projects found in this category yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="ow-cta">
       <div class="container">
         <h2>Ready to Transform Your Laboratory?</h2>
-        <p>Let's discuss how our training systems can enhance your institution's engineering education and industry readiness.</p>
-        <a href="contact.html" class="cta-btn">Request a Consultation</a>
+        <a href="contact.html" class="ow-cta-btn">Request a Consultation</a>
       </div>
     </section>
   </main>
 
-  <!-- FULLSCREEN LIGHTBOX -->
-  <div class="lightbox" id="lightbox" onclick="lbBgClick(event)">
+  <footer></footer>
 
-    <!-- Top toolbar -->
-    <div class="lb-toolbar">
-      <div class="lb-counter">
-        <span id="lb-cur">1</span> / <span id="lb-tot">1</span>
-      </div>
-      <div class="lb-tools">
-        <button class="lb-btn" onclick="lbZoom(-1)" title="Zoom out">−</button>
-        <button class="lb-btn" onclick="lbZoomReset()" title="Reset zoom">⊡</button>
-        <button class="lb-btn" onclick="lbZoom(1)"  title="Zoom in">+</button>
-        <button class="lb-btn" onclick="closeLightbox()" title="Close">✕</button>
-      </div>
-    </div>
-
-    <!-- Image viewport (handles drag) -->
-    <div class="lb-viewport" id="lb-viewport" onclick="lbViewClick(event)">
-      <img class="lightbox-image" id="lightbox-image" src="" alt="" draggable="false">
-    </div>
-
-    <!-- Arrows -->
-    <button class="lb-arrow lb-prev" onclick="prevImage()">&#10094;</button>
-    <button class="lb-arrow lb-next" onclick="nextImage()">&#10095;</button>
-
-    <!-- Zoom level badge -->
-    <div class="lb-zoom-label" id="lb-zoom-label">100%</div>
-
-    <!-- Thumbnail strip -->
-    <div class="lb-strip" id="lb-strip"></div>
-
+  <!-- LIGHTBOX -->
+  <div id="owLightbox" class="ow-lightbox">
+    <button id="owLbClose" class="ow-lb-close" aria-label="Close">&times;</button>
+    <img id="owLbImg" src="" alt="">
   </div>
 
-  <!-- Image Zoom Modal -->
-  <div class="image-zoom-modal" id="image-zoom-modal">
-    <div class="zoom-modal-content">
-      <div class="zoom-info" id="zoom-info">Installation Photos</div>
-      <button class="zoom-modal-close" onclick="closeZoom()">✕</button>
-      <img class="zoom-modal-image" id="zoom-image" src="" alt="">
-      <button class="zoom-nav-btn zoom-prev" onclick="prevZoom()">❮</button>
-      <button class="zoom-nav-btn zoom-next" onclick="nextZoom()">❯</button>
-      <div class="zoom-counter">
-        <span id="zoom-current">1</span> / <span id="zoom-total">1</span>
-      </div>
-    </div>
-  </div>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>Intelitek edu solution private limited</h4>
-        <p>Automation &amp; Engineering Solutions for Industry 4.0</p>
-      </div>
-      <div class="footer-section">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="products.html">Products</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="our-work.html">Our Work</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Contact</h4>
-        <p><a href="mailto:contact@intelitek.com">contact@intelitek.com</a></p>
-        <p><a href="tel:+919187562018">+91 9187562018</a></p>
-        <p><a href="mailto:sales@intelitek.in">sales@intelitek.in</a></p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Intelitek. All rights reserved.</p>
-    </div>
-  </footer>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBkZG53VFyL-3kjTu6mwyr1T3qF-pOrLYI",
+      authDomain: "intelitek-login.firebaseapp.com",
+      projectId: "intelitek-login",
+      storageBucket: "intelitek-login.firebasestorage.app",
+      messagingSenderId: "483992755888",
+      appId: "1:483992755888:web:2c5cff88781fc6a87f2575"
+    };
 
-  <script src="js/main.js"></script>
-  <script>
-    // ═══════════════════════════════════════════════════════════════
-    // PROJECTS DATA — Edit this to add/update your projects
-    //
-    // HOW TO ADD A NEW PROJECT:
-    // 1. Copy one block below and paste after the last one
-    // 2. Change id (unique name, no spaces)
-    // 3. Update title, category, location, year, shortDesc
-    // 4. Update images[] — add as many image paths as you want
-    // 5. For videos[] use:
-    //    type:'mp4'     → your own video file  → id: 'images/installation/yourvideo.mp4'
-    //    type:'youtube' → YouTube video        → id: 'YOUTUBE_VIDEO_ID' (11 chars from URL)
-    // ═══════════════════════════════════════════════════════════════
-    const STORAGE_KEY = 'intelitek_ourwork_projects';
-    function getDefaultProjects() { return [
-      {
-        id: 'rv-college',
-        title: 'RV College of Engineering',
-        category: 'Electrical',
-        location: 'Bangalore',
-        year: '2024',
-        shortDesc: 'Complete electrical lab setup with motor control panels, installation trainers and DC machine trainers.',
-        images: [
-          'images/installation/trainer.jpeg',       // ← change to your image paths
-          'images/installation/trainerkit.jpeg',
-          'images/installation/trainer.jpeg',       // ← replace with real images
-        ],
-        videos: [
-          // MP4 video (your own file)
-          { type: 'mp4', id: 'images/installation/electrical.mp4', title: 'Lab Setup Overview', desc: 'Complete walkthrough of the electrical lab setup at RV College' },
-          // YouTube video — replace YOUTUBE_ID with real ID from youtube.com/watch?v=YOUTUBE_ID
-          // { type: 'youtube', id: 'YOUTUBE_ID', title: 'Student Training Demo', desc: 'Students performing practical experiments' },
-        ]
-      },
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-      {
-        id: 'bajaj-automation',
-        title: 'Bajaj Ltd',
-        category: 'Mechatronics',
-        location: 'Pune',
-        year: '2024',
-        shortDesc: 'Advanced PLC and SCADA based industrial automation training systems installed for skill development.',
-        images: [
-          'images/work/project2.jpg',
-          'images/work/project3.jpg',
-          'images/work/project1.jpg',
-        ],
-        videos: [
-          { type: 'youtube', id: 'dQw4w9WgXcQ', title: 'PLC Programming Lab', desc: 'Advanced PLC systems and SCADA workstations in action' },
-        ]
-      },
+    const CAT_COLORS = {
+      'Electrical':'#E8700A','Electronics':'#0A7EBE','Mechanical':'#475569','Robotics':'#7C3AED',
+      'EV Technology':'#15803D','Renewable Energy':'#0D9488','Process Control':'#B45309','Mechatronics':'#BE185D'
+    };
+    const CAT_BG = {
+      'Electrical':'#fdf1e6','Electronics':'#e7f4fb','Mechanical':'#eef1f4','Robotics':'#f2edfc',
+      'EV Technology':'#e9f7ee','Renewable Energy':'#e6f6f4','Process Control':'#fdf3e3','Mechatronics':'#fdeaf2'
+    };
+    const CAT_ICONS = {
+      'Electrical':'⚡','Electronics':'💡','Mechanical':'⚙️','Robotics':'🤖',
+      'EV Technology':'🚗','Renewable Energy':'☀️','Process Control':'📊','Mechatronics':'🛠️'
+    };
 
-      {
-        id: 'igtr-process',
-        title: 'IGTR Institute',
-        category: 'Process Control',
-        location: 'Bangalore',
-        year: '2023',
-        shortDesc: 'Industrial process control training systems including PLC-based flow, pressure and sensor trainers.',
-        images: [
-          'images/work/1st.avif',
-          'images/work/2nd.avif',
-          'images/work/3rd.avif',
-        ],
-        videos: [
-          { type: 'youtube', id: 'dQw4w9WgXcQ', title: 'Sensor Training System', desc: 'Industrial sensor training and calibration demonstrations' },
-        ]
-      },
+    let allProjects = [];
+    let activeFilter = 'All';
 
-      {
-        id: 'ev-tech',
-        title: 'Engineering Institute',
-        category: 'EV Technology',
-        location: 'Chennai',
-        year: '2023',
-        shortDesc: 'EV drivetrain training systems covering motor, controller and battery pack operations.',
-        images: [
-          'images/work/project3.jpg',
-          'images/work/project1.jpg',
-          'images/work/4th.avif',
-        ],
-        videos: [
-          { type: 'youtube', id: 'dQw4w9WgXcQ', title: 'EV Drivetrain Demo', desc: 'Electric vehicle drivetrain systems and motor testing' },
-        ]
-      },
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
 
-      {
-        id: 'robotics',
-        title: 'Govt Polytechnic',
-        category: 'Robotics',
-        location: 'Hyderabad',
-        year: '2023',
-        shortDesc: 'Industrial robotics training setup with 6-axis robot arm, SCARA robot and collaborative robot systems.',
-        images: [
-          'images/work/1st.avif',
-          'images/work/2nd.avif',
-          'images/work/4th.avif',
-        ],
-        videos: [
-          { type: 'youtube', id: 'dQw4w9WgXcQ', title: 'Robotic Arm Demo', desc: '6-axis robotic arm performing precision tasks' },
-        ]
-      },
+    function renderCard(p) {
+      const color = CAT_COLORS[p.category] || '#475569';
+      const bg = CAT_BG[p.category] || '#f1f5f9';
+      const icon = CAT_ICONS[p.category] || '🔧';
+      const cover = (p.images && p.images.length) ? p.images[p.coverImageIndex || 0] : null;
 
-      {
-        id: 'renewable',
-        title: 'ITI Institute',
-        category: 'Renewable Energy',
-        location: 'Kolkata',
-        year: '2022',
-        shortDesc: 'Complete renewable energy lab with solar panels, wind turbine simulators and hybrid system training rigs.',
-        images: [
-          'images/work/project2.jpg',
-          'images/work/project1.jpg',
-          'images/work/3rd.avif',
-        ],
-        videos: [
-          { type: 'youtube', id: 'dQw4w9WgXcQ', title: 'Solar System Setup', desc: 'Complete solar energy training system installation and demo' },
-        ]
+      const photoHtml = cover
+        ? `<img src="${cover}" alt="${escapeHtml(p.title)}" class="ow-card-photo-img" loading="lazy">`
+        : `<div class="ow-card-photo-placeholder" style="background:${bg};"><span class="ow-card-photo-icon">${icon}</span><span class="ow-card-photo-tag">PROJECT PHOTO</span></div>`;
+
+      const galleryHtml = (p.images && p.images.length)
+        ? `<div class="ow-detail-block">
+            <div class="ow-detail-label">Project Gallery</div>
+            <div class="ow-gallery-grid">
+              ${p.images.map(img => `<div class="ow-gallery-thumb" style="background-image:url('${img}')" data-img="${img}"></div>`).join('')}
+            </div>
+          </div>`
+        : '';
+
+      const videosHtml = (p.videos && p.videos.length)
+        ? `<div class="ow-detail-block">
+            <div class="ow-detail-label">Lab Videos</div>
+            ${p.videos.map(v => v.type === 'mp4'
+              ? `<video controls preload="metadata" class="ow-video-player">
+                   <source src="${v.url}" type="video/mp4">
+                   Your browser does not support video playback.
+                 </video>
+                 <div class="ow-video-caption">${escapeHtml(v.title || 'Lab walkthrough')}</div>`
+              : `<a href="${v.url}" target="_blank" rel="noopener" class="ow-video-card">
+                   <span class="ow-video-play">
+                     <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+                   </span>
+                   <span class="ow-video-title">${escapeHtml(v.title || 'Lab walkthrough')}</span>
+                 </a>`
+            ).join('')}
+          </div>`
+        : '';
+
+      const card = document.createElement('div');
+      card.className = 'ow-card';
+      card.dataset.category = p.category;
+      card.innerHTML = `
+        <div class="ow-card-photo">
+          ${photoHtml}
+          <div class="ow-card-badge" style="background:${color}1a; color:${color};"><span>${icon}</span>${escapeHtml(p.category)}</div>
+          <div class="ow-card-year">${escapeHtml(p.year || '')}</div>
+        </div>
+        <div class="ow-card-body">
+          <h3 class="ow-card-title">${escapeHtml(p.title)}</h3>
+          <p class="ow-card-desc">${escapeHtml(p.description)}</p>
+          <div class="ow-card-loc">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>
+            <span>${escapeHtml(p.location)}</span>
+          </div>
+          <button class="ow-view-btn">View Details</button>
+          <div class="ow-detail-panel" style="display:none;">
+            ${galleryHtml}
+            ${videosHtml}
+            <button class="ow-close-btn">Close Details</button>
+          </div>
+        </div>
+      `;
+
+      const viewBtn = card.querySelector('.ow-view-btn');
+      const panel = card.querySelector('.ow-detail-panel');
+      viewBtn.addEventListener('click', () => {
+        panel.style.display = 'flex';
+        viewBtn.style.display = 'none';
+      });
+      const closeBtn = card.querySelector('.ow-close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          panel.style.display = 'none';
+          viewBtn.style.display = 'block';
+        });
       }
+      card.querySelectorAll('.ow-gallery-thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => openLightbox(thumb.dataset.img));
+      });
 
-    ]; }
+      return card;
+    }
 
-    let projectsData = [];
-    let currentLightboxIndex = 0;
-    let currentLightboxImages = [];
-    let expandedProjectId = null;
-
-    // Render Projects
-    function renderProjects() {
-      const grid = document.getElementById('projects-grid');
+    function renderGrid() {
+      const grid = document.getElementById('owGrid');
+      const empty = document.getElementById('owEmpty');
       grid.innerHTML = '';
 
-      projectsData.forEach(project => {
-        const isExpanded = expandedProjectId === project.id;
-        const projectCard = document.createElement('div');
-        projectCard.className = `project-card ${isExpanded ? 'expanded' : ''}`;
-        projectCard.id = `project-${project.id}`;
+      const filtered = activeFilter === 'All'
+        ? allProjects
+        : allProjects.filter(p => p.category === activeFilter);
 
-        // Build video HTML — supports both mp4 and youtube
-        const videosHTML = project.videos.length > 0 ? `
-          <div>
-            <h4 style="font-size:1.2rem;margin-bottom:20px;color:#1a1a1a;">🎬 Lab Videos</h4>
-            <div class="video-gallery">
-              ${project.videos.map(video => {
-                if (video.type === 'mp4') {
-                  return `
-                    <div class="video-item">
-                      <div class="video-container" style="background:#000;border-radius:8px;overflow:hidden;">
-                        <video controls style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
-                          <source src="${video.id}" type="video/mp4">
-                        </video>
-                      </div>
-                      <div class="video-title">${video.title}</div>
-                      <div class="video-description">${video.desc}</div>
-                    </div>`;
-                } else {
-                  return `
-                    <div class="video-item">
-                      <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/${video.id}" allowfullscreen loading="lazy"></iframe>
-                      </div>
-                      <div class="video-title">${video.title}</div>
-                      <div class="video-description">${video.desc}</div>
-                    </div>`;
-                }
-              }).join('')}
-            </div>
-          </div>` : '';
+      if (!filtered.length) {
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
 
-        projectCard.innerHTML = `
-          <div class="project-image ${!project.images || project.images.length === 0 ? 'no-image' : ''}">
-            ${project.images && project.images.length > 0 
-              ? `<img src="${project.images[0]}" alt="${project.title}" onerror="this.parentElement.classList.add('no-image'); this.remove();">` 
-              : ''}
-          </div>
-          <div class="project-content">
-            <span class="project-tag">${project.category}</span>
-            <h3 class="project-title">${project.title}</h3>
-            <p class="project-description">${project.shortDesc || ''}</p>
-            <div class="project-meta">
-              <span>📍 ${project.location}</span>
-              <span>${project.year}</span>
-            </div>
-            <button class="expand-btn" onclick="event.stopPropagation();toggleProject('${project.id}')" style="${isExpanded ? 'display:none;' : ''}">
-              View Full Details ↓
-            </button>
-
-            <div class="expanded-content ${isExpanded ? 'show' : ''}">
-              <div class="expanded-header">
-                <h3>Project Details</h3>
-                <button class="close-btn" onclick="event.stopPropagation();toggleProject('${project.id}')">✕</button>
-              </div>
-
-              <div style="margin-bottom:40px;">
-                <h4 style="font-size:1.2rem;margin-bottom:20px;color:#1a1a1a;">📸 Installation Photos</h4>
-                <div class="gallery-grid">
-                  ${project.images.map((img, idx) => `
-                    <div class="gallery-item" onclick="openZoom('${project.id}', ${idx})">
-                      <img src="${img}" alt="Project image" loading="lazy">
-                      <div class="gallery-overlay">
-                        <span class="gallery-icon">🔍</span>
-                      </div>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-
-              ${videosHTML}
-            </div>
-          </div>
-        `;
-
-        grid.appendChild(projectCard);
-      });
+      filtered.forEach(p => grid.appendChild(renderCard(p)));
     }
 
-    function toggleProject(projectId) {
-      if (expandedProjectId === projectId) {
-        expandedProjectId = null;
-      } else {
-        expandedProjectId = projectId;
-      }
-      renderProjects();
-      
-      // Scroll to expanded project
-      if (expandedProjectId) {
-        setTimeout(() => {
-          const element = document.getElementById(`project-${projectId}`);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 100);
+    async function loadProjects() {
+      const loadingEl = document.getElementById('owLoading');
+      try {
+        const q = query(
+          collection(db, 'projects'),
+          where('status', '==', 'Published')
+        );
+        const snap = await getDocs(q);
+        allProjects = [];
+        snap.forEach(doc => allProjects.push({ id: doc.id, ...doc.data() }));
+
+        // sort newest first by updatedAt if present
+        allProjects.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+
+        loadingEl.remove();
+        renderGrid();
+      } catch (err) {
+        console.error('Failed to load projects:', err);
+        loadingEl.textContent = 'Could not load projects. Please refresh the page.';
       }
     }
 
-    function openLightbox(projectId, index) {
-      const project = projectsData.find(p => p.id === projectId);
-      if (!project) return;
-      currentLightboxImages = project.images;
-      currentLightboxIndex = index;
-      lbScale = 1; lbX = 0; lbY = 0;
-      updateLightbox();
-      buildStrip();
-      document.getElementById('lightbox').classList.add('active');
-      document.body.style.overflow = 'hidden';
+    function openLightbox(src) {
+      const lb = document.getElementById('owLightbox');
+      const img = document.getElementById('owLbImg');
+      img.src = src;
+      lb.classList.add('open');
     }
-
     function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('active');
-      document.body.style.overflow = '';
-      lbScale = 1; lbX = 0; lbY = 0;
-      applyTransform();
+      document.getElementById('owLightbox').classList.remove('open');
     }
-
-    function updateLightbox() {
-      const img = document.getElementById('lightbox-image');
-      img.src = currentLightboxImages[currentLightboxIndex];
-      document.getElementById('lb-cur').textContent = currentLightboxIndex + 1;
-      document.getElementById('lb-tot').textContent = currentLightboxImages.length;
-      // reset zoom on image change
-      lbScale = 1; lbX = 0; lbY = 0;
-      applyTransform();
-      // update strip
-      document.querySelectorAll('.lb-strip-thumb').forEach((t, i) => {
-        t.classList.toggle('active', i === currentLightboxIndex);
-      });
-    }
-
-    function nextImage() {
-      currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxImages.length;
-      updateLightbox();
-    }
-
-    function prevImage() {
-      currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxImages.length) % currentLightboxImages.length;
-      updateLightbox();
-    }
-
-    function buildStrip() {
-      const strip = document.getElementById('lb-strip');
-      strip.innerHTML = '';
-      currentLightboxImages.forEach((src, i) => {
-        const t = document.createElement('img');
-        t.className = 'lb-strip-thumb' + (i === currentLightboxIndex ? ' active' : '');
-        t.src = src;
-        t.onclick = () => { currentLightboxIndex = i; updateLightbox(); };
-        strip.appendChild(t);
-      });
-    }
-
-    /* ── ZOOM / PAN ── */
-    let lbScale = 1, lbX = 0, lbY = 0;
-    let lbDragging = false, lbDragStartX = 0, lbDragStartY = 0, lbDragOriginX = 0, lbDragOriginY = 0;
-    let lbZoomTimer = null;
-
-    function applyTransform() {
-      const img = document.getElementById('lightbox-image');
-      const vp  = document.getElementById('lb-viewport');
-      img.style.transform = `translate(${lbX}px, ${lbY}px) scale(${lbScale})`;
-      vp.classList.toggle('zoomed', lbScale > 1);
-    }
-
-    function showZoomLabel() {
-      const el = document.getElementById('lb-zoom-label');
-      el.textContent = Math.round(lbScale * 100) + '%';
-      el.classList.add('show');
-      clearTimeout(lbZoomTimer);
-      lbZoomTimer = setTimeout(() => el.classList.remove('show'), 1200);
-    }
-
-    function lbZoom(dir) {
-      lbScale = Math.min(5, Math.max(1, lbScale + dir * 0.5));
-      if (lbScale === 1) { lbX = 0; lbY = 0; }
-      applyTransform();
-      showZoomLabel();
-    }
-
-    function lbZoomReset() {
-      lbScale = 1; lbX = 0; lbY = 0;
-      applyTransform();
-      showZoomLabel();
-    }
-
-    /* click on image toggles zoom */
-    function lbViewClick(e) {
-      if (lbDragging) return;
-      if (lbScale === 1) {
-        lbScale = 2; applyTransform(); showZoomLabel();
-      } else {
-        lbZoomReset();
-      }
-    }
-
-    /* click on dark bg = close */
-    function lbBgClick(e) {
-      if (e.target === document.getElementById('lightbox')) closeLightbox();
-    }
-
-    /* mouse wheel zoom */
-    document.addEventListener('wheel', e => {
-      if (!document.getElementById('lightbox').classList.contains('active')) return;
-      e.preventDefault();
-      lbScale = Math.min(5, Math.max(1, lbScale - e.deltaY * 0.001));
-      if (lbScale === 1) { lbX = 0; lbY = 0; }
-      applyTransform();
-      showZoomLabel();
-    }, { passive: false });
-
-    /* drag to pan when zoomed */
-
-
-    fetch('projects.json')
-      .then(r => r.json())
-      .then(data => {
-        // Deduplicate by id — keep first occurrence only
-        const seen = new Set();
-        projectsData = data
-          .map(p => ({ ...p, images: p.images || [], videos: p.videos || [] }))
-          .filter(p => { if (seen.has(p.id)) return false; seen.add(p.id); return true; });
-        renderProjects();
-      })
-      .catch(() => {
-        projectsData = getDefaultProjects();
-        renderProjects();
-      });
-
-    // Setup drag and touch AFTER DOM is ready
-    window.addEventListener('load', function() {
-      const vp = document.getElementById('lb-viewport');
-      if (!vp) return;
-
-      // Mouse drag to pan when zoomed
-      vp.addEventListener('mousedown', function(e) {
-        if (lbScale <= 1) return;
-        lbDragging = false;
-        lbDragStartX = e.clientX; lbDragStartY = e.clientY;
-        lbDragOriginX = lbX; lbDragOriginY = lbY;
-        function onMove(e) {
-          const dx = e.clientX - lbDragStartX;
-          const dy = e.clientY - lbDragStartY;
-          if (Math.abs(dx) > 4 || Math.abs(dy) > 4) lbDragging = true;
-          if (!lbDragging) return;
-          lbX = lbDragOriginX + dx;
-          lbY = lbDragOriginY + dy;
-          applyTransform();
-        }
-        function onUp() {
-          vp.removeEventListener('mousemove', onMove);
-          vp.removeEventListener('mouseup', onUp);
-          setTimeout(() => { lbDragging = false; }, 50);
-        }
-        vp.addEventListener('mousemove', onMove);
-        vp.addEventListener('mouseup', onUp);
-      });
-
-      // Pinch zoom on mobile
-      let lbPinchStart = 0, lbScaleStart = 1;
-      vp.addEventListener('touchstart', function(e) {
-        if (e.touches.length === 2) {
-          lbPinchStart = Math.hypot(
-            e.touches[1].clientX - e.touches[0].clientX,
-            e.touches[1].clientY - e.touches[0].clientY);
-          lbScaleStart = lbScale;
-        }
-      }, { passive: true });
-      vp.addEventListener('touchmove', function(e) {
-        if (e.touches.length === 2) {
-          const dist = Math.hypot(
-            e.touches[1].clientX - e.touches[0].clientX,
-            e.touches[1].clientY - e.touches[0].clientY);
-          lbScale = Math.min(5, Math.max(1, lbScaleStart * (dist / lbPinchStart)));
-          if (lbScale === 1) { lbX = 0; lbY = 0; }
-          applyTransform();
-          showZoomLabel();
-        }
-      }, { passive: true });
-
-      // ───────────────────────────────────────────────────────────────
-      // Simple Image Zoom Modal Functions (for gallery click zoom)
-      // ───────────────────────────────────────────────────────────────
-      
-      let zoomCurrentIndex = 0;
-      let zoomImages = [];
-      let zoomCurrentProject = '';
-
-      window.openZoom = function(projectId, index) {
-        const project = projectsData.find(p => p.id === projectId);
-        if (!project) return;
-
-        zoomImages = project.images;
-        zoomCurrentIndex = index;
-        zoomCurrentProject = projectId;
-
-        document.getElementById('zoom-image').src = zoomImages[index];
-        document.getElementById('zoom-current').textContent = index + 1;
-        document.getElementById('zoom-total').textContent = zoomImages.length;
-        document.getElementById('zoom-info').textContent = project.title;
-        document.getElementById('image-zoom-modal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-      };
-
-      window.closeZoom = function() {
-        document.getElementById('image-zoom-modal').classList.remove('active');
-        document.body.style.overflow = '';
-      };
-
-      window.nextZoom = function() {
-        zoomCurrentIndex = (zoomCurrentIndex + 1) % zoomImages.length;
-        document.getElementById('zoom-image').src = zoomImages[zoomCurrentIndex];
-        document.getElementById('zoom-current').textContent = zoomCurrentIndex + 1;
-      };
-
-      window.prevZoom = function() {
-        zoomCurrentIndex = (zoomCurrentIndex - 1 + zoomImages.length) % zoomImages.length;
-        document.getElementById('zoom-image').src = zoomImages[zoomCurrentIndex];
-        document.getElementById('zoom-current').textContent = zoomCurrentIndex + 1;
-      };
-
-      // Keyboard controls for zoom modal
-      document.addEventListener('keydown', (e) => {
-        const modal = document.getElementById('image-zoom-modal');
-        if (modal && modal.classList.contains('active')) {
-          if (e.key === 'ArrowRight') window.nextZoom();
-          if (e.key === 'ArrowLeft') window.prevZoom();
-          if (e.key === 'Escape') window.closeZoom();
-        }
-      });
-
-      // Close zoom modal when clicking background
-      document.getElementById('image-zoom-modal').addEventListener('click', (e) => {
-        if (e.target.id === 'image-zoom-modal') {
-          window.closeZoom();
-        }
-      });
+    document.getElementById('owLbClose').addEventListener('click', closeLightbox);
+    document.getElementById('owLightbox').addEventListener('click', (e) => {
+      if (e.target.id === 'owLightbox') closeLightbox();
     });
+
+    document.getElementById('owFilters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.ow-filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.ow-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.cat;
+      renderGrid();
+    });
+
+    loadProjects();
   </script>
-<script src="js/site-shell.js"></script>
+
+  <script src="js/main.js"></script>
+  <script src="js/site-shell.js"></script>
 </body>
 </html>
