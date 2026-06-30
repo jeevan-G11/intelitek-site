@@ -384,7 +384,7 @@
 
           <div class="form-actions">
             <button class="btn-save" onclick="saveProject()">Save Project</button>
-            <button class="btn-cancel" onclick="navTo('projects')">Cancel</button>
+            <button class="btn-cancel" onclick="cancelProjectForm()">Cancel</button>
           </div>
         </div>
       </div>
@@ -433,6 +433,7 @@
     let coverIndex = 0;
     let draftVideos = [];
     let editingId = null;
+    const DRAFT_STORAGE_KEY = 'intelitek_admin_form_draft';
 
     /* ───────── AUTH ───────── */
     window.doLogin = function() {
@@ -468,7 +469,10 @@
       if (user) {
         document.getElementById('loginScreen').style.display = 'none';
         document.getElementById('adminShell').classList.add('active');
-        loadProjects();
+        loadProjects().then(() => {
+          const restored = restoreSavedDraftIfAny();
+          if (!restored) navTo('dashboard');
+        });
       } else {
         document.getElementById('loginScreen').style.display = 'flex';
         document.getElementById('adminShell').classList.remove('active');
@@ -632,6 +636,68 @@
       renderVideoList();
     }
 
+    /* ───────── AUTO-SAVE FORM TO LOCALSTORAGE ───────── */
+    function saveDraftToLocalStorage() {
+      if (!draft) return;
+      const liveDraft = {
+        editingId,
+        title: document.getElementById('fTitle')?.value || '',
+        category: document.getElementById('fCategory')?.value || '',
+        year: document.getElementById('fYear')?.value || '',
+        location: document.getElementById('fLocation')?.value || '',
+        status: document.getElementById('fStatus')?.value || '',
+        description: document.getElementById('fDescription')?.value || '',
+        draftImages,
+        coverIndex,
+        draftVideos
+      };
+      try {
+        localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(liveDraft));
+      } catch (e) {
+        // localStorage quota exceeded (large base64 images) — fail silently,
+        // form still works, just won't survive a refresh this time.
+        console.warn('Could not auto-save draft (storage quota likely exceeded):', e);
+      }
+    }
+
+    function clearSavedDraft() {
+      localStorage.removeItem(DRAFT_STORAGE_KEY);
+    }
+
+    function restoreSavedDraftIfAny() {
+      const raw = localStorage.getItem(DRAFT_STORAGE_KEY);
+      if (!raw) return false;
+      try {
+        const saved = JSON.parse(raw);
+        editingId = saved.editingId || null;
+        draft = {
+          title: saved.title, category: saved.category, year: saved.year,
+          location: saved.location, status: saved.status, description: saved.description
+        };
+        draftImages = saved.draftImages || [];
+        coverIndex = saved.coverIndex || 0;
+        draftVideos = saved.draftVideos || [];
+        document.getElementById('formTitle').textContent = editingId ? 'Edit Project' : 'Add Project';
+        fillForm();
+        navTo('form');
+        toast('success', 'Restored your unsaved changes from before the refresh.');
+        return true;
+      } catch (e) {
+        console.warn('Could not restore saved draft:', e);
+        clearSavedDraft();
+        return false;
+      }
+    }
+
+    function wireAutoSaveListeners() {
+      ['fTitle','fCategory','fYear','fLocation','fStatus','fDescription'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', saveDraftToLocalStorage);
+        if (el) el.addEventListener('change', saveDraftToLocalStorage);
+      });
+    }
+    wireAutoSaveListeners();
+
     function renderImgGrid() {
       const grid = document.getElementById('imgGrid');
       grid.innerHTML = draftImages.map((img, i) => `
@@ -646,6 +712,7 @@
           if (e.target.dataset.remove !== undefined && e.target.hasAttribute('data-remove')) return;
           coverIndex = parseInt(el.dataset.idx);
           renderImgGrid();
+          saveDraftToLocalStorage();
         });
       });
       grid.querySelectorAll('[data-remove]').forEach(btn => {
@@ -655,6 +722,7 @@
           draftImages.splice(idx, 1);
           if (coverIndex >= draftImages.length) coverIndex = 0;
           renderImgGrid();
+          saveDraftToLocalStorage();
         });
       });
     }
@@ -684,6 +752,7 @@
         }
       }
       renderImgGrid();
+      saveDraftToLocalStorage();
     }
 
     const uploadZone = document.getElementById('uploadZone');
@@ -781,6 +850,7 @@
           const url = await getDownloadURL(uploadTask.snapshot.ref);
           draftVideos.push({ url, title: file.name.replace(/\.mp4$/i, ''), type: 'mp4' });
           renderVideoList();
+          saveDraftToLocalStorage();
           videoProgressLabel.textContent = 'Upload complete ✓';
           toast('success', 'Video uploaded successfully.');
           setTimeout(() => { videoProgressWrap.style.display = 'none'; }, 1500);
@@ -797,6 +867,7 @@
       document.getElementById('fVideoUrl').value = '';
       document.getElementById('fVideoTitle').value = '';
       renderVideoList();
+      saveDraftToLocalStorage();
     };
 
     function renderVideoList() {
@@ -811,6 +882,7 @@
         btn.addEventListener('click', () => {
           draftVideos.splice(parseInt(btn.dataset.removeVideo), 1);
           renderVideoList();
+          saveDraftToLocalStorage();
         });
       });
     }
@@ -844,12 +916,21 @@
           await addDoc(collection(db, 'projects'), payload);
           toast('success', 'Project created successfully.');
         }
+        clearSavedDraft();
         await loadProjects();
         navTo('projects');
       } catch (err) {
         console.error(err);
         toast('error', 'Failed to save project. Check console for details.');
       }
+    };
+
+    window.cancelProjectForm = function() {
+      if (draft && (document.getElementById('fTitle').value || draftImages.length || draftVideos.length)) {
+        if (!confirm('Discard your unsaved changes?')) return;
+      }
+      clearSavedDraft();
+      navTo('projects');
     };
 
     window.confirmDelete = function(id) {
