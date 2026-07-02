@@ -6,6 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Electronics Engineering Training Equipment | Intelitek</title>
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .ez-tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 0 0 36px;
+      flex-wrap: wrap;
+    }
+    .ez-tab-btn {
+      padding: 12px 28px;
+      border-radius: 999px;
+      border: 2px solid #002244;
+      background: #fff;
+      color: #002244;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      font-family: inherit;
+    }
+    .ez-tab-btn.active {
+      background: #002244;
+      color: #fff;
+    }
+    .ez-tab-panel { display: none; }
+    .ez-tab-panel.active { display: block; }
+  </style>
 </head>
 <body>
   <header></header>
@@ -21,9 +48,18 @@
     <section>
       <div class="container">
         <div class="product-category-intro">
-        <h2>Electronics Engineering Training Systems</h2>
-       <p>Advanced electronics laboratory trainers designed for practical hands-on learning in modern engineering institutions.</p>
-       </div>
+          <h2>Electronics Engineering Training Systems</h2>
+          <p>Advanced electronics laboratory trainers designed for practical hands-on learning in modern engineering institutions.</p>
+        </div>
+
+        <!-- TAB SWITCH -->
+        <div class="ez-tabs" id="ezTabs">
+          <button class="ez-tab-btn active" data-tab="electronics">Electronics</button>
+          <button class="ez-tab-btn" data-tab="iot">IoT Lab</button>
+        </div>
+
+        <!-- ELECTRONICS PANEL -->
+        <div class="ez-tab-panel active" id="tab-electronics">
         <div class="products-grid products-grid-training">
           <article class="product-card product-card-training animate-on-scroll">
             <a href="product-details.html?name=electronicsbasic" class="product-click">
@@ -190,7 +226,417 @@
   </div>
 
 </article>
+<article class="product-card product-card-training animate-on-scroll">
+  <a href="product-details.html?name=multipledcsupply" class="product-click">
+    <div class="product-image-wrap">
+      <img src="images/multiple-dc-output-power-supply.png" alt="Multiple DC Output Power Supply" loading="eager">
+    </div>
+    <div class="product-body">
+      <h3>Multiple DC Output Power Supply</h3>
+      <p>Precision laboratory-grade regulated linear power supply with three independent DC outputs, offering low ripple, CV/CC operation and digital indication for electronics and R&D laboratories.</p>
+    </div>
+  </a>
+  <div class="product-card-actions">
+    <a href="contact.html?product=Multiple DC Output Power Supply" class="btn">Enquiry</a>
+    <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20Multiple%20DC%20Output%20Power%20Supply" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+  </div>
+</article>
         </div>
+        </div>
+        <!-- END ELECTRONICS PANEL -->
+
+        <!-- IOT LAB PANEL -->
+        <div class="ez-tab-panel" id="tab-iot">
+        <div class="products-grid products-grid-training">
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=dataminerdevice" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/data-miner-practicing-device.jpg" alt="Data Miner Practicing Device" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>Data Miner Practicing Device</h3>
+                <p>A 4-node Raspberry Pi cluster setup for hands-on learning of edge computing, networking, and distributed IoT applications. Ideal for exploring cluster computing concepts, GPIO interfacing, and real-time data processing in academic labs.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=Data Miner Practicing Device" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20Data%20Miner%20Practicing%20Device" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=dataminergateway" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/data-miner-practicing-gateway.jpg" alt="Data Miner Practicing Gateway" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>Data Miner Practicing Gateway</h3>
+                <p>A long-range wireless IoT gateway designed for LoRaWAN-based data mining and remote device management. Features an IP65 outdoor-rated enclosure and fiber glass antenna, ideal for teaching real-world IoT network deployment and gateway configuration.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=Data Miner Practicing Gateway" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20Data%20Miner%20Practicing%20Gateway" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=firesmoke" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/fire-and-smoke-sensor.jpg" alt="Fire and Smoke Sensor Trainer" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>Fire & Smoke Sensor Trainer</h3>
+                <p>A LoRaWAN-enabled fire and smoke detection module for interrupt-based sensing, remote alerts, and smart building automation demonstrations. Includes a built-in relay for controlling connected devices like window blinds, ideal for smart home and industrial IoT lab experiments.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=Fire and Smoke Sensor Trainer" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20Fire%20and%20Smoke%20Sensor%20Trainer" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=wdm" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/wireless-development-module.png" alt="Wireless Development Module (WDM)" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>Wireless Development Module (WDM)</h3>
+                <p>A multi-protocol IoT development board combining Wi-Fi, Bluetooth, and LoRa connectivity with onboard temperature and humidity sensing. Built on a dual-core processor, it's ideal for hands-on prototyping in home automation, smart agriculture, and industrial IoT projects.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=Wireless Development Module (WDM)" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20Wireless%20Development%20Module" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=iesiotkit" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/ies-iot-kit.png" alt="IES IoT Kit" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>IES IoT Kit</h3>
+                <p>A complete IoT development platform built on a quad-core processor with onboard accelerometer, temperature/humidity sensing, relays, and OLED display. Bundled with 15+ external sensors, jumper wires, and a breadboard — everything needed for hands-on IoT projects from fire detection to soil moisture monitoring.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=IES IoT Kit" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20IES%20IoT%20Kit" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=iotbiomedical" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/iot-biomedical-device.png" alt="IoT Based Biomedical Device" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>IoT Based Biomedical Device (IoMT Kit)</h3>
+                <p>A medical IoT training kit built around ESP32, featuring GSR, EMG, ECG, heart rate/oximeter, IR temperature, and CO2 gas sensors. Designed for hands-on learning in wearable health monitoring, biosignal acquisition, and connected healthcare applications.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=IoT Based Biomedical Device" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20IoT%20Based%20Biomedical%20Device" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=iotlorawanworkbench" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/iot-lorawan-workbench.jpg" alt="IoT (LoRaWAN) Workbench - IES 13001" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>IoT (LoRaWAN) Workbench – IES 13001</h3>
+                <p>A complete IoT training station integrating LoRaWAN gateways, ESP32 microcontrollers, and multiple sensor modules (motion, IR, ultrasonic, light) on an industrial-grade workbench. Enables hands-on network setup, data transmission, and smart application deployment using AWS and ThingSpeak IoT platforms.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=IoT LoRaWAN Workbench IES 13001" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20IoT%20LoRaWAN%20Workbench" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=iotconveyor" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/iot-conveyor-model.png" alt="Long Range Wireless IoT Conveyor Model" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>Long Range Wireless IoT Conveyor Model</h3>
+                <p>A LoRaWAN-controlled conveyor system with RS485/Modbus interfacing, object detection, and remote start-stop operation via an IoT cloud platform. Demonstrates real-world industrial automation concepts including long-range wireless monitoring, PLC integration, and smart manufacturing control.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=Long Range Wireless IoT Conveyor Model" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20IoT%20Conveyor%20Model" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorashield" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lora-shield-arduino-uno.jpg" alt="LoRa Shield with Arduino Uno" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRa Shield with Arduino Uno</h3>
+                <p>A LoRa communication shield paired with Arduino Uno for long-range, low-power wireless data transmission experiments. Supports multiple modulation modes and high sensitivity reception, making it ideal for learning LPWAN fundamentals and building custom IoT prototypes.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRa Shield with Arduino Uno" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRa%20Shield%20with%20Arduino%20Uno" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawanairpollution" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-air-pollution-monitoring.jpg" alt="LoRaWAN Air Pollution Monitoring System" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN Air Pollution Monitoring System</h3>
+                <p>A smart city trainer that monitors PM2.5, PM10, and CO2 levels for real-time air quality and traffic density analysis. Includes RF-based auto path clearance for emergency vehicles via traffic light integration, demonstrating practical LoRaWAN applications in environmental and urban IoT systems.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN Air Pollution Monitoring System" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20Air%20Pollution%20Monitoring" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawanstreetlight" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-street-light.jpg" alt="LoRaWAN Energy Efficient Street Light" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN Energy Efficient Street Light</h3>
+                <p>A smart 100W LED street light system with auto light-intensity detection, adaptive dimming, and timer-based ON/OFF control. Reports real-time status to a central server via LoRaWAN, demonstrating practical energy-saving smart city infrastructure.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN Energy Efficient Street Light" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20Street%20Light" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawanio" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-io-controller.jpg" alt="LoRaWAN I/O Controller" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN I/O Controller</h3>
+                <p>A long-range LoRa-based I/O module offering analog, digital, and relay interfaces for remote monitoring and control. Ideal for teaching wireless sensor network deployment in applications like smart metering, agriculture, and building automation.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN I/O Controller" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20IO%20Controller" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawanleaf" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-leaf-wetness-sensor.jpg" alt="LoRaWAN Leaf Wetness Sensor Node" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN Leaf Wetness Sensor Node</h3>
+                <p>A precision agriculture sensor that monitors leaf moisture and temperature using an IP67 waterproof leaf-shaped probe. Powered by an 8500mAh long-life battery and LoRaWAN connectivity, it enables real-time crop health monitoring for smart farming applications.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN Leaf Wetness Sensor Node" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20Leaf%20Wetness%20Sensor" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawangateway" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-multichannel-gateway.jpg" alt="LoRaWAN Multichannel Indoor Gateway" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN Multichannel Indoor Gateway</h3>
+                <p>An open-source LoRaWAN gateway that bridges long-range wireless sensor networks to IP networks via LAN or Wi-Fi. Features 10 parallel demodulation paths and pre-configured regional frequency bands, ideal for building scalable campus-wide IoT deployments.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN Multichannel Indoor Gateway" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20Multichannel%20Gateway" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawannpk" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-npk-sensor.jpg" alt="LoRaWAN Soil NPK Sensor" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN Soil NPK Sensor</h3>
+                <p>An IP68 waterproof soil sensor that measures nitrogen, phosphorus, and potassium levels for precision agriculture. Buried directly into soil with a 5-year battery life, it transmits nutrient data over LoRaWAN for long-term crop and plant growth monitoring.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN Soil NPK Sensor" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20NPK%20Sensor" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawanph" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-ph-sensor.jpg" alt="LoRaWAN Soil pH Sensor Node" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN Soil pH Sensor Node</h3>
+                <p>An IP68 waterproof probe that monitors soil pH and temperature with high accuracy and temperature compensation. Powered for up to 5 years, it transmits data over LoRaWAN for continuous soil acidity monitoring in smart agriculture applications.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN Soil pH Sensor Node" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20pH%20Sensor" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawanpump" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-pump-controller.png" alt="LoRaWAN Pump Controller Node" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN Pump Controller Node</h3>
+                <p>A smart water management system with ultrasonic level detection, automated solenoid valve, and 1HP pump control — all managed remotely over LoRaWAN. Includes a 1000L water tank, ideal for teaching automated irrigation and smart water infrastructure concepts.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN Pump Controller Node" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20Pump%20Controller" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawansoilec" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-soil-moisture-ec-sensor.jpg" alt="LoRaWAN Soil Moisture and EC Sensor LSE01" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN Soil Moisture & EC Sensor (LSE01)</h3>
+                <p>A long-life soil sensor that monitors moisture, temperature, and electrical conductivity for precision irrigation and crop management. With a 10-year battery life and IP66 waterproof housing, it's built for continuous outdoor field deployment in smart agriculture systems.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN Soil Moisture and EC Sensor" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20Soil%20Moisture%20EC%20Sensor" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawansolar" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-solar-radiation-sensor.png" alt="LoRaWAN Solar Radiation Sensor" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN Solar Radiation Sensor</h3>
+                <p>A wireless sensor that measures solar radiation levels for renewable energy and agricultural applications, transmitting real-time data over the LoRaWAN network. Compact and low-power, it's ideal for teaching solar monitoring in smart farming and green energy setups.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN Solar Radiation Sensor" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20Solar%20Radiation%20Sensor" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawantvoc" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-tvoc-eco2-sensor.jpg" alt="LoRaWAN TVOC eCO2 Temperature Humidity Sensor" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN TVOC, eCO2, Temperature & Humidity Sensor</h3>
+                <p>An indoor air quality sensor that monitors TVOC, eCO2, temperature, and humidity with built-in alarm and datalog features. Battery-powered for months of standalone use, it's ideal for smart building, greenhouse, and factory air quality monitoring applications.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN TVOC eCO2 Sensor" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20TVOC%20eCO2%20Sensor" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=lorawanweather" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/lorawan-weather-station.png" alt="LoRaWAN Weather Station" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>LoRaWAN Weather Station</h3>
+                <p>An all-in-one outdoor weather monitoring station measuring temperature, humidity, rainfall, wind speed, UV, and light levels. Battery-powered with LoRaWAN connectivity, it's ideal for teaching environmental monitoring and smart agriculture weather data collection.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=LoRaWAN Weather Station" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20LoRaWAN%20Weather%20Station" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=modbuslorawan" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/modbus-to-lorawan-converter.jpg" alt="Modbus to LoRaWAN Converter" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>Modbus to LoRaWAN Converter</h3>
+                <p>A protocol converter that bridges RS485/Modbus industrial devices to LoRaWAN wireless networks, enabling long-range remote monitoring and control. Supports flexible uplink/downlink rules, making it ideal for retrofitting existing industrial equipment with IoT connectivity.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=Modbus to LoRaWAN Converter" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20Modbus%20to%20LoRaWAN%20Converter" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=iotcamera" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/iot-video-camera.jpg" alt="IoT Smart Video Camera" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>IoT Smart Video Camera</h3>
+                <p>A 1080p FHD security camera with 360° vision, AI motion detection, and infrared night vision for smart surveillance projects. Features mobile app integration and cloud/local storage, ideal for teaching connected home automation and security monitoring systems.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=IoT Smart Video Camera" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20IoT%20Smart%20Video%20Camera" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+          <article class="product-card product-card-training animate-on-scroll">
+            <a href="product-details.html?name=parkingsensor" class="product-click">
+              <div class="product-image-wrap">
+                <img src="images/iot/wireless-parking-sensor.jpg" alt="Wireless Parking Occupancy Sensor" loading="eager">
+              </div>
+              <div class="product-body">
+                <h3>Wireless Parking Occupancy Sensor</h3>
+                <p>A battery-powered wireless sensor that detects real-time parking space occupancy for smart parking lot management, navigation, and reservation systems. Easy retrofit installation with up to 5 years of battery life, ideal for smart city IoT demonstrations.</p>
+              </div>
+            </a>
+            <div class="product-card-actions">
+              <a href="contact.html?product=Wireless Parking Occupancy Sensor" class="btn">Enquiry</a>
+              <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20Wireless%20Parking%20Occupancy%20Sensor" target="_blank" class="btn-whatsapp-icon">WhatsApp</a>
+            </div>
+          </article>
+
+        </div>
+        </div>
+        <!-- END IOT LAB PANEL -->
+
       </div>
     </section>
 
@@ -229,8 +675,19 @@
       <p>&copy; 2026 Intelitek. All rights reserved.</p>
     </div>
   </footer>
-  
+
   <script src="js/main.js"></script>
-<script src="js/site-shell.js"></script>
+  <script src="js/site-shell.js"></script>
+  <script>
+    document.getElementById('ezTabs').addEventListener('click', function (e) {
+      var btn = e.target.closest('.ez-tab-btn');
+      if (!btn) return;
+      document.querySelectorAll('.ez-tab-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var target = btn.dataset.tab;
+      document.querySelectorAll('.ez-tab-panel').forEach(function (p) { p.classList.remove('active'); });
+      document.getElementById('tab-' + target).classList.add('active');
+    });
+  </script>
 </body>
 </html>
