@@ -6,6 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>mechanical Engineering Training Equipment | Intelitek</title>
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+  .ez-tabs { display: flex; gap: 12px; justify-content: center; margin: 0 0 36px; flex-wrap: wrap; }
+  .ez-tab-btn { padding: 12px 28px; border-radius: 999px; border: 2px solid #002244; background: #fff; color: #002244; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s, color 0.2s; font-family: inherit; }
+  .ez-tab-btn.active { background: #002244; color: #fff; }
+  .ez-tab-panel { display: none; }
+  .ez-tab-panel.active { display: block; }
+</style>
 </head>
 <body>
   <header></header>
@@ -32,6 +39,14 @@
   </p>
 </div>
 
+<!-- TAB SWITCH -->
+<div class="ez-tabs" id="ezTabs">
+  <button class="ez-tab-btn active" data-tab="mechanical">Mechanical</button>
+  <button class="ez-tab-btn" data-tab="automobile">Automobile</button>
+</div>
+
+<!-- MECHANICAL PANEL -->
+<div class="ez-tab-panel active" id="tab-mechanical">
 <div class="products-grid-training">
 
   <!-- Product 1 -->
@@ -158,8 +173,132 @@
     <a href="https://wa.me/919187562018?text=Hello%20Intelitek%20I%20am%20interested%20in%20Hydraulic%20Press%20Training%20Kit" class="btn-whatsapp-icon btn-sm">WhatsApp</a>
   </div>
 </article>
- </div>  <!-- END container -->
+
 </div>
+</div>
+<!-- END MECHANICAL PANEL -->
+
+<!-- AUTOMOBILE PANEL -->
+<div class="ez-tab-panel" id="tab-automobile">
+<div class="products-grid-training">
+
+<article class="product-card product-card-training">
+<a href="product-details.html?name=chassisdynamometer" class="product-click">
+<div class="product-image-wrap">
+<img loading="eager" src="images/automobile/COMING-SOON-3-600x600.png" alt="Chassis Dynamometer">
+</div>
+<div class="product-body">
+<h3>Two-Wheeler Chassis Dynamometer</h3>
+<p>AC dynamometer with electrical inertia control and high-accuracy torque detector for motorcycle performance, endurance and emission testing.</p>
+</div>
+</a>
+<div class="product-card-actions">
+<a href="contact.html?product=Chassis Dynamometer" class="btn btn-sm">Enquiry</a>
+<a href="https://wa.me/919187562018" class="btn-whatsapp-icon btn-sm">WhatsApp</a>
+</div>
+</article>
+
+<article class="product-card product-card-training">
+<a href="product-details.html?name=commonraildieselengine" class="product-click">
+<div class="product-image-wrap">
+<img loading="eager" src="images/automobile/Common-Rail-300x300.jpg" alt="Common Rail Diesel Engine CAN Control Trainer">
+</div>
+<div class="product-body">
+<h3>Common Rail Diesel Engine (CAN Control) Trainer</h3>
+<p>Complete running common rail diesel engine with ECU and engine management system on a movable steel frame, expandable for fault-finding exercises.</p>
+</div>
+</a>
+<div class="product-card-actions">
+<a href="contact.html?product=Common Rail Diesel Engine CAN Control Trainer" class="btn btn-sm">Enquiry</a>
+<a href="https://wa.me/919187562018" class="btn-whatsapp-icon btn-sm">WhatsApp</a>
+</div>
+</article>
+
+<article class="product-card product-card-training">
+<a href="product-details.html?name=electricsteeringsuspension" class="product-click">
+<div class="product-image-wrap">
+<img loading="eager" src="images/automobile/Electric-Steering-300x300.jpg" alt="Electric Steering and Suspension Trainer">
+</div>
+<div class="product-body">
+<h3>Electric Steering and Suspension Trainer</h3>
+<p>Fully functional electric power-assisted steering and suspension system on a movable frame with fault insertion panel for diagnostic training.</p>
+</div>
+</a>
+<div class="product-card-actions">
+<a href="contact.html?product=Electric Steering and Suspension Trainer" class="btn btn-sm">Enquiry</a>
+<a href="https://wa.me/919187562018" class="btn-whatsapp-icon btn-sm">WhatsApp</a>
+</div>
+</article>
+
+<article class="product-card product-card-training">
+<a href="product-details.html?name=hdicommonrailinjection" class="product-click">
+<div class="product-image-wrap">
+<img loading="eager" src="images/automobile/Untitled-design-19-600x600.png" alt="HDI Common Rail Fuel Injection System Trainer">
+</div>
+<div class="product-body">
+<h3>HDI Common Rail Fuel Injection System Trainer</h3>
+<p>Dry-running, panel-mounted HDI injection system with ECU, sensors and switchable faults, driven by a variable-speed electric motor.</p>
+</div>
+</a>
+<div class="product-card-actions">
+<a href="contact.html?product=HDI Common Rail Fuel Injection System Trainer" class="btn btn-sm">Enquiry</a>
+<a href="https://wa.me/919187562018" class="btn-whatsapp-icon btn-sm">WhatsApp</a>
+</div>
+</article>
+
+<article class="product-card product-card-training">
+<a href="product-details.html?name=sectioneddieselengine" class="product-click">
+<div class="product-image-wrap">
+<img loading="eager" src="images/automobile/Sectioned-Diesel-Engine-300x300.jpg" alt="Sectioned Diesel Engine Common Rail Trainer">
+</div>
+<div class="product-body">
+<h3>Sectioned Diesel Engine (Common Rail) Trainer</h3>
+<p>Hand-operated, fully-sectioned 4-cylinder diesel engine with colour-coded components on a castor-mounted steel frame for classroom demonstration.</p>
+</div>
+</a>
+<div class="product-card-actions">
+<a href="contact.html?product=Sectioned Diesel Engine Common Rail Trainer" class="btn btn-sm">Enquiry</a>
+<a href="https://wa.me/919187562018" class="btn-whatsapp-icon btn-sm">WhatsApp</a>
+</div>
+</article>
+
+<article class="product-card product-card-training">
+<a href="product-details.html?name=sectionedgasolineengine" class="product-click">
+<div class="product-image-wrap">
+<img loading="eager" src="images/automobile/Sectioned-Gasoline-Engine-300x300.jpg" alt="Sectioned Gasoline Engine Trainer">
+</div>
+<div class="product-body">
+<h3>Sectioned Gasoline Engine Trainer</h3>
+<p>Hand-crank operated, fully-sectioned 1598cc DOHC 16V gasoline engine with colour-coded exhaust, fuel, cooling and lubrication systems.</p>
+</div>
+</a>
+<div class="product-card-actions">
+<a href="contact.html?product=Sectioned Gasoline Engine Trainer" class="btn btn-sm">Enquiry</a>
+<a href="https://wa.me/919187562018" class="btn-whatsapp-icon btn-sm">WhatsApp</a>
+</div>
+</article>
+
+<article class="product-card product-card-training">
+<a href="product-details.html?name=vehicleelectricalsystem" class="product-click">
+<div class="product-image-wrap">
+<img loading="eager" src="images/automobile/Vehicle-Electrical-System-Trainer-600x600.png" alt="Vehicle Electrical System Trainer">
+</div>
+<div class="product-body">
+<h3>Vehicle Electrical System Trainer</h3>
+<p>Fully operational panel demonstrating starting, charging, ignition and lighting circuits for automotive electrical fault-finding practice.</p>
+</div>
+</a>
+<div class="product-card-actions">
+<a href="contact.html?product=Vehicle Electrical System Trainer" class="btn btn-sm">Enquiry</a>
+<a href="https://wa.me/919187562018" class="btn-whatsapp-icon btn-sm">WhatsApp</a>
+</div>
+</article>
+
+</div>
+</div>
+<!-- END AUTOMOBILE PANEL -->
+
+</div>  <!-- END container -->
 </section>
 
     <section class="cta-section">
@@ -200,5 +339,20 @@
 
   <script src="js/main.js"></script>
 <script src="js/site-shell.js"></script>
+<script src="js/main.js"></script>
+<script src="js/site-shell.js"></script>
+<script>
+  document.getElementById('ezTabs').addEventListener('click', function (e) {
+    var btn = e.target.closest('.ez-tab-btn');
+    if (!btn) return;
+    document.querySelectorAll('.ez-tab-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var target = btn.dataset.tab;
+    document.querySelectorAll('.ez-tab-panel').forEach(function (p) { p.classList.remove('active'); });
+    document.getElementById('tab-' + target).classList.add('active');
+  });
+</script>
+</body>
+</html>
 </body>
 </html>
